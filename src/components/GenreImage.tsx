@@ -8,6 +8,7 @@ const GENRE_IMAGE: Record<Genre, string> = {
   ピザ: '/genre/pizza.svg',
   串揚げ: '/genre/kushiage.svg',
   宴会食放: '/genre/enkai.svg',
+  パン食べ放題: '/genre/bread.svg',
 };
 
 export function genreImageSrc(genre: Genre): string {

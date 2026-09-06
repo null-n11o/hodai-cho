@@ -21,8 +21,8 @@ describe('acceptance', () => {
     expect(stores.some((s) => s.id === 'suipara-kawasaki-dice')).toBe(false);
   });
 
-  it('7ジャンルすべてに該当店がある', () => {
-    const genres = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放'] as const;
+  it('8ジャンルすべてに該当店がある', () => {
+    const genres = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題'] as const;
     for (const g of genres) {
       const hit = stores.filter((s) => s.genres.includes(g) || (s.subGenres ?? []).includes(g));
       expect(hit.length, g).toBeGreaterThan(0);

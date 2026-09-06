@@ -2,7 +2,7 @@ export const CATALOG_VERSION = '2026-09-06+enkaibanquet.1';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
-export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' | 'ピザ' | '串揚げ' | '宴会食放';
+export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' | 'ピザ' | '串揚げ' | '宴会食放' | 'パン食べ放題';
 
 export interface Course {
   slot: TimeSlot;
