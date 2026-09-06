@@ -27,7 +27,7 @@ export function DetailPage() {
 
   if (!store) {
     return (
-      <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory">
+      <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
         <EmptyState
           title="店が見つからない"
           advice={['条件が変わったか、掲載が終わった可能性があります']}
@@ -51,7 +51,7 @@ export function DetailPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 text-ivory">
+    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <button
         type="button"
         onClick={() => navigate(-1)}
@@ -60,11 +60,12 @@ export function DetailPage() {
         戻る
       </button>
 
-      <div className="mt-2">
+      <div data-testid="hero" className="mt-2 md:mt-4 md:grid md:grid-cols-2 md:items-start md:gap-6">
+      <div>
         <GenreImage genre={store.genres[0]} />
       </div>
 
-      <div className="mt-2 flex items-start justify-between gap-3">
+      <div className="mt-2 flex items-start justify-between gap-3 md:mt-0">
         <div>
           <p className="text-xs text-stone">
             {store.prefecture}・{store.area}・{store.genres.join('・')}
@@ -86,6 +87,7 @@ export function DetailPage() {
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </button>
+      </div>
       </div>
 
       <section className="mt-6" aria-label="コース">
@@ -109,12 +111,12 @@ export function DetailPage() {
         <p className="mt-2 text-sm leading-relaxed text-stone">{store.notice}</p>
       </section>
 
-      <div className="mt-6 flex flex-col gap-2">
+      <div data-testid="actions" className="mt-6 flex flex-col gap-2 md:flex-row">
         <a
           href={mapUrl}
           target="_blank"
           rel="noreferrer"
-          className="min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-3 text-center font-bold text-ivory"
+          className="min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-3 text-center font-bold text-ivory md:flex-1"
         >
           地図で探す
         </a>
@@ -123,7 +125,7 @@ export function DetailPage() {
             href={store.officialUrl}
             target="_blank"
             rel="noreferrer"
-            className="min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-3 text-center font-bold text-ivory"
+            className="min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-3 text-center font-bold text-ivory md:flex-1"
           >
             公式サイト
           </a>
@@ -133,7 +135,7 @@ export function DetailPage() {
             href={store.reservationUrl}
             target="_blank"
             rel="noreferrer"
-            className="min-h-[44px] rounded-lg bg-aka px-4 py-3 text-center font-bold text-ivory"
+            className="min-h-[44px] rounded-lg bg-aka px-4 py-3 text-center font-bold text-ivory md:flex-1"
           >
             予約する
           </a>
@@ -143,7 +145,7 @@ export function DetailPage() {
       {similar.length > 0 ? (
         <section className="mt-8" aria-label="近い・同じ系列">
           <h2 className="text-lg font-bold">近い・同じ系列</h2>
-          <ul className="mt-2 space-y-2">
+          <ul className="mt-2 grid gap-2 md:grid-cols-2">
             {similar.map((s) => (
               <li key={s.id}>
                 <Link

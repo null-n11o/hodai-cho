@@ -24,7 +24,7 @@ export function GenreImage({ genre }: GenreImageProps) {
       src={genreImageSrc(genre)}
       alt={`${genre}のイラスト`}
       loading="lazy"
-      className="h-28 w-full rounded-md object-contain"
+      className="h-28 w-full rounded-md object-contain md:h-40"
     />
   );
 }

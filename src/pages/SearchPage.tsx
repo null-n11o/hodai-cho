@@ -74,7 +74,7 @@ export function SearchPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-16 text-ivory">
+    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-16 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <header className="pt-8 text-center">
         <p className="text-xs tracking-widest text-stone">TOKYO / KANAGAWA</p>
         <h1 className="mt-2 text-3xl font-bold">放題帖</h1>
@@ -167,7 +167,7 @@ export function SearchPage() {
         {results.length}件
       </p>
 
-      <div className="mt-2 space-y-3">
+      <div data-testid="results" className="mt-2 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {results.length === 0 ? (
           <EmptyState />
         ) : (

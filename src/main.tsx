@@ -22,7 +22,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/saved" element={<SavedPage />} />
         </Routes>
         <nav aria-label="メイン" className="fixed inset-x-0 bottom-0 z-40 border-t border-stonedim/40 bg-ink">
-          <div className="mx-auto flex w-full max-w-lg" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+          <div className="mx-auto flex w-full max-w-lg md:max-w-3xl lg:max-w-5xl" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
             <NavLink to="/" end className={({ isActive }) => tabClass(isActive)}>
               探す
             </NavLink>

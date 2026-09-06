@@ -20,9 +20,9 @@ export function SavedPage() {
     .filter((s): s is NonNullable<typeof s> => s !== undefined);
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory">
+    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <h1 className="text-2xl font-bold">保存した店</h1>
-      <div className="mt-4 space-y-3">
+      <div data-testid="results" className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {savedStores.length === 0 ? (
           <EmptyState
             title="まだ保存した店はない"
