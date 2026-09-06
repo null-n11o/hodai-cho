@@ -169,4 +169,32 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     familyFriendly: true,
   },
+  {
+    id: 'suehirokan-ayase',
+    name: 'レストランスエヒロ館 綾瀬店',
+    officialUrl: 'https://shop.amiyakitei.co.jp/detail/s157/',
+    reservationUrl: 'https://amiyakitei-group.tottokun.com/ownedmedia/ownedmedia_immediately_y/yY8nJHAK2GxzHHu',
+    kana: 'すえひろかん あやせ',
+    chain: 'レストランスエヒロ館',
+    prefecture: '神奈川',
+    area: '綾瀬',
+    station: '海老名',
+    walkMinutes: 25,
+    genres: ['サラダバー'],
+    subGenres: ['パン食べ放題'],
+    pick: 4,
+    courses: [
+      {
+        slot: 'all-day' as const,
+        name: 'プレミアムバー（サラダ・スープ・ブレッド食べ放題）',
+        priceInclTax: 1485,
+        minutes: null,
+      },
+    ],
+    hours: '11:00–22:00',
+    highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '海老名駅から車利用の目安・駐車場あり'],
+    notice:
+      '料金は2026年時点の公開情報の目安です。プレミアムバー単品の価格は店舗で変わる場合があります。行く前に公式を確認してください。',
+    familyFriendly: true,
+  },
 ];
