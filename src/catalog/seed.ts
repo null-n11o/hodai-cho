@@ -1,45 +1,24 @@
 import type { Store } from './schema';
+import { SYABUYO_STORES } from './data/syabuyo';
+import { KING_STORES } from './data/king';
+import { YUZU_STORES } from './data/yuzu';
+import { SUIPARA_STORES } from './data/suipara';
+import { KUSHI_STORES } from './data/kushi';
+import { ONYASAI_STORES } from './data/onyasai';
+import { SHAKEYS_STORES } from './data/shakeys';
+import { SUSHI_STORES } from './data/sushi';
+import { GYUKAKU_STORES } from './data/gyukaku';
+import { ENKAI_STORES } from './data/enkai';
 
 export const SEED_STORES: Store[] = [
-  {
-    id: 'syabuyo-shinjuku-nowa',
-    name: 'しゃぶ葉 新宿NOWAビル店',
-    kana: 'しゃぶよう しんじゅく',
-    chain: 'しゃぶ葉',
-    prefecture: '東京',
-    area: '新宿',
-    station: '新宿',
-    walkMinutes: 3,
-    genres: ['しゃぶしゃぶ'],
-    pick: 5,
-    courses: [
-      { slot: 'lunch', name: '平日ランチ食べ放題', priceInclTax: 1649, minutes: null },
-      { slot: 'dinner', name: 'ディナー食べ放題', priceInclTax: 2749, minutes: 100 },
-    ],
-    hours: '11:00–23:00',
-    highlights: ['平日ランチは時間無制限の目安', '駅から3分の目安'],
-    notice: '料金・制限時間は2026年時点の公開情報の目安です。土日祝加算や都心価格の場合があります。行く前に公式を確認してください。',
-    familyFriendly: true,
-  },
-  {
-    id: 'example-enkai-shinjuku',
-    name: '（例）新宿 宴会食放モデル店',
-    kana: 'しんじゅく えんかい',
-    chain: 'モデルチェーン',
-    prefecture: '東京',
-    area: '新宿',
-    station: '新宿',
-    walkMinutes: 5,
-    genres: ['宴会食放'],
-    subGenres: ['焼肉'],
-    pick: 3,
-    courses: [
-      { slot: 'dinner', name: '宴会食べ放題コース', priceInclTax: 3500, minutes: 120, banquet: true },
-    ],
-    hours: '17:00–23:00',
-    highlights: ['宴会コース由来の食べ放題の例'],
-    notice: '宴会コースの内容・時間は店舗・曜日で変わります。行く前に公式を確認してください。',
-    familyFriendly: false,
-    reservationUrl: 'https://example.com/reserve',
-  },
+  ...SYABUYO_STORES,
+  ...KING_STORES,
+  ...YUZU_STORES,
+  ...SUIPARA_STORES,
+  ...KUSHI_STORES,
+  ...ONYASAI_STORES,
+  ...SHAKEYS_STORES,
+  ...SUSHI_STORES,
+  ...GYUKAKU_STORES,
+  ...ENKAI_STORES,
 ];
