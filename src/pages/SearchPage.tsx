@@ -7,6 +7,7 @@ import type { FilterCond } from '../filters/filter';
 import { StoreCard } from '../components/StoreCard';
 import { FilterSheet } from '../components/FilterSheet';
 import { EmptyState } from '../components/EmptyState';
+import { loadFavorites, toggleFavorite } from '../favorites/storage';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -37,7 +38,7 @@ function chip(active: boolean): string {
 export function SearchPage() {
   const [cond, setCond] = useState<FilterCond>(INITIAL);
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [savedIds, setSavedIds] = useState<string[]>([]);
+  const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
 
   const allStores = useMemo(() => repository.listStores(), []);
   const areas = useMemo(() => {
@@ -69,7 +70,7 @@ export function SearchPage() {
   };
 
   const toggleSave = (id: string) => {
-    setSavedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    setSavedIds(toggleFavorite(id));
   };
 
   return (
