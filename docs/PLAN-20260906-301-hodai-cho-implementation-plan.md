@@ -763,8 +763,52 @@ git add -A
 git commit -m "feat: complete catalog and acceptance pass"
 ```
 
+---
+
+### Task 7: SSG基盤を作る（店別・エリア別静的HTML＋SEO基盤）
+
+**Files:**
+- Create: `src/seo/meta.ts`（タイトル・説明文・JSON-LD・sitemap生成の純関数）、`src/routes.tsx`（`main.tsx` からRoutes木を切出し、`BrowserRouter` は `main.tsx` に残す）、`src/seo/prerender.tsx`（`StaticRouter`＋`renderToStaticMarkup` でパス→HTML断片）、`scripts/prerender.mjs`（`vite build` 後に `dist/` へ `r/<id>/index.html`・`a/<pref>/<area>/index.html`・`sitemap.xml`・`robots.txt` を書く）
+- Modify: `package.json`（`build:ssg` 追加）、`src/main.tsx`（`routes.tsx` を使う）
+- Test: `tests/seo.test.ts`（meta関数）、`tests/prerender.test.tsx`（`renderRoute` が店名・JSON-LD・エリア一覧を含む）
+
+**Interfaces:**
+- Consumes: Task 2のRepository、Task 4/5の画面、Task 8のエリアページ
+- Produces: クローラ可読な静的HTML一式をTask 8の受け入れとSearch Console登録（CEO作業）が使う
+
+**Constraints:**
+- サイトURLは `https://hodai-cho.example.invalid` の仮置きとし、`SITE_URL` 環境変数で上書き可能にする（本番URL確定時に差し替え）
+- プリレンダはJS無効でも店名・料金・分数・リンクが読めること（`renderToStaticMarkup` の断片を `#root` に埋める）
+- localStorage参照（`loadFavorites`）はSSRで落ちないこと（`try/catch` で吸収済み。壊れたら直す）
+
+- [ ] **Step 1: 失敗するテストを書く**（`tests/seo.test.ts`、`tests/prerender.test.tsx`）
+- [ ] **Step 2: 走らせて失敗を確認**（`npx vitest run tests/seo.test.ts tests/prerender.test.tsx`、FAIL期待）
+- [ ] **Step 3: 最小実装を書く**（meta関数→routes切出し→prerenderスクリプト→`npm run build:ssg`）
+- [ ] **Step 4: テストとSSGビルドを通す**（`npx vitest run`＋`npm run build:ssg`、全PASS＋`dist/sitemap.xml` 生成確認）
+- [ ] **Step 5: コミット**（`git add src/seo src/routes.tsx src/main.tsx scripts package.json tests/seo.test.ts tests/prerender.test.tsx`）
+
+---
+
+### Task 8: エリアページを作る（楔の深掘り＋導線）
+
+**Files:**
+- Create: `src/pages/AreaPage.tsx`（`/a/:prefecture/:area`。エリア名・件数・店カード一覧・探すへの導線）
+- Modify: `src/routes.tsx`（ルート追加）、`src/pages/SearchPage.tsx`（「エリアから探す」リンク列の追加）、`src/seo/meta.ts`・`scripts/prerender.mjs`（エリアページ分のタイトル・sitemap追加）
+- Test: `tests/area.test.tsx`（エリアの店だけ出る・未知エリアは空状態）
+
+**Interfaces:**
+- Consumes: Task 7のSSG基盤
+- Produces: エリア特化のランディングURL群（`a/東京/新宿/` 等）をSEOの楔に使う
+
+- [ ] **Step 1: 失敗するテストを書く**（`tests/area.test.tsx`）
+- [ ] **Step 2: 走らせて失敗を確認**（FAIL期待）
+- [ ] **Step 3: 最小実装を書く**（AreaPage＋ルート＋探す画面の導線）
+- [ ] **Step 4: 全テストとSSGビルドを通す**
+- [ ] **Step 5: コミット**
+
 ## Self-Review
 
 - Spec coverage: §1（足場・縫い目→Task 1/2）、§2（カタログ→Task 2/6）、§3（画面→Task 4/5、予約リンク→Task 5）、§4（運用・受け入れ→Task 6）。v1.1のF-01〜F-08/D-01〜D-10相当はTask 3〜5に割当て済み。追加店リスト未確定はTask 6の入力条件として明示済み。
+- SEO拡張（office-hours判定 2026-09-06）：Task 7（SSG＋JSON-LD＋sitemap）、Task 8（エリアページ＝楔）。Search Console登録・本番URL確定・バリューコマース登録はCEO作業で実装外。
 - Placeholder scan: 「TBD/TODO/あとで」「適切に」「同様に」の記述なし。各ステップに実コードまたは実コマンドあり。
 - Type consistency: `Store`/`Course`/`FilterCond`/`CatalogRepository` の名前と型は全タスクで同一。`minutes: null`＝無制限の扱いはTask 2の型とTask 3の判定で一致。
