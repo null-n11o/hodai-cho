@@ -1,8 +1,8 @@
 import type { Store } from '../schema';
 
-// 焼肉きんぐ 7店。きんぐコース 3,828・100分（公式）。
+// 焼肉きんぐ 7店。きんぐコース 3,938・100分（2026年7月9日〜の公式改定価格）。
 // 対象7店は公式にランチ食べ放題コース未実施が確認できたためディナーのみ掲載。
-const DINNER = { slot: 'dinner' as const, name: 'きんぐコース食べ放題', priceInclTax: 3828, minutes: 100 };
+const DINNER = { slot: 'dinner' as const, name: 'きんぐコース食べ放題', priceInclTax: 3938, minutes: 100 };
 const NOTICE =
   'ランチ食べ放題コースは未実施の目安です。ランチタイムの通常コースの注文可否は公式を確認してください。料金は2026年時点の公開情報の目安です。行く前に公式を確認してください。';
 

@@ -14,7 +14,7 @@ describe('acceptance', () => {
   });
 
   it('33店相当＋新規開拓の件数が入っている', () => {
-    expect(stores.length).toBeGreaterThanOrEqual(33);
+    expect(stores.length).toBeGreaterThanOrEqual(40);
   });
 
   it('閉店済みの川崎ダイス店が入っていない', () => {

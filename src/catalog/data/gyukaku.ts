@@ -16,6 +16,7 @@ export const GYUKAKU_STORES: Store[] = [
     genres: ['焼肉'],
     pick: 4,
     courses: [
+      { slot: 'dinner', name: 'お気軽コース食べ放題', priceInclTax: 3058, minutes: 90 },
       { slot: 'dinner', name: '牛角コース食べ放題', priceInclTax: 4158, minutes: 90 },
     ],
     hours: '月〜金・祝・祝前16:00–23:00、土日12:00–23:00',
