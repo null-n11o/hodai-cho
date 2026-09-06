@@ -11,13 +11,12 @@ import { FilterSheet } from '../components/FilterSheet';
 import { EmptyState } from '../components/EmptyState';
 import { LanguageToggle } from '../components/LanguageToggle';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
+import { dictionary, toEnPath, useLanguage } from '../i18n/language';
+import { resultsCount } from '../i18n/format';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
 const GENRES: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー', 'バイキング'];
-
-const DISCLAIMER =
-  '掲載は東京・神奈川の食べ放題店に限った目安です。料金・制限時間は2026年時点の公開情報を編集したもので、店舗・曜日・フェアで変わります。行く前に公式を確認してください。';
 
 const INITIAL: FilterCond = {
   prefecture: '東京',
@@ -39,6 +38,8 @@ function chip(active: boolean): string {
 }
 
 export function SearchPage() {
+  const lang = useLanguage();
+  const dict = dictionary(lang);
   const [cond, setCond] = useState<FilterCond>(INITIAL);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
@@ -81,6 +82,11 @@ export function SearchPage() {
     setSavedIds(toggleFavorite(id));
   };
 
+  const areaLink = (prefecture: string, area: string): string => {
+    const path = areaPath(prefecture, area);
+    return lang === 'en' ? toEnPath(path) : path;
+  };
+
   return (
     <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-16 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <div className="flex justify-end pt-4">
@@ -89,10 +95,10 @@ export function SearchPage() {
       <header className="pt-4 text-center">
         <p className="text-xs tracking-widest text-stone">TOKYO / KANAGAWA</p>
         <h1 className="mt-2 text-3xl font-bold">放題帖</h1>
-        <p className="mt-2 text-sm text-stone">食べ放題だけを、料金と時間で切る</p>
+        <p className="mt-2 text-sm text-stone">{dict.hero.tagline}</p>
       </header>
 
-      <div className="mt-6 flex gap-2" role="group" aria-label="都県">
+      <div className="mt-6 flex gap-2" role="group" aria-label={dict.search.prefectureGroup}>
         {PREFECTURES.map((p) => (
           <button
             key={p}
@@ -103,19 +109,19 @@ export function SearchPage() {
               cond.prefecture === p ? 'border-aka bg-aka text-ivory' : 'border-stonedim/60 text-stone'
             }`}
           >
-            {p}
+            {dict.prefs[p]}
           </button>
         ))}
       </div>
 
-      <div className="mt-4 flex gap-2 overflow-x-auto pb-1" role="group" aria-label="エリア">
+      <div className="mt-4 flex gap-2 overflow-x-auto pb-1" role="group" aria-label={dict.search.areaGroup}>
         <button
           type="button"
           aria-pressed={cond.area === undefined}
           onClick={() => setCond((prev) => ({ ...prev, area: undefined }))}
           className={chip(cond.area === undefined)}
         >
-          すべて
+          {dict.search.all}
         </button>
         {areas.map((area) => (
           <button
@@ -130,7 +136,7 @@ export function SearchPage() {
         ))}
       </div>
 
-      <div className="mt-2 flex gap-2 overflow-x-auto pb-1" role="group" aria-label="ジャンル">
+      <div className="mt-2 flex gap-2 overflow-x-auto pb-1" role="group" aria-label={dict.search.genreGroup}>
         {GENRES.map((genre) => (
           <button
             key={genre}
@@ -139,17 +145,17 @@ export function SearchPage() {
             onClick={() => toggleGenre(genre)}
             className={chip(cond.genres.includes(genre))}
           >
-            {genre}
+            {dict.genres[genre]}
           </button>
         ))}
       </div>
 
       <div className="mt-4 flex gap-2">
         <label className="flex-1">
-          <span className="sr-only">フリーワード</span>
+          <span className="sr-only">{dict.search.keywordSr}</span>
           <input
             type="search"
-            placeholder="店名・駅名で探す"
+            placeholder={dict.search.keywordPlaceholder}
             value={cond.freeword}
             onChange={(e) => setCond((prev) => ({ ...prev, freeword: e.target.value }))}
             className="min-h-[44px] w-full rounded-lg border border-stonedim/60 bg-ink px-3 text-ivory placeholder:text-stonedim"
@@ -163,19 +169,19 @@ export function SearchPage() {
             sheetActive ? 'border-aka bg-aka text-ivory' : 'border-stonedim/60 text-stone'
           }`}
         >
-          条件
+          {dict.search.filters}
         </button>
         <button
           type="button"
           onClick={resetCond}
           className="min-h-[44px] shrink-0 rounded-lg border border-stonedim/60 px-4 text-stone transition-colors"
         >
-          リセット
+          {dict.search.reset}
         </button>
       </div>
 
       <p className="mt-4 text-sm text-stone" aria-live="polite">
-        {results.length}件
+        {resultsCount(lang, results.length)}
       </p>
 
       <div data-testid="results" className="mt-2 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -188,13 +194,13 @@ export function SearchPage() {
         )}
       </div>
 
-      <nav className="mt-6" aria-label="エリアから探す">
-        <h2 className="text-lg font-bold">エリアから探す</h2>
+      <nav className="mt-6" aria-label={dict.search.browseByArea}>
+        <h2 className="text-lg font-bold">{dict.search.browseByArea}</h2>
         <ul className="mt-2 flex flex-wrap gap-2">
           {prefectureAreas.map((a) => (
             <li key={`${a.prefecture}/${a.area}`}>
               <Link
-                to={areaPath(a.prefecture, a.area)}
+                to={areaLink(a.prefecture, a.area)}
                 className="inline-block min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-2 text-sm text-ivory"
               >
                 {a.area}
@@ -205,7 +211,7 @@ export function SearchPage() {
       </nav>
 
       <footer className="mt-8 border-t border-stonedim/40 pt-4">
-        <p className="text-xs leading-relaxed text-stone">{DISCLAIMER}</p>
+        <p className="text-xs leading-relaxed text-stone">{dict.disclaimer}</p>
       </footer>
 
       <FilterSheet

@@ -1,4 +1,6 @@
 import type { SlotCond, SortCond, TimeLimitCond } from '../filters/filter';
+import { budgetLabel } from '../i18n/format';
+import { dictionary, useLanguage } from '../i18n/language';
 
 interface FilterSheetProps {
   open: boolean;
@@ -10,25 +12,9 @@ interface FilterSheetProps {
   onClose: () => void;
 }
 
-const SLOTS: { value: SlotCond; label: string }[] = [
-  { value: 'all', label: 'すべて' },
-  { value: 'lunch', label: 'ランチ' },
-  { value: 'dinner', label: 'ディナー' },
-];
-
-const TIME_LIMITS: { value: TimeLimitCond; label: string }[] = [
-  { value: 'all', label: '指定なし' },
-  { value: 'unlimited', label: '無制限' },
-  { value: 'le90', label: '90分以内' },
-  { value: 'le120', label: '120分以内' },
-];
-
-const SORTS: { value: SortCond; label: string }[] = [
-  { value: 'recommend', label: 'おすすめ' },
-  { value: 'cheap', label: '安い順' },
-  { value: 'near', label: '近い順' },
-  { value: 'short', label: '短い順' },
-];
+const SLOT_VALUES: SlotCond[] = ['all', 'lunch', 'dinner'];
+const TIME_LIMIT_VALUES: TimeLimitCond[] = ['all', 'unlimited', 'le90', 'le120'];
+const SORT_VALUES: SortCond[] = ['recommend', 'cheap', 'near', 'short'];
 
 const BUDGETS: number[] = [];
 for (let yen = 1000; yen <= 8000; yen += 500) BUDGETS.push(yen);
@@ -40,60 +26,63 @@ function chip(active: boolean): string {
 }
 
 export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onClose }: FilterSheetProps) {
+  const lang = useLanguage();
+  const dict = dictionary(lang);
+  const t = dict.sheet;
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50">
-      <button type="button" aria-label="閉じる" onClick={onClose} className="absolute inset-0 min-h-[44px] w-full bg-black/60" />
-      <div role="dialog" aria-modal="true" aria-label="詳細条件" className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
-        <h2 className="text-lg font-bold text-ivory">詳細条件</h2>
-        <section className="mt-4" aria-label="時間帯">
-          <h3 className="text-sm text-stone">時間帯</h3>
+      <button type="button" aria-label={t.closeLabel} onClick={onClose} className="absolute inset-0 min-h-[44px] w-full bg-black/60" />
+      <div role="dialog" aria-modal="true" aria-label={t.dialogLabel} className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
+        <h2 className="text-lg font-bold text-ivory">{t.title}</h2>
+        <section className="mt-4" aria-label={t.time}>
+          <h3 className="text-sm text-stone">{t.time}</h3>
           <div className="mt-2 flex flex-wrap gap-2">
-            {SLOTS.map((o) => (
-              <button key={o.value} type="button" aria-pressed={slot === o.value} onClick={() => onChange({ slot: o.value })} className={chip(slot === o.value)}>
-                {o.label}
+            {SLOT_VALUES.map((value) => (
+              <button key={value} type="button" aria-pressed={slot === value} onClick={() => onChange({ slot: value })} className={chip(slot === value)}>
+                {t.slots[value]}
               </button>
             ))}
           </div>
         </section>
-        <section className="mt-4" aria-label="分数">
-          <h3 className="text-sm text-stone">分数</h3>
+        <section className="mt-4" aria-label={t.duration}>
+          <h3 className="text-sm text-stone">{t.duration}</h3>
           <div className="mt-2 flex flex-wrap gap-2">
-            {TIME_LIMITS.map((o) => (
-              <button key={o.value} type="button" aria-pressed={timeLimit === o.value} onClick={() => onChange({ timeLimit: o.value })} className={chip(timeLimit === o.value)}>
-                {o.label}
+            {TIME_LIMIT_VALUES.map((value) => (
+              <button key={value} type="button" aria-pressed={timeLimit === value} onClick={() => onChange({ timeLimit: value })} className={chip(timeLimit === value)}>
+                {t.limits[value]}
               </button>
             ))}
           </div>
         </section>
-        <section className="mt-4" aria-label="予算の上限">
-          <h3 className="text-sm text-stone">予算の上限</h3>
+        <section className="mt-4" aria-label={t.budget}>
+          <h3 className="text-sm text-stone">{t.budget}</h3>
           <select
-            aria-label="予算の上限"
+            aria-label={t.budget}
             value={budget ?? ''}
             onChange={(e) => onChange({ budget: e.target.value === '' ? undefined : Number(e.target.value) })}
             className="mt-2 min-h-[44px] w-full rounded-lg border border-stonedim/60 bg-ink px-3 text-ivory"
           >
-            <option value="">指定なし</option>
+            <option value="">{budgetLabel(lang, undefined)}</option>
             {BUDGETS.map((yen) => (
               <option key={yen} value={yen}>
-                ¥{yen.toLocaleString('ja-JP')}まで
+                {budgetLabel(lang, yen)}
               </option>
             ))}
           </select>
         </section>
-        <section className="mt-4" aria-label="並び">
-          <h3 className="text-sm text-stone">並び</h3>
+        <section className="mt-4" aria-label={t.sort}>
+          <h3 className="text-sm text-stone">{t.sort}</h3>
           <div className="mt-2 flex flex-wrap gap-2">
-            {SORTS.map((o) => (
-              <button key={o.value} type="button" aria-pressed={sort === o.value} onClick={() => onChange({ sort: o.value })} className={chip(sort === o.value)}>
-                {o.label}
+            {SORT_VALUES.map((value) => (
+              <button key={value} type="button" aria-pressed={sort === value} onClick={() => onChange({ sort: value })} className={chip(sort === value)}>
+                {t.sorts[value]}
               </button>
             ))}
           </div>
         </section>
         <button type="button" onClick={onClose} className="mt-6 min-h-[44px] w-full rounded-lg bg-aka font-bold text-ivory">
-          閉じる
+          {t.close}
         </button>
       </div>
     </div>
