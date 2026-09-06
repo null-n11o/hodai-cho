@@ -24,8 +24,9 @@ export function storePageUrl(store: Store, base: string = SITE_URL): string {
   return `${base}/r/${store.id}/`;
 }
 
-export function storeJsonLd(store: Store, base: string = SITE_URL): Record<string, unknown> {
+export function storeJsonLd(store: Store, base: string = SITE_URL, pagePath?: string): Record<string, unknown> {
   const price = cheapestPrice(store).toLocaleString('ja-JP');
+  const page = pagePath ? `${base}${pagePath}` : storePageUrl(store, base);
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
@@ -37,8 +38,8 @@ export function storeJsonLd(store: Store, base: string = SITE_URL): Record<strin
       addressRegion: store.prefecture,
       addressLocality: store.area,
     },
-    url: store.officialUrl ?? storePageUrl(store, base),
-    identifier: storePageUrl(store, base),
+    url: store.officialUrl ?? page,
+    identifier: page,
   };
 }
 
@@ -79,4 +80,64 @@ export function sitemapXml(entries: SitemapEntry[]): string {
     .map((e) => `  <url><loc>${e.loc}</loc>${e.lastmod ? `<lastmod>${e.lastmod}</lastmod>` : ''}</url>`)
     .join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
+// --- English (UI文言のみ英訳。店名・料金数値・分数値はカタログのまま) ---
+
+function prefectureEn(prefecture: string): string {
+  if (prefecture === '東京') return 'Tokyo';
+  if (prefecture === '神奈川') return 'Kanagawa';
+  return prefecture;
+}
+
+export function topTitleEn(): string {
+  return 'Hodai-cho｜All-you-can-eat in Tokyo & Kanagawa by price and time';
+}
+
+export function topDescriptionEn(): string {
+  return 'All-you-can-eat shops in Tokyo and Kanagawa, filtered by price and time limit. Yakiniku, shabu-shabu, sushi, sweets, pizza, party buffets and more.';
+}
+
+export function storeTitleEn(store: Store): string {
+  return `${store.name}｜All-you-can-eat in ${store.area}: prices & time｜Hodai-cho`;
+}
+
+export function storeDescriptionEn(store: Store): string {
+  const price = cheapestPrice(store).toLocaleString('en-US');
+  return `${prefectureEn(store.prefecture)} · ${store.area}, “${store.name}”: all-you-can-eat courses with prices and time limits. ¥${price}〜. ${store.station} Sta., ${store.walkMinutes}-min walk. Check the official source before you go.`;
+}
+
+export function areaTitleEn(_prefecture: string, area: string, count: number): string {
+  return `All-you-can-eat in ${area}: ${count} places by price and time｜Hodai-cho`;
+}
+
+export function areaDescriptionEn(prefecture: string, area: string, count: number): string {
+  return `${prefectureEn(prefecture)} · ${area}: ${count} all-you-can-eat places with prices and time limits. Check the official source before you go.`;
+}
+
+export function hreflangHead(jaPath: string, enPath: string, base: string = SITE_URL): string {
+  const j = `${base}${jaPath}`;
+  const e = `${base}${enPath}`;
+  return [
+    `<link rel="alternate" hreflang="ja" href="${j}" />`,
+    `<link rel="alternate" hreflang="en" href="${e}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${j}" />`,
+  ].join('\n    ');
+}
+
+export function sitemapEntries(stores: Store[], areas: AreaKey[], base: string, today: string): SitemapEntry[] {
+  const entries: SitemapEntry[] = [
+    { loc: `${base}/`, lastmod: today },
+    { loc: `${base}/en/`, lastmod: today },
+  ];
+  for (const store of stores) {
+    entries.push({ loc: `${base}/r/${store.id}/`, lastmod: today });
+    entries.push({ loc: `${base}/en/r/${store.id}/`, lastmod: today });
+  }
+  for (const a of areas) {
+    const path = areaPath(a.prefecture, a.area);
+    entries.push({ loc: `${base}${path}`, lastmod: today });
+    entries.push({ loc: `${base}/en${path}`, lastmod: today });
+  }
+  return entries;
 }
