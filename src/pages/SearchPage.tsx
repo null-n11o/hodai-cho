@@ -9,6 +9,7 @@ import { areaPath, listAreas } from '../seo/meta';
 import { StoreCard } from '../components/StoreCard';
 import { FilterSheet } from '../components/FilterSheet';
 import { EmptyState } from '../components/EmptyState';
+import { LanguageToggle } from '../components/LanguageToggle';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
@@ -82,7 +83,10 @@ export function SearchPage() {
 
   return (
     <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-16 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
-      <header className="pt-8 text-center">
+      <div className="flex justify-end pt-4">
+        <LanguageToggle />
+      </div>
+      <header className="pt-4 text-center">
         <p className="text-xs tracking-widest text-stone">TOKYO / KANAGAWA</p>
         <h1 className="mt-2 text-3xl font-bold">放題帖</h1>
         <p className="mt-2 text-sm text-stone">食べ放題だけを、料金と時間で切る</p>

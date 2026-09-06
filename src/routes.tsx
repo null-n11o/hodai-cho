@@ -8,9 +8,13 @@ export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<SearchPage />} />
+      <Route path="/en/" element={<SearchPage />} />
       <Route path="/r/:id" element={<DetailPage />} />
+      <Route path="/en/r/:id" element={<DetailPage />} />
       <Route path="/saved" element={<SavedPage />} />
+      <Route path="/en/saved" element={<SavedPage />} />
       <Route path="/a/:prefecture/:area" element={<AreaPage />} />
+      <Route path="/en/a/:prefecture/:area" element={<AreaPage />} />
     </Routes>
   );
 }
