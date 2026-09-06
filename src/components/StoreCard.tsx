@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Store } from '../catalog/schema';
+import { STATION_EN } from '../catalog/en-names';
 import { GenreImage } from './GenreImage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
 import type { Lang } from '../i18n/language';
@@ -27,14 +28,18 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
   const dinner = priceLine(store, 'dinner', lang);
   const detailTo = lang === 'en' ? toEnPath(`/r/${store.id}`) : `/r/${store.id}`;
   const genreLine = store.genres.map((g) => dict.genres[g]).join(lang === 'en' ? ' · ' : '・');
+  const shownName = lang === 'en' ? store.nameEn : store.name;
+  const shownStation = lang === 'en' ? (STATION_EN[store.station] ?? store.station) : store.station;
+  const shownFacility = lang === 'en' ? (store.facilityEn ?? store.facility) : store.facility;
+  const shownHighlight = lang === 'en' ? (store.highlightsEn[0] ?? store.highlights[0]) : store.highlights[0];
   return (
     <article className="rounded-lg border border-stonedim/40 bg-ink p-4">
       <GenreImage genre={store.genres[0]} />
       <div className="mt-3 flex items-start justify-between gap-3">
         <Link to={detailTo} className="min-h-[44px] flex-1">
           <p className="text-xs text-stone">{genreLine}</p>
-          <h2 className="mt-1 text-lg font-bold text-ivory">{store.name}</h2>
-          <p className="mt-1 text-sm text-stone">{stationLine(lang, store.station, store.walkMinutes, store.facility)}</p>
+          <h2 className="mt-1 text-lg font-bold text-ivory">{shownName}</h2>
+          <p className="mt-1 text-sm text-stone">{stationLine(lang, shownStation, store.walkMinutes, shownFacility)}</p>
         </Link>
         <button
           type="button"
@@ -52,7 +57,7 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
         <p className="text-ivory">{dict.card.lunch} {lunch ?? dict.card.noBuffet}</p>
         <p className="text-ivory">{dict.card.dinner} {dinner ?? dict.card.noBuffet}</p>
       </div>
-      {store.highlights[0] ? <p className="mt-2 text-sm text-stone">{store.highlights[0]}</p> : null}
+      {shownHighlight ? <p className="mt-2 text-sm text-stone">{shownHighlight}</p> : null}
     </article>
   );
 }

@@ -6,7 +6,7 @@ import { EmptyState } from '../components/EmptyState';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { useState } from 'react';
 import { dictionary, useLanguage } from '../i18n/language';
-import { areaCountLine, areaTitle } from '../i18n/format';
+import { areaCountLine, areaTitle, prefName } from '../i18n/format';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -49,7 +49,7 @@ export function AreaPage() {
   return (
     <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <p className="text-xs tracking-widest text-stone">
-        {shownPref} / AREA
+        {prefName(lang, shownPref)} / AREA
       </p>
       <h1 className="mt-2 text-2xl font-bold md:text-3xl">{areaTitle(lang, shownArea)}</h1>
       <p className="mt-2 text-sm text-stone" aria-live="polite">

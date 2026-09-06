@@ -8,7 +8,8 @@ import { EmptyState } from '../components/EmptyState';
 import { GenreImage } from '../components/GenreImage';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
-import { stationLine } from '../i18n/format';
+import { prefName, stationLine } from '../i18n/format';
+import { AREA_EN, STATION_EN } from '../catalog/en-names';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -56,6 +57,19 @@ export function DetailPage() {
   const saved = savedIds.includes(store.id);
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${store.name} ${store.station}`)}`;
   const genreLine = store.genres.map((g) => dict.genres[g]).join(lang === 'en' ? ' · ' : '・');
+  const shownName = lang === 'en' ? store.nameEn : store.name;
+  const shownArea = lang === 'en' ? (AREA_EN[store.area] ?? store.area) : store.area;
+  const shownStation = lang === 'en' ? (STATION_EN[store.station] ?? store.station) : store.station;
+  const shownFacility = lang === 'en' ? (store.facilityEn ?? store.facility) : store.facility;
+  const shownHours = lang === 'en' ? store.hoursEn : store.hours;
+  const shownHighlights = lang === 'en' ? store.highlightsEn : store.highlights;
+  const shownNotice = lang === 'en' ? store.noticeEn : store.notice;
+  const similarName = (s: Store): string => {
+    const base = lang === 'en' ? s.nameEn : s.name;
+    const st = lang === 'en' ? (STATION_EN[s.station] ?? s.station) : s.station;
+    const line = stationLine(lang, st, s.walkMinutes);
+    return lang === 'en' ? `${base} (${line})` : `${base}（${line}）`;
+  };
 
   const onToggleSave = () => {
     setSavedIds(toggleFavorite(store.id));
@@ -79,13 +93,13 @@ export function DetailPage() {
       <div className="mt-2 flex items-start justify-between gap-3 md:mt-0">
         <div>
           <p className="text-xs text-stone">
-            {dict.prefs[store.prefecture]}・{store.area}・{genreLine}
+            {prefName(lang, store.prefecture)}・{shownArea}・{genreLine}
           </p>
-          <h1 className="mt-1 text-2xl font-bold">{store.name}</h1>
+          <h1 className="mt-1 text-2xl font-bold">{shownName}</h1>
           <p className="mt-1 text-sm text-stone">
-            {stationLine(lang, store.station, store.walkMinutes, store.facility)}
+            {stationLine(lang, shownStation, store.walkMinutes, shownFacility)}
           </p>
-          <p className="mt-1 text-sm text-stone">{store.hours}</p>
+          <p className="mt-1 text-sm text-stone">{shownHours}</p>
         </div>
         <button
           type="button"
@@ -111,7 +125,7 @@ export function DetailPage() {
       <section className="mt-6" aria-label={t.highlights}>
         <h2 className="text-lg font-bold">{t.highlights}</h2>
         <ul className="mt-2 space-y-1 text-sm text-ivory">
-          {store.highlights.map((h) => (
+          {shownHighlights.map((h) => (
             <li key={h}>{h}</li>
           ))}
         </ul>
@@ -119,7 +133,7 @@ export function DetailPage() {
 
       <section className="mt-6" aria-label={t.beforeYouGo}>
         <h2 className="text-lg font-bold">{t.beforeYouGo}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-stone">{store.notice}</p>
+        <p className="mt-2 text-sm leading-relaxed text-stone">{shownNotice}</p>
       </section>
 
       <div data-testid="actions" className="mt-6 flex flex-col gap-2 md:flex-row">
@@ -163,7 +177,7 @@ export function DetailPage() {
                   to={similarTo(s.id)}
                   className="block min-h-[44px] rounded-lg border border-stonedim/40 px-4 py-3 text-sm text-ivory"
                 >
-                  {s.name}（{stationLine(lang, s.station, s.walkMinutes)}）
+                  {similarName(s)}
                 </Link>
               </li>
             ))}

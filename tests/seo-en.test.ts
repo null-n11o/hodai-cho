@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { BundledCatalogRepository } from '../src/catalog/repository';
+import { AREA_EN, STATION_EN } from '../src/catalog/en-names';
 import { renderRoute } from '../src/seo/prerender';
 import {
   areaDescriptionEn,
@@ -22,23 +23,24 @@ const first = stores[0];
 const base = 'https://example.invalid';
 
 describe('english meta', () => {
-  it('英語の店タイトルに店名とブランドが入る', () => {
+  it('英語の店タイトルに英語店名とブランドが入る', () => {
     const t = storeTitleEn(first);
-    expect(t).toContain(first.name);
+    expect(t).toContain(first.nameEn);
+    expect(t).toContain(AREA_EN[first.area]);
     expect(t).toContain('Hodai-cho');
   });
 
   it('英語の店説明文に料金と駅と公式確認が入る', () => {
     const d = storeDescriptionEn(first);
-    expect(d).toContain(first.station);
+    expect(d).toContain(STATION_EN[first.station]);
     expect(d).toMatch(/¥[\d,]+〜/);
     expect(d).toMatch(/official/i);
   });
 
-  it('英語のエリアタイトルと説明文にエリア名と件数が入る', () => {
-    expect(areaTitleEn('東京', '新宿', 5)).toContain('新宿');
+  it('英語のエリアタイトルと説明文に英語エリア名と件数が入る', () => {
+    expect(areaTitleEn('東京', '新宿', 5)).toContain('Shinjuku');
     expect(areaTitleEn('東京', '新宿', 5)).toContain('5');
-    expect(areaDescriptionEn('東京', '新宿', 5)).toContain('新宿');
+    expect(areaDescriptionEn('東京', '新宿', 5)).toContain('Shinjuku');
   });
 
   it('英語トップのタイトルと説明文がある', () => {
@@ -49,6 +51,13 @@ describe('english meta', () => {
   it('JSON-LDのidentifierに英語パスを渡せる', () => {
     const ld = storeJsonLd(first, base, `/en/r/${first.id}/`);
     expect(String(ld.identifier)).toContain(`/en/r/${first.id}/`);
+  });
+
+  it('英語ページのJSON-LD名は英語店名になる', () => {
+    const ld = storeJsonLd(first, base, `/en/r/${first.id}/`);
+    expect(ld.name).toBe(first.nameEn);
+    const ja = storeJsonLd(first, base, `/r/${first.id}/`);
+    expect(ja.name).toBe(first.name);
   });
 });
 

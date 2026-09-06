@@ -1,4 +1,6 @@
 import type { Store } from '../catalog/schema';
+import { AREA_EN, STATION_EN } from '../catalog/en-names';
+import { en } from '../i18n/en';
 
 export const SITE_URL = 'https://hodai-cho.example.invalid';
 
@@ -27,16 +29,17 @@ export function storePageUrl(store: Store, base: string = SITE_URL): string {
 export function storeJsonLd(store: Store, base: string = SITE_URL, pagePath?: string): Record<string, unknown> {
   const price = cheapestPrice(store).toLocaleString('ja-JP');
   const page = pagePath ? `${base}${pagePath}` : storePageUrl(store, base);
+  const isEn = !!pagePath && (pagePath === '/en/' || pagePath.startsWith('/en/'));
   return {
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    name: store.name,
-    servesCuisine: store.genres,
+    name: isEn ? store.nameEn : store.name,
+    servesCuisine: isEn ? store.genres.map((g) => en.genres[g]) : store.genres,
     priceRange: `¥${price}〜`,
     address: {
       '@type': 'PostalAddress',
-      addressRegion: store.prefecture,
-      addressLocality: store.area,
+      addressRegion: isEn ? prefectureEn(store.prefecture) : store.prefecture,
+      addressLocality: isEn ? (AREA_EN[store.area] ?? store.area) : store.area,
     },
     url: store.officialUrl ?? page,
     identifier: page,
@@ -99,20 +102,20 @@ export function topDescriptionEn(): string {
 }
 
 export function storeTitleEn(store: Store): string {
-  return `${store.name}｜All-you-can-eat in ${store.area}: prices & time｜Hodai-cho`;
+  return `${store.nameEn}｜All-you-can-eat in ${AREA_EN[store.area] ?? store.area}: prices & time｜Hodai-cho`;
 }
 
 export function storeDescriptionEn(store: Store): string {
   const price = cheapestPrice(store).toLocaleString('en-US');
-  return `${prefectureEn(store.prefecture)} · ${store.area}, “${store.name}”: all-you-can-eat courses with prices and time limits. ¥${price}〜. ${store.station} Sta., ${store.walkMinutes}-min walk. Check the official source before you go.`;
+  return `${prefectureEn(store.prefecture)} · ${AREA_EN[store.area] ?? store.area}, “${store.nameEn}”: all-you-can-eat courses with prices and time limits. ¥${price}〜. ${STATION_EN[store.station] ?? store.station} Sta., ${store.walkMinutes}-min walk. Check the official source before you go.`;
 }
 
 export function areaTitleEn(_prefecture: string, area: string, count: number): string {
-  return `All-you-can-eat in ${area}: ${count} places by price and time｜Hodai-cho`;
+  return `All-you-can-eat in ${AREA_EN[area] ?? area}: ${count} places by price and time｜Hodai-cho`;
 }
 
 export function areaDescriptionEn(prefecture: string, area: string, count: number): string {
-  return `${prefectureEn(prefecture)} · ${area}: ${count} all-you-can-eat places with prices and time limits. Check the official source before you go.`;
+  return `${prefectureEn(prefecture)} · ${AREA_EN[area] ?? area}: ${count} all-you-can-eat places with prices and time limits. Check the official source before you go.`;
 }
 
 export function hreflangHead(jaPath: string, enPath: string, base: string = SITE_URL): string {

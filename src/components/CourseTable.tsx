@@ -10,7 +10,9 @@ export function CourseTable({ courses }: CourseTableProps) {
   const lang = useLanguage();
   const dict = dictionary(lang);
   const locale = lang === 'en' ? 'en-US' : 'ja-JP';
-  const notes = courses.map((c) => c.note).filter((n): n is string => Boolean(n));
+  const notes = courses
+    .map((c) => (lang === 'en' ? (c.noteEn ?? c.note) : c.note))
+    .filter((n): n is string => Boolean(n));
   return (
     <div>
       <table className="w-full text-left text-sm">
@@ -26,7 +28,7 @@ export function CourseTable({ courses }: CourseTableProps) {
           {courses.map((c) => (
             <tr key={c.name} className="border-t border-stonedim/40 text-ivory">
               <td className="py-3 pr-2">{dict.course.slots[c.slot]}</td>
-              <td className="py-3 pr-2">{c.name}</td>
+              <td className="py-3 pr-2">{lang === 'en' ? c.nameEn : c.name}</td>
               <td className="py-3 pr-2 text-right">¥{c.priceInclTax.toLocaleString(locale)}</td>
               <td className="py-3 text-right">{durationLabel(lang, c.minutes)}</td>
             </tr>

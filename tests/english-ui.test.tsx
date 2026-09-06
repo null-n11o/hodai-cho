@@ -38,10 +38,10 @@ describe('English search page', () => {
     expect(jaCount).toBeGreaterThan(0);
   });
 
-  it('店名は日本語のまま残る', () => {
+  it('店名は英語で出る', () => {
     const first = new BundledCatalogRepository().listStores()[0];
     renderAt('/en/');
-    expect(screen.getByText(first.name)).toBeTruthy();
+    expect(screen.getByText(first.nameEn)).toBeTruthy();
   });
 });
 
@@ -57,7 +57,7 @@ describe('English detail page', () => {
     expect(screen.getByText('Before you go')).toBeTruthy();
     expect(screen.getByText('Back')).toBeTruthy();
     expect(screen.getByText('Open in Maps')).toBeTruthy();
-    expect(screen.getByText(first.name)).toBeTruthy();
+    expect(screen.getByText(first.nameEn)).toBeTruthy();
   });
 
   it('英語の未知IDは英語の案内と探す導線がある', () => {
@@ -93,18 +93,23 @@ describe('English empty state', () => {
 });
 
 describe('English prerender', () => {
-  it('/en/ の断片に英語UIと日本語店名が同居する', () => {
+  it('/en/ の断片に英語UIと英語店名が出る', () => {
     const html = renderRoute('/en/');
     expect(html).toContain('Yakiniku');
     expect(html).toContain('results');
     const first = new BundledCatalogRepository().listStores()[0];
-    expect(html).toContain(first.name);
+    expect(html).toContain(first.nameEn);
   });
 
-  it('英語詳細の断片に英語見出しが出る', () => {
+  it('英語詳細の断片に英語見出しと英語店名が出る', () => {
     const first = new BundledCatalogRepository().listStores()[0];
     const html = renderRoute(`/en/r/${first.id}`);
     expect(html).toContain('Courses');
-    expect(html).toContain(first.name);
+    expect(html).toContain(first.nameEn);
+  });
+
+  it('/en/a/... の断片に英語エリア名が出る', () => {
+    const html = renderRoute(`/en/a/${encodeURIComponent('東京')}/${encodeURIComponent('新宿')}/`);
+    expect(html).toContain('All-you-can-eat in Shinjuku');
   });
 });

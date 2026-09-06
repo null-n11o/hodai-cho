@@ -1,4 +1,5 @@
 import type { Lang } from './language';
+import { AREA_EN } from '../catalog/en-names';
 
 function localeOf(lang: Lang): string {
   return lang === 'en' ? 'en-US' : 'ja-JP';
@@ -30,7 +31,16 @@ export function areaCountLine(lang: Lang, n: number): string {
 }
 
 export function areaTitle(lang: Lang, area: string): string {
-  return lang === 'en' ? `All-you-can-eat in ${area}` : `${area}の食べ放題`;
+  if (lang === 'en') return `All-you-can-eat in ${AREA_EN[area] ?? area}`;
+  return `${area}の食べ放題`;
+}
+
+export function prefName(lang: Lang, prefecture: string): string {
+  if (lang === 'en') {
+    if (prefecture === '東京') return 'Tokyo';
+    if (prefecture === '神奈川') return 'Kanagawa';
+  }
+  return prefecture;
 }
 
 export function budgetLabel(lang: Lang, yen: number | undefined): string {

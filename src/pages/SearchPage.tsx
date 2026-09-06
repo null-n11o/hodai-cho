@@ -12,7 +12,8 @@ import { EmptyState } from '../components/EmptyState';
 import { LanguageToggle } from '../components/LanguageToggle';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
-import { resultsCount } from '../i18n/format';
+import { prefName, resultsCount } from '../i18n/format';
+import { AREA_EN } from '../catalog/en-names';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -82,6 +83,8 @@ export function SearchPage() {
     setSavedIds(toggleFavorite(id));
   };
 
+  const areaLabel = (area: string): string => (lang === 'en' ? (AREA_EN[area] ?? area) : area);
+
   const areaLink = (prefecture: string, area: string): string => {
     const path = areaPath(prefecture, area);
     return lang === 'en' ? toEnPath(path) : path;
@@ -109,7 +112,7 @@ export function SearchPage() {
               cond.prefecture === p ? 'border-aka bg-aka text-ivory' : 'border-stonedim/60 text-stone'
             }`}
           >
-            {dict.prefs[p]}
+            {prefName(lang, p)}
           </button>
         ))}
       </div>
@@ -131,7 +134,7 @@ export function SearchPage() {
             onClick={() => setCond((prev) => ({ ...prev, area }))}
             className={chip(cond.area === area)}
           >
-            {area}
+            {areaLabel(area)}
           </button>
         ))}
       </div>
@@ -203,7 +206,7 @@ export function SearchPage() {
                 to={areaLink(a.prefecture, a.area)}
                 className="inline-block min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-2 text-sm text-ivory"
               >
-                {a.area}
+                {areaLabel(a.area)}
               </Link>
             </li>
           ))}
