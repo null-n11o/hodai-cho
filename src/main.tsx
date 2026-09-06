@@ -1,10 +1,8 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, NavLink } from 'react-router-dom';
 import './index.css';
-import { SearchPage } from './pages/SearchPage';
-import { DetailPage } from './pages/DetailPage';
-import { SavedPage } from './pages/SavedPage';
+import { AppRoutes } from './routes';
 
 function tabClass(active: boolean): string {
   return `min-h-[44px] flex-1 py-3 text-center font-bold transition-colors ${
@@ -16,11 +14,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <div className="min-h-svh bg-ink">
-        <Routes>
-          <Route path="/" element={<SearchPage />} />
-          <Route path="/r/:id" element={<DetailPage />} />
-          <Route path="/saved" element={<SavedPage />} />
-        </Routes>
+        <AppRoutes />
         <nav aria-label="メイン" className="fixed inset-x-0 bottom-0 z-40 border-t border-stonedim/40 bg-ink">
           <div className="mx-auto flex w-full max-w-lg" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
             <NavLink to="/" end className={({ isActive }) => tabClass(isActive)}>
