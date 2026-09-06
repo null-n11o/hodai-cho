@@ -1,0 +1,87 @@
+import type { Store } from '../schema';
+
+// ゆず庵 4店。ゆず庵コース 3,828・100分（公式）。
+// ランチ食べ放題 2,618・100分は本郷台・厚木のみ。新宿西口・秋葉原はランチなし。
+const DINNER = { slot: 'dinner' as const, name: 'ゆず庵コース食べ放題', priceInclTax: 3828, minutes: 100 };
+const LUNCH = {
+  slot: 'lunch' as const,
+  name: 'ランチ食べ放題',
+  priceInclTax: 2618,
+  minutes: 100,
+  note: '実施店舗のみ。料金は公開情報の目安',
+};
+const NOTICE =
+  '料金・制限時間は2026年時点の公開情報の目安です。店舗・曜日で変わる場合があります。行く前に公式を確認してください。';
+
+export const YUZU_STORES: Store[] = [
+  {
+    id: 'yuzu-shinjuku-west',
+    name: 'ゆず庵 新宿西口店',
+    kana: 'ゆずあん しんじゅく',
+    chain: 'ゆず庵',
+    prefecture: '東京',
+    area: '新宿',
+    station: '新宿西口',
+    walkMinutes: 1,
+    facility: '新宿カレイドビル6F',
+    genres: ['しゃぶしゃぶ', '寿司'],
+    pick: 4,
+    courses: [DINNER],
+    hours: '10:30–24:00',
+    highlights: ['寿司もしゃぶしゃぶも食べ放題の目安', '新宿西口駅から徒歩1分の目安'],
+    notice: `ランチ食べ放題は未実施の目安です。${NOTICE}`,
+    familyFriendly: true,
+  },
+  {
+    id: 'yuzu-akihabara',
+    name: 'ゆず庵 秋葉原店',
+    kana: 'ゆずあん あきはばら',
+    chain: 'ゆず庵',
+    prefecture: '東京',
+    area: '秋葉原',
+    station: '秋葉原',
+    walkMinutes: 2,
+    facility: 'Bito Akiba Plaza 5F',
+    genres: ['しゃぶしゃぶ', '寿司'],
+    pick: 3,
+    courses: [DINNER],
+    hours: '11:00–23:00',
+    highlights: ['寿司もしゃぶしゃぶも食べ放題の目安', '秋葉原駅から徒歩2分の目安'],
+    notice: `ランチ食べ放題は未実施の目安です。${NOTICE}`,
+    familyFriendly: true,
+  },
+  {
+    id: 'yuzu-hongodai',
+    name: 'ゆず庵 横浜本郷台店',
+    kana: 'ゆずあん ほんごうだい',
+    chain: 'ゆず庵',
+    prefecture: '神奈川',
+    area: '本郷台',
+    station: '本郷台',
+    walkMinutes: 10,
+    genres: ['しゃぶしゃぶ', '寿司'],
+    pick: 2,
+    courses: [LUNCH, DINNER],
+    hours: '11:00–23:00',
+    highlights: ['寿司もしゃぶしゃぶも食べ放題の目安', 'ランチ食べ放題ありの目安'],
+    notice: `ランチ食べ放題の料金は公開情報の目安です。${NOTICE}`,
+    familyFriendly: true,
+  },
+  {
+    id: 'yuzu-atsugi',
+    name: 'ゆず庵 厚木店',
+    kana: 'ゆずあん あつぎ',
+    chain: 'ゆず庵',
+    prefecture: '神奈川',
+    area: '厚木',
+    station: '本厚木',
+    walkMinutes: 28,
+    genres: ['しゃぶしゃぶ', '寿司'],
+    pick: 2,
+    courses: [LUNCH, DINNER],
+    hours: '11:00–24:00',
+    highlights: ['寿司もしゃぶしゃぶも食べ放題の目安', 'ランチ食べ放題ありの目安'],
+    notice: `駅から遠いためバス・車利用が前提の目安です。ランチ食べ放題の料金は公開情報の目安です。${NOTICE}`,
+    familyFriendly: true,
+  },
+];

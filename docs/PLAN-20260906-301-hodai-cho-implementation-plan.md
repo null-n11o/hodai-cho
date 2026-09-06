@@ -1,11 +1,14 @@
 ---
 id: PLAN-20260906-301
 title: 放題帖02_dev実装計画（静的SPA＋カタログ拡張）
-status: draft
+status: approved
 owner: cpo
 department: product
 created: 2026-09-06
 updated: 2026-09-06
+review:
+  approved_by: ceo
+  approved_date: 2026-09-06
 ---
 
 # 放題帖 Implementation Plan
