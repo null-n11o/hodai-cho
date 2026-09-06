@@ -3,15 +3,15 @@ import { genreImageSrc } from '../src/components/GenreImage';
 import type { Genre } from '../src/catalog/schema';
 
 describe('genreImageSrc', () => {
-  it('9ジャンルすべてに画像パスが返る', () => {
-    const genres: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き'];
+  it('10ジャンルすべてに画像パスが返る', () => {
+    const genres: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー'];
     for (const g of genres) {
       expect(genreImageSrc(g)).toMatch(/^\/genre\/.+\.svg$/);
     }
   });
 
   it('ジャンルごとに異なる画像になる', () => {
-    const genres: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き'];
+    const genres: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー'];
     const srcs = new Set(genres.map((g) => genreImageSrc(g)));
     expect(srcs.size).toBe(genres.length);
   });
