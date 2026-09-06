@@ -1,4 +1,4 @@
-export const CATALOG_VERSION = '2026-09-06+enkaibanquet.1';
+export const CATALOG_VERSION = '2026-09-06+en.1';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
@@ -7,15 +7,18 @@ export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' 
 export interface Course {
   slot: TimeSlot;
   name: string;
+  nameEn: string;
   priceInclTax: number;
   minutes: number | null; // null は時間無制限
   note?: string;
+  noteEn?: string;
   banquet?: boolean; // 宴会コース由来なら true
 }
 
 export interface Store {
   id: string;
   name: string;
+  nameEn: string;
   kana: string;
   chain: string;
   prefecture: Prefecture;
@@ -23,14 +26,18 @@ export interface Store {
   station: string;
   walkMinutes: number;
   facility?: string;
+  facilityEn?: string;
   genres: Genre[];
   subGenres?: Genre[];
   pick: 1 | 2 | 3 | 4 | 5; // 編集ピック。外部点数ではない
   courses: Course[];
   hours: string;
+  hoursEn: string;
   closed?: string; // データは持つが画面では出さない
   highlights: string[];
+  highlightsEn: string[];
   notice: string; // 行く前に
+  noticeEn: string;
   familyFriendly: boolean; // データは持つが画面では出さない
   reservationUrl?: string; // 外部素リンク
   officialUrl?: string; // 公式サイトの外部素リンク
@@ -48,6 +55,20 @@ export function validateCatalog(stores: Store[]): string[] {
       if (c.minutes !== null && (!Number.isInteger(c.minutes) || c.minutes <= 0)) errors.push(`bad minutes: ${s.id}/${c.name}`);
     }
     if (s.pick < 1 || s.pick > 5) errors.push(`bad pick: ${s.id}`);
+    if (!s.nameEn) errors.push(`missing nameEn: ${s.id}`);
+    if (!s.hoursEn) errors.push(`missing hoursEn: ${s.id}`);
+    if (!s.noticeEn) errors.push(`missing noticeEn: ${s.id}`);
+    if (s.highlightsEn.length !== s.highlights.length) errors.push(`highlightsEn length: ${s.id}`);
+    for (const h of s.highlightsEn) {
+      if (!h) errors.push(`empty highlightsEn: ${s.id}`);
+    }
+    if (s.facility && !s.facilityEn) errors.push(`missing facilityEn: ${s.id}`);
+    if (!s.facility && s.facilityEn) errors.push(`stray facilityEn: ${s.id}`);
+    for (const c of s.courses) {
+      if (!c.nameEn) errors.push(`missing course nameEn: ${s.id}/${c.name}`);
+      if (c.note && !c.noteEn) errors.push(`missing course noteEn: ${s.id}/${c.name}`);
+      if (!c.note && c.noteEn) errors.push(`stray course noteEn: ${s.id}/${c.name}`);
+    }
   }
   return errors;
 }

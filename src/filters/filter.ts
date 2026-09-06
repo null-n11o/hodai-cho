@@ -1,4 +1,5 @@
 import type { Genre, Prefecture, Store, TimeSlot } from '../catalog/schema';
+import { AREA_EN, CHAIN_EN, STATION_EN } from '../catalog/en-names';
 
 export type SlotCond = 'all' | 'lunch' | 'dinner';
 export type TimeLimitCond = 'all' | 'unlimited' | 'le90' | 'le120';
@@ -50,7 +51,21 @@ export function filterStores(stores: Store[], cond: FilterCond): Store[] {
       if (!cond.genres.some((g) => all.includes(g))) return false;
     }
     if (fw) {
-      const hay = norm([s.name, s.kana, s.chain, s.station, s.facility ?? ''].join(' '));
+      const hay = norm(
+        [
+          s.name,
+          s.kana,
+          s.chain,
+          s.station,
+          s.facility ?? '',
+          s.nameEn ?? '',
+          CHAIN_EN[s.chain] ?? '',
+          STATION_EN[s.station] ?? '',
+          AREA_EN[s.area] ?? '',
+          s.facilityEn ?? '',
+          ...s.courses.flatMap((c) => [c.nameEn ?? '', c.noteEn ?? '']),
+        ].join(' '),
+      );
       if (!hay.includes(fw)) return false;
     }
     const scoped = coursesInScope(s, cond);
