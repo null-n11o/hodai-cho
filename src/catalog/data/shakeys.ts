@@ -17,6 +17,7 @@ export const SHAKEYS_STORES: Store[] = [
   {
     id: 'shakeys-ikebukuro',
     name: 'シェーキーズ 池袋東口店',
+    officialUrl: 'https://www.shakeys.jp/store-and-menu/ikebukuro-higashiguchi.html',
     kana: 'しぇーきーず いけぶくろ',
     chain: 'シェーキーズ',
     prefecture: '東京',
@@ -35,6 +36,7 @@ export const SHAKEYS_STORES: Store[] = [
   {
     id: 'shakeys-yokohama',
     name: 'シェーキーズ 横浜西口店',
+    officialUrl: 'https://www.shakeys.jp/store-and-menu/yokohama-nishiguchi.html',
     kana: 'しぇーきーず よこはま',
     chain: 'シェーキーズ',
     prefecture: '神奈川',

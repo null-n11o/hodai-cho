@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import type { Store } from '../catalog/schema';
+import { GenreImage } from './GenreImage';
 
 interface StoreCardProps {
   store: Store;
@@ -25,7 +26,8 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
   const station = `${store.station}駅 徒歩${store.walkMinutes}分${store.facility ? `・${store.facility}` : ''}`;
   return (
     <article className="rounded-lg border border-stonedim/40 bg-ink p-4">
-      <div className="flex items-start justify-between gap-3">
+      <GenreImage genre={store.genres[0]} />
+      <div className="mt-3 flex items-start justify-between gap-3">
         <Link to={`/r/${store.id}`} className="min-h-[44px] flex-1">
           <p className="text-xs text-stone">{store.genres.join('・')}</p>
           <h2 className="mt-1 text-lg font-bold text-ivory">{store.name}</h2>

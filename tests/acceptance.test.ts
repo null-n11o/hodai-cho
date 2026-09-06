@@ -41,6 +41,10 @@ describe('acceptance', () => {
     expect(got.length).toBeLessThan(stores.filter((s) => s.prefecture === '東京').length);
   });
 
+  it('全店に公式サイトのURLがある', () => {
+    expect(stores.every((s) => s.officialUrl?.startsWith('https://'))).toBe(true);
+  });
+
   it('神奈川に切ると東京の店が消える', () => {
     const got = filterStores(stores, { ...base, prefecture: '神奈川' });
     expect(got.length).toBeGreaterThan(0);

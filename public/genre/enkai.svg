@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="宴会食放のイラスト">
+  <g fill="none" stroke="#ece7de" stroke-width="5" stroke-linecap="round">
+    <path d="M60 108a60 60 0 0 1 120 0"/>
+    <line x1="48" y1="108" x2="192" y2="108"/>
+    <line x1="72" y1="124" x2="168" y2="124"/>
+  </g>
+  <circle cx="120" cy="42" r="8" fill="none" stroke="#ece7de" stroke-width="5"/>
+  <g fill="#c4543a">
+    <circle cx="92" cy="88" r="9"/>
+    <circle cx="120" cy="80" r="9"/>
+    <circle cx="148" cy="88" r="9"/>
+  </g>
+  <g stroke="#9a9084" stroke-width="4" stroke-linecap="round">
+    <line x1="60" y1="140" x2="180" y2="140"/>
+  </g>
+</svg>

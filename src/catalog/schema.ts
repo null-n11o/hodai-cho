@@ -33,6 +33,7 @@ export interface Store {
   notice: string; // 行く前に
   familyFriendly: boolean; // データは持つが画面では出さない
   reservationUrl?: string; // 外部素リンク
+  officialUrl?: string; // 公式サイトの外部素リンク
 }
 
 export function validateCatalog(stores: Store[]): string[] {

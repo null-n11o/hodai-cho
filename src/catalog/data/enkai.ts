@@ -8,6 +8,7 @@ export const ENKAI_STORES: Store[] = [
     name: '肉ヤロー 新宿東口店',
     kana: 'にくやろー しんじゅく',
     chain: '肉ヤロー',
+    officialUrl: 'https://nikuyaro.owst.jp/',
     prefecture: '東京',
     area: '新宿',
     station: '新宿',

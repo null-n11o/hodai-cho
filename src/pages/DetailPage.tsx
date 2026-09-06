@@ -5,6 +5,7 @@ import type { CatalogRepository } from '../catalog/repository';
 import type { Store } from '../catalog/schema';
 import { CourseTable } from '../components/CourseTable';
 import { EmptyState } from '../components/EmptyState';
+import { GenreImage } from '../components/GenreImage';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
@@ -58,6 +59,10 @@ export function DetailPage() {
       >
         戻る
       </button>
+
+      <div className="mt-2">
+        <GenreImage genre={store.genres[0]} />
+      </div>
 
       <div className="mt-2 flex items-start justify-between gap-3">
         <div>
@@ -113,6 +118,16 @@ export function DetailPage() {
         >
           地図で探す
         </a>
+        {store.officialUrl ? (
+          <a
+            href={store.officialUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="min-h-[44px] rounded-lg border border-stonedim/60 px-4 py-3 text-center font-bold text-ivory"
+          >
+            公式サイト
+          </a>
+        ) : null}
         {store.reservationUrl ? (
           <a
             href={store.reservationUrl}
