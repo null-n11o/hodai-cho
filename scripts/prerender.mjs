@@ -44,6 +44,13 @@ try {
 
   const entries = [{ loc: `${base}/`, lastmod: today }];
 
+  writePage('/', {
+    path: '/',
+    title: '放題帖｜東京・神奈川の食べ放題だけを、料金と時間で切る',
+    description:
+      '東京・神奈川の食べ放題だけを料金と制限時間で切る条件帳。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会・パン・お好み焼き・サラダバーから探せます。',
+  });
+
   for (const store of stores) {
     const path = `/r/${store.id}/`;
     writePage(path, {
