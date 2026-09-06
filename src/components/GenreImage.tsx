@@ -11,6 +11,7 @@ const GENRE_IMAGE: Record<Genre, string> = {
   パン食べ放題: '/genre/bread.svg',
   お好み焼き: '/genre/okonomiyaki.svg',
   サラダバー: '/genre/salad.svg',
+  バイキング: '/genre/viking.svg',
 };
 
 export function genreImageSrc(genre: Genre): string {

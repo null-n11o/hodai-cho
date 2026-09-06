@@ -13,6 +13,8 @@ import { EXTRA_STORES } from './data/extra';
 import { BREAD_STORES } from './data/bread';
 import { OKONOMIYAKI_STORES } from './data/okonomiyaki';
 import { SALADBAR_STORES } from './data/saladbar';
+import { ITALIAN_STORES } from './data/italian';
+import { VIKING_STORES } from './data/viking';
 
 export const SEED_STORES: Store[] = [
   ...SYABUYO_STORES,
@@ -29,4 +31,6 @@ export const SEED_STORES: Store[] = [
   ...BREAD_STORES,
   ...OKONOMIYAKI_STORES,
   ...SALADBAR_STORES,
+  ...ITALIAN_STORES,
+  ...VIKING_STORES,
 ];

@@ -3,6 +3,10 @@ import type { Store } from '../schema';
 // サラダバー・シズラー 7店（公式店舗ページ＋公式PDFで営業時間・価格を確認）。
 // 平日ランチ単品3,102（90分）・ディナー単品3,861（120分）・ランチエクスプレス2,046・週末モーニング2,728。
 // ランチ単品とモーニングは公式PDF由来。ディナー単品とエクスプレスは二次情報のため目安扱い。
+// スエヒロ館 4店（綾瀬＋東葛西・川崎・高津・立川日野橋の姉妹店。公式店舗ページで住所・営業時間を確認）。
+// プレミアムバー単品1,485・無制限は綾瀬店の公開情報を基準に chain 標準の目安として横置き。店舗差は notice に明記。
+// ビッグボーイ 2店（公式店舗ページでサラダバーあり・住所・営業時間を確認）。
+// サラダバー単品1,089・120分（公式の利用時間2時間）は2026年二次情報のため目安扱い。
 const LUNCH_SOLO = {
   slot: 'lunch' as const,
   name: 'プレミアムサラダバー単品（平日ランチ）',
@@ -31,6 +35,25 @@ const MORNING = {
 };
 const NOTICE =
   '料金・制限時間は2026年時点の公開情報の目安です。ランチは平日限定、モーニングは土日祝・対象店のみです。店舗で変わる場合があります。行く前に公式を確認してください。';
+
+const SUEHIRO_PREMIUM_COURSE = {
+  slot: 'all-day' as const,
+  name: 'プレミアムバー（サラダ・スープ・ブレッド食べ放題）',
+  priceInclTax: 1485,
+  minutes: null,
+};
+const SUEHIRO_NOTICE =
+  '料金は2026年時点の公開情報の目安です。プレミアムバー単品の価格は綾瀬店の公開情報を基準にしたチェーン標準の目安で、店舗で変わる場合があります。行く前に公式を確認してください。';
+
+const BIGBOY_SOLO_COURSE = {
+  slot: 'all-day' as const,
+  name: 'サラダバー・スープバー単品',
+  priceInclTax: 1089,
+  minutes: 120,
+  note: 'ご注文後2時間までの目安・店舗で価格が変わる場合あり',
+};
+const BIGBOY_NOTICE =
+  '料金・制限時間は2026年時点の公開情報の目安です。サラダバー単品の価格は二次情報の目安で、利用時間は公式の2時間制です。店舗で内容・価格が変わる場合があります。行く前に公式を確認してください。';
 
 export const SALADBAR_STORES: Store[] = [
   {
@@ -195,6 +218,120 @@ export const SALADBAR_STORES: Store[] = [
     highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '海老名駅から車利用の目安・駐車場あり'],
     notice:
       '料金は2026年時点の公開情報の目安です。プレミアムバー単品の価格は店舗で変わる場合があります。行く前に公式を確認してください。',
+    familyFriendly: true,
+  },
+  {
+    id: 'suehirokan-higashikasai',
+    name: 'レストランスエヒロ館 東葛西店',
+    officialUrl: 'https://shop.amiyakitei.co.jp/detail/s150/',
+    kana: 'すえひろかん ひがしかさい',
+    chain: 'レストランスエヒロ館',
+    prefecture: '東京',
+    area: '東葛西',
+    station: '葛西',
+    walkMinutes: 15,
+    genres: ['サラダバー'],
+    subGenres: ['パン食べ放題'],
+    pick: 4,
+    courses: [SUEHIRO_PREMIUM_COURSE],
+    hours: '11:00–22:00',
+    highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '葛西駅から徒歩15分の目安・バス利用も可'],
+    notice: SUEHIRO_NOTICE,
+    familyFriendly: true,
+  },
+  {
+    id: 'suehirokan-kawasaki',
+    name: 'レストランスエヒロ館 川崎店',
+    officialUrl: 'https://shop.amiyakitei.co.jp/detail/s061/',
+    kana: 'すえひろかん かわさき',
+    chain: 'レストランスエヒロ館',
+    prefecture: '神奈川',
+    area: '川崎',
+    station: '川崎',
+    walkMinutes: 12,
+    genres: ['サラダバー'],
+    subGenres: ['パン食べ放題'],
+    pick: 4,
+    courses: [SUEHIRO_PREMIUM_COURSE],
+    hours: '11:00–22:00',
+    highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '川崎駅から徒歩圏の目安'],
+    notice: SUEHIRO_NOTICE,
+    familyFriendly: true,
+  },
+  {
+    id: 'suehirokan-takatsu',
+    name: 'レストランスエヒロ館 高津店',
+    officialUrl: 'https://shop.amiyakitei.co.jp/detail/s158/',
+    reservationUrl: 'https://amiyakitei-group.tottokun.com/ownedmedia/ownedmedia_immediately_y/BFCXU36JKTMqSPS',
+    kana: 'すえひろかん たかつ',
+    chain: 'レストランスエヒロ館',
+    prefecture: '神奈川',
+    area: '高津',
+    station: '武蔵中原',
+    walkMinutes: 20,
+    genres: ['サラダバー'],
+    subGenres: ['パン食べ放題'],
+    pick: 3,
+    courses: [SUEHIRO_PREMIUM_COURSE],
+    hours: '11:00–22:00',
+    highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '武蔵中原駅からバス・車利用も前提の目安・駐車場あり'],
+    notice: `郊外ロードサイド店のため車利用が前提の目安です。${SUEHIRO_NOTICE}`,
+    familyFriendly: true,
+  },
+  {
+    id: 'suehirokan-tachikawahinobashi',
+    name: 'レストランスエヒロ館 立川日野橋店',
+    officialUrl: 'https://shop.amiyakitei.co.jp/detail/s151/',
+    kana: 'すえひろかん たちかわひのばし',
+    chain: 'レストランスエヒロ館',
+    prefecture: '東京',
+    area: '立川',
+    station: '柴崎体育館',
+    walkMinutes: 10,
+    genres: ['サラダバー'],
+    subGenres: ['パン食べ放題'],
+    pick: 3,
+    courses: [SUEHIRO_PREMIUM_COURSE],
+    hours: '11:30–22:00（土日祝は11:00–）',
+    highlights: ['サラダ・スープ・パン食べ放題のプレミアムバーの目安', '柴崎体育館駅から徒歩10分の目安・駐車場あり'],
+    notice: SUEHIRO_NOTICE,
+    familyFriendly: true,
+  },
+  {
+    id: 'bigboy-machidaoyamagaoka',
+    name: 'ビッグボーイ 町田小山ヶ丘店',
+    officialUrl: 'https://maps.bigboyjapan.co.jp/jp/detail/3318.html',
+    kana: 'びっぐぼーい まちだおやまがおか',
+    chain: 'ビッグボーイ',
+    prefecture: '東京',
+    area: '町田',
+    station: '相原',
+    walkMinutes: 18,
+    facility: '多摩境通り沿い・駐車場あり',
+    genres: ['サラダバー'],
+    pick: 3,
+    courses: [BIGBOY_SOLO_COURSE],
+    hours: '10:00–翌2:00',
+    highlights: ['16種以上のサラダ・スープ食べ放題の目安', '相原駅からバス・車利用も前提の目安・駐車場あり'],
+    notice: `郊外ロードサイド店のため車利用が前提の目安です。${BIGBOY_NOTICE}`,
+    familyFriendly: true,
+  },
+  {
+    id: 'bigboy-miyamaedaira',
+    name: 'ビッグボーイ 宮前平店',
+    officialUrl: 'https://maps.bigboyjapan.co.jp/jp/detail/3172.html',
+    kana: 'びっぐぼーい みやまえだいら',
+    chain: 'ビッグボーイ',
+    prefecture: '神奈川',
+    area: '宮前平',
+    station: '鷺沼',
+    walkMinutes: 12,
+    genres: ['サラダバー'],
+    pick: 3,
+    courses: [BIGBOY_SOLO_COURSE],
+    hours: '10:00–翌2:00',
+    highlights: ['16種以上のサラダ・スープ食べ放題の目安', '鷺沼駅から徒歩12分の目安・駐車場あり'],
+    notice: BIGBOY_NOTICE,
     familyFriendly: true,
   },
 ];

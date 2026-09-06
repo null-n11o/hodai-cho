@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="バイキングのイラスト">
+  <g fill="none" stroke="#ece7de" stroke-width="5" stroke-linecap="round">
+    <path d="M56 104a64 64 0 0 1 128 0"/>
+    <line x1="44" y1="104" x2="196" y2="104"/>
+    <line x1="72" y1="122" x2="168" y2="122"/>
+  </g>
+  <circle cx="120" cy="28" r="7" fill="none" stroke="#ece7de" stroke-width="5"/>
+  <line x1="120" y1="35" x2="120" y2="42" stroke="#ece7de" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#c4543a">
+    <circle cx="96" cy="88" r="8"/>
+    <circle cx="120" cy="82" r="8"/>
+    <circle cx="144" cy="88" r="8"/>
+  </g>
+  <g stroke="#9a9084" stroke-width="4" stroke-linecap="round">
+    <line x1="60" y1="140" x2="180" y2="140"/>
+  </g>
+</svg>
