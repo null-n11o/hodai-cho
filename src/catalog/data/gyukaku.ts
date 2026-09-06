@@ -6,6 +6,7 @@ export const GYUKAKU_STORES: Store[] = [
   {
     id: 'gyukaku-shinjuku-oguard',
     name: '牛角 新宿大ガード店',
+    officialUrl: 'https://gyukaku-shijukuogard.owst.jp/',
     kana: 'ぎゅうかく しんじゅく',
     chain: '牛角',
     prefecture: '東京',

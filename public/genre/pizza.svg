@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="ピザのイラスト">
+  <g>
+    <path d="M120 28L66 132a8 8 0 0 0 7 11l94-1a8 8 0 0 0 7-11z" fill="none" stroke="#ece7de" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M66 132a8 8 0 0 0 7 11l94-1a8 8 0 0 0 7-11" fill="none" stroke="#9a9084" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g fill="#c4543a">
+    <circle cx="112" cy="72" r="10"/>
+    <circle cx="130" cy="96" r="10"/>
+    <circle cx="108" cy="112" r="8"/>
+  </g>
+  <g fill="#9a9084">
+    <circle cx="126" cy="56" r="5"/>
+    <circle cx="118" cy="92" r="5"/>
+  </g>
+</svg>

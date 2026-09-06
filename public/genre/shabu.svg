@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="しゃぶしゃぶのイラスト">
+  <g fill="none" stroke="#9a9084" stroke-width="5" stroke-linecap="round">
+    <path d="M100 44c-6-10 6-14 0-24"/>
+    <path d="M122 44c-6-10 6-14 0-24"/>
+    <path d="M144 44c-6-10 6-14 0-24"/>
+  </g>
+  <g fill="none" stroke="#ece7de" stroke-width="5" stroke-linecap="round">
+    <path d="M64 84h112c0 30-24 52-56 52s-56-22-56-52z"/>
+    <line x1="52" y1="84" x2="188" y2="84"/>
+  </g>
+  <circle cx="120" cy="66" r="10" fill="none" stroke="#ece7de" stroke-width="5"/>
+  <g stroke="#c4543a" stroke-width="5" stroke-linecap="round">
+    <line x1="170" y1="40" x2="206" y2="96"/>
+    <line x1="186" y1="34" x2="222" y2="90"/>
+  </g>
+</svg>

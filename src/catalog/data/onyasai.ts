@@ -8,6 +8,7 @@ export const ONYASAI_STORES: Store[] = [
     name: 'しゃぶしゃぶ温野菜 関内店',
     kana: 'おんやさい かんない',
     chain: 'しゃぶしゃぶ温野菜',
+    officialUrl: 'https://www.onyasai.com/',
     prefecture: '神奈川',
     area: '関内',
     station: '関内',

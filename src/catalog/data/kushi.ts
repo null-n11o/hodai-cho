@@ -8,6 +8,7 @@ export const KUSHI_STORES: Store[] = [
     name: '串家物語 ダイバーシティ東京プラザ店',
     kana: 'くしやものがたり おだいば',
     chain: '串家物語',
+    officialUrl: 'https://divercity-tokyo.kushi-ya.com/',
     prefecture: '東京',
     area: 'お台場',
     station: '東京テレポート',

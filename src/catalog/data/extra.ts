@@ -9,6 +9,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'king-kichijoji',
     name: '焼肉きんぐ 吉祥寺店',
+    officialUrl: 'https://www.yakiniku-king.jp/shop/2277/',
     kana: 'やきにくきんぐ きちじょうじ',
     chain: '焼肉きんぐ',
     prefecture: '東京',
@@ -29,6 +30,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'king-fujisawa',
     name: '焼肉きんぐ 藤沢店',
+    officialUrl: 'https://www.yakiniku-king.jp/shop/2121/',
     kana: 'やきにくきんぐ ふじさわ',
     chain: '焼肉きんぐ',
     prefecture: '神奈川',
@@ -49,6 +51,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'yuzu-aobadai',
     name: 'ゆず庵 横浜青葉台店',
+    officialUrl: 'https://www.shabu-yuzuan.jp/shop/4185',
     kana: 'ゆずあん あおばだい',
     chain: 'ゆず庵',
     prefecture: '神奈川',
@@ -68,6 +71,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'gyukaku-shibuya-center',
     name: '牛角 渋谷センター街店',
+    officialUrl: 'https://map.reins.co.jp/gyukaku/detail/364553029',
     kana: 'ぎゅうかく しぶや',
     chain: '牛角',
     prefecture: '東京',
@@ -90,6 +94,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'gyukaku-yokohama-west',
     name: '牛角 横浜西口店',
+    officialUrl: 'https://map.reins.co.jp/gyukaku/detail/455770529',
     kana: 'ぎゅうかく よこはま',
     chain: '牛角',
     prefecture: '神奈川',
@@ -109,6 +114,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'kizuna-shinjuku-kabukicho',
     name: 'きづなすし 新宿歌舞伎町店',
+    officialUrl: 'https://r.gnavi.co.jp/g111383/',
     kana: 'きづなすし しんじゅく',
     chain: 'きづなすし',
     prefecture: '東京',
@@ -131,6 +137,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'maita-shibuya',
     name: '肉寿司食べ放題 まいた 渋谷本店',
+    officialUrl: 'https://shibuya-maita.owst.jp/',
     kana: 'にくずし まいた しぶや',
     chain: 'まいた',
     prefecture: '東京',
@@ -159,6 +166,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'tori-kawasaki',
     name: '鳥物語 川崎店',
+    officialUrl: 'https://torimonogatari-kawasaki.owst.jp/',
     kana: 'とりものがたり かわさき',
     chain: '鳥物語',
     prefecture: '神奈川',
@@ -186,6 +194,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'ushi-kawasaki',
     name: '牛物語 川崎店',
+    officialUrl: 'https://r.gnavi.co.jp/1h4dmk380000/',
     kana: 'うしものがたり かわさき',
     chain: '牛物語',
     prefecture: '神奈川',
@@ -214,6 +223,7 @@ export const EXTRA_STORES: Store[] = [
   {
     id: 'momo-shibuya-center',
     name: 'モーモーパラダイス 渋谷センター街店',
+    officialUrl: 'https://mo-mo-paradise.com/pages/shop-list/shibuyacenter',
     kana: 'もーもーぱらだいす しぶや',
     chain: 'モーモーパラダイス',
     prefecture: '東京',

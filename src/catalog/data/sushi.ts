@@ -10,6 +10,7 @@ export const SUSHI_STORES: Store[] = [
   {
     id: 'hina-shinjuku-iland',
     name: '雛鮨 新宿アイランドタワー店',
+    officialUrl: 'https://hina-sushi.com/shops/shinjuku-i-land/',
     kana: 'ひなずし しんじゅく',
     chain: '雛鮨',
     prefecture: '東京',
@@ -29,6 +30,7 @@ export const SUSHI_STORES: Store[] = [
   {
     id: 'hina-ikebukuro-labi',
     name: '雛鮨 LABI池袋本店',
+    officialUrl: 'https://hina-sushi.com/ikebukuro-yamada-labi/',
     kana: 'ひなずし いけぶくろ',
     chain: '雛鮨',
     prefecture: '東京',

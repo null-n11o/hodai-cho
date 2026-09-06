@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-label="スイーツのイラスト">
+  <g fill="none" stroke="#ece7de" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M92 52h56l-14 66H106z"/>
+    <line x1="84" y1="128" x2="156" y2="128"/>
+    <line x1="120" y1="128" x2="120" y2="142"/>
+  </g>
+  <g fill="none" stroke="#9a9084" stroke-width="4" stroke-linecap="round">
+    <path d="M98 84h44"/>
+    <path d="M102 100h36"/>
+  </g>
+  <circle cx="120" cy="38" r="10" fill="#c4543a"/>
+  <path d="M120 28c0-8 6-12 12-14" fill="none" stroke="#9a9084" stroke-width="4" stroke-linecap="round"/>
+</svg>
