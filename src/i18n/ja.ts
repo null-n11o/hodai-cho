@@ -1,4 +1,18 @@
-export const ja = {
+export interface Dict {
+  nav: {
+    search: string;
+    saved: string;
+    main: string;
+  };
+  lang: {
+    toEnglish: string;
+    toEnglishLabel: string;
+    toJapanese: string;
+    toJapaneseLabel: string;
+  };
+}
+
+export const ja: Dict = {
   nav: {
     search: '探す',
     saved: '保存',
@@ -10,6 +24,4 @@ export const ja = {
     toJapanese: '日本語',
     toJapaneseLabel: '日本語に切り替える',
   },
-} as const;
-
-export type Dict = typeof ja;
+};

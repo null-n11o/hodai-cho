@@ -1,5 +1,4 @@
 import type { Dict } from './ja';
-
 export const en: Dict = {
   nav: {
     search: 'Search',
