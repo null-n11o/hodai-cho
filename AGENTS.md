@@ -2,11 +2,12 @@
 
 東京・神奈川の食べ放題条件帳。静的SPA（Vite + React + TS + Tailwind、DBなし）。
 
-## 設計書
+## 設計書（読む順）
 
-- `docs/PLAN-20260906-300-hodai-cho-expansion.md`（設計、approved）
-- `docs/PLAN-20260906-301-hodai-cho-implementation-plan.md`（実装計画、approved）
-- 新規開発の要件・計画は `docs/superpowers/specs/` と `docs/superpowers/plans/` に置く。作り方は「開発フロー」参照。
+1. `docs/superpowers/specs/2026-09-06-hodai-cho-design.md`（要件・設計の正本。自己完結）
+2. `docs/superpowers/plans/2026-09-06-hodai-cho-implementation.md`（実装計画。Task 1〜8実施済み）
+3. `docs/PLAN-20260906-300-hodai-cho-expansion.md`、`docs/PLAN-20260906-301-hodai-cho-implementation-plan.md`（原本コピー。履歴参照用）
+4. 新規開発の要件・計画は `docs/superpowers/specs/` と `docs/superpowers/plans/` に置く。作り方は「開発フロー」参照。
 
 ## Commands
 
@@ -30,7 +31,7 @@
 
 - PLAN-20260906-301 の Task 順で進める。Task 6 は追加店リスト確定待ちのため着手しない。
 - TDD厳守（RED-GREEN-REFACTOR）。プレースホルダ・ダミー店禁止。各タスク完了ごとにコミットし、次のタスクへの進行確認を取る。
-- **PLAN Global Constraints が最優先。** 日本語UI（英語はヒーローの TOKYO / KANAGAWA のみ）、ダーク固定（`ink #0e0d0c` / `ivory #ece7de` / `stone #9a9084` / `stonedim #6f675e` / `aka #c4543a`、ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示禁止）、見出し Shippori Mincho・本文 IBM Plex Sans JP、動き150–400ms（`prefers-reduced-motion` で無効化）、タップ面44px以上・保存ボタンに `aria-label`＋`aria-pressed`・`lang="ja"`、料金は `¥`＋`toLocaleString('ja-JP')`、ページ全体の横スクロール禁止（横スクロールはチップ列のみ）・最大幅モバイルカラム（`max-w-lg`）中央寄せ、人手精査済み店のみ掲載＋共通免責フッター、予約リンクは外部素リンク（別タブ、アフィリエイト・在庫連動・決済・クーポンなし）、ジャンル写真は料理静物のみ。
+- **PLAN Global Constraints が最優先。** UIは日英対応（既定は日本語、`/en/` 以下に英語、`hreflang` 付き）、ダーク固定（`ink #0e0d0c` / `ivory #ece7de` / `stone #9a9084` / `stonedim #6f675e` / `aka #c4543a`、ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示禁止）、見出し Shippori Mincho・本文 IBM Plex Sans JP、動き150–400ms（`prefers-reduced-motion` で無効化）、タップ面44px以上・保存ボタンに `aria-label`＋`aria-pressed`・`lang="ja"`、料金は `¥`＋`toLocaleString('ja-JP')`、ページ全体の横スクロール禁止（横スクロールはチップ列のみ）・最大幅モバイルカラム（`max-w-lg`）中央寄せ、人手精査済み店のみ掲載＋共通免責フッター、予約リンクは外部素リンク（別タブ、アフィリエイト・在庫連動・決済・クーポンなし）、ジャンル写真は料理静物のみ。
 - 未知ID・0件は落とさず専用表示＋探す導線にする。外部リンク失敗はブラウザに委譲する。
 - デプロイ・公開URL確定・Search Console登録はCEO作業で実装外。秘密値はリポジトリに入れない。
 
