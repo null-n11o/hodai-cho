@@ -6,6 +6,7 @@
 
 - `docs/PLAN-20260906-300-hodai-cho-expansion.md`（設計、approved）
 - `docs/PLAN-20260906-301-hodai-cho-implementation-plan.md`（実装計画、approved）
+- 新規開発の要件・計画は `docs/superpowers/specs/` と `docs/superpowers/plans/` に置く。作り方は「開発フロー」参照。
 
 ## Commands
 
@@ -33,10 +34,20 @@
 - 未知ID・0件は落とさず専用表示＋探す導線にする。外部リンク失敗はブラウザに委譲する。
 - デプロイ・公開URL確定・Search Console登録はCEO作業で実装外。秘密値はリポジトリに入れない。
 
+## 開発フロー（superpowers）
+
+このリポジトリだけで完結する。新規開発は次の3段階で回す。KCP式のPLAN書式は使わない。
+
+1. 入力: 軽い要求定義を受け取る。アイデアメモ程度でよい（チャット貼り付け・ファイルどちらでも）。要求が荒いままなら `superpowers:brainstorming` で掘り下げ、合意した設計を `docs/superpowers/specs/YYYY-MM-DD-<name>-design.md` に保存する。
+2. 計画: `superpowers:writing-plans` で実装計画を作り、`docs/superpowers/plans/YYYY-MM-DD-<name>.md` に保存する。タスクは短時間で終わる粒度に割り、対象ファイル・検証手順・コミット単位まで書く。
+3. 実装: `superpowers:subagent-driven-development`（サブエージェントが使える環境での既定）または `superpowers:executing-plans`（別セッション・チェックポイント型）で計画を実行する。TDD厳守、タスクごとにコミット。設計書の制約（後述の Global Constraints 相当）は計画に引き継ぐ。
+
 ## Skill routing
 
 ユーザーの依頼に合うスキルがあるときは Skill ツール（または各ランタイムの相当手段）で呼び出す。迷ったら呼び出す。
 
+- 新規アイデアの掘り下げ -> `superpowers:brainstorming`
+- 実装計画の作成 -> `superpowers:writing-plans`
 - 実装計画の実行 -> `superpowers:subagent-driven-development`（サブエージェントが使える環境での既定）または `superpowers:executing-plans`（別セッションで実行する場合）。詳細は「Superpowers の使い方」参照。
 - バグ・エラー調査 -> `investigate`
 - 仕様・スコープの戦略判断 -> `plan-ceo-review`
@@ -49,10 +60,10 @@
 
 ### Taste系スキルの扱い（補助のみ）
 
-`design-taste-frontend` / `minimalist-ui` / `redesign-existing-projects` は新規画面の補助参照に限定する。PLAN Global Constraints と競合したら PLAN が勝つ。taste既定のフォント差し替え・パレット変更・ライトテーマ化は、PLAN改訂＋CEO承認なしに行わない。
+`design-taste-frontend` / `minimalist-ui` / `redesign-existing-projects` は新規画面の補助参照に限定する。PLAN Global Constraints と競合したら Constraints が勝つ。taste既定のフォント差し替え・パレット変更・ライトテーマ化は、設計書の改訂＋CEO承認なしに行わない。
 
 ### Superpowers の使い方
 
 - Claude Code: `superpowers` プラグインが全体に導入済み。`/superpowers-subagent-driven-development` のようにスラッシュ実行するか、Skill ツールで `superpowers:subagent-driven-development` を指定する。
-- Codex / Cursor / opencode 等: プロジェクトローカルのスキルはないため、PLAN-20260906-301 の Task 記載（チェックボックス形式の Step、失敗テスト→最小実装→検証→コミット）をそのまま手順として実行する。サブエージェント機能がある環境では1タスク1サブエージェント＋タスクごとのレビュー（仕様準拠→品質）を再現する。
+- Codex / Cursor / opencode 等: プロジェクトローカルのスキルはないため、`docs/superpowers/plans/` の計画書の手順（チェックボックス形式の Step、失敗テスト→最小実装→検証→コミット）をそのまま実行する。サブエージェント機能がある環境では1タスク1サブエージェント＋タスクごとのレビュー（仕様準拠→品質）を再現する。
 - 対応表: 同一セッションで逐次実行するなら `subagent-driven-development`、別セッションでチェックポイントを挟むなら `executing-plans`。どちらもテスト→実装→検証→コミットの順序は変えない。
