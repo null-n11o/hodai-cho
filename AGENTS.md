@@ -50,6 +50,7 @@
 - 新規アイデアの掘り下げ -> `superpowers:brainstorming`
 - 実装計画の作成 -> `superpowers:writing-plans`
 - 実装計画の実行 -> `superpowers:subagent-driven-development`（サブエージェントが使える環境での既定）または `superpowers:executing-plans`（別セッションで実行する場合）。詳細は「Superpowers の使い方」参照。
+- UI/UXの探索・再設計・フロー監査 -> Product Designプラグイン（`product-design:index`。再設計は `product-design:get-context` → `product-design:ideate`、既存画面の監査は `product-design:audit`）
 - バグ・エラー調査 -> `investigate`
 - 仕様・スコープの戦略判断 -> `plan-ceo-review`
 - アーキテクチャ固定 -> `plan-eng-review`
@@ -62,6 +63,13 @@
 ### Taste系スキルの扱い（補助のみ）
 
 `design-taste-frontend` / `minimalist-ui` / `redesign-existing-projects` は新規画面の補助参照に限定する。PLAN Global Constraints と競合したら Constraints が勝つ。taste既定のフォント差し替え・パレット変更・ライトテーマ化は、設計書の改訂＋CEO承認なしに行わない。
+
+### Product Design の使い方
+
+- Product Designプラグインは、放題帖のUI/UX探索・再設計・画面監査・プロトタイプ検討の第一候補とする。通常の実装や単純なCSS修正だけでは使わず、主目的がデザインの探索・評価・改善である場合に使う。
+- 新しいUI方向や再設計では、まず `product-design:get-context` で対象とユーザー成果を確認し、次に `product-design:ideate` で視覚案を作る。視覚ターゲットがない場合は、3案を比較してユーザーが選ぶまで、ファイル編集・サーバー起動・実装に進まない。
+- 既存画面・既存フローのレビューや改善では、まず `product-design:audit` でスクリーンショットに基づくUX・デザイン・アクセシビリティの指摘を出す。監査と実装を同じ依頼で行う場合も、監査を先に完了する。
+- Product Designの提案・プロトタイプは、PLAN Global Constraints、既存設計書、実データのみ・日英対応・アクセシビリティ・横スクロール禁止などのリポジトリ制約を上書きしない。
 
 ### Superpowers の使い方
 
