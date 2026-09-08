@@ -136,6 +136,13 @@ SITE_URL=https://tabeho.<アカウントのサブドメイン>.workers.dev npm r
 
 現在の無料公開URLは `https://tabeho.nakano-kentaro7.workers.dev` です。独自ドメインを取得した後は、`wrangler.jsonc`のカスタムドメイン設定と`SITE_URL`をそのドメインへ切り替えます。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
 
+`main`へのpushで自動デプロイするGitHub Actionsも設定しています。初回だけ、GitHubリポジトリの **Settings > Secrets and variables > Actions** に次のRepository secretsを登録してください。
+
+- `CLOUDFLARE_API_TOKEN` — 対象アカウントのWorkersデプロイ用APIトークン
+- `CLOUDFLARE_ACCOUNT_ID` — CloudflareアカウントID
+
+登録後は、`main`へのpushまたはActions画面の手動実行で、テスト、lint、SSGビルド、生成物チェック、Cloudflareデプロイを順に実行します。PRのpushでは本番デプロイしません。
+
 ## リポジトリ内の主な場所
 
 - `src/catalog/` — 店舗データ、型、カタログ検証、Repository
