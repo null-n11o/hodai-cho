@@ -16,6 +16,7 @@ import { SALADBAR_STORES } from './data/saladbar';
 import { ITALIAN_STORES } from './data/italian';
 import { VIKING_STORES } from './data/viking';
 import { OKAWARI_STORES } from './data/okawari';
+import { OKAWARI_CHAIN_STORES } from './data/okawari-chains';
 
 export const SEED_STORES: Store[] = [
   ...SYABUYO_STORES,
@@ -35,4 +36,5 @@ export const SEED_STORES: Store[] = [
   ...ITALIAN_STORES,
   ...VIKING_STORES,
   ...OKAWARI_STORES,
+  ...OKAWARI_CHAIN_STORES,
 ];

@@ -26,6 +26,7 @@ export const STATION_EN: Record<string, string> = {
   恵比寿: 'Ebisu',
   成城学園前: 'Seijogakuen-mae',
   押上: 'Oshiage',
+  表参道: 'Omotesando',
   新宿: 'Shinjuku',
   新宿三丁目: 'Shinjuku-sanchome',
   新宿西口: 'Shinjuku-nishiguchi',
@@ -158,4 +159,10 @@ export const CHAIN_EN: Record<string, string> = {
   '洋食屋 伊勢十': 'Yousyokuya Iseju',
   '和の菜彩 さとう': 'Wa no Saisai Satou',
   'まぐろ相馬水産': 'Maguro Souma Suisan',
+  やよい軒: 'Yayoiken',
+  ねぎし: 'Negishi',
+  とんかつ和幸: 'Tonkatsu Wako',
+  とんかつ新宿さぼてん: 'Tonkatsu Shinjuku Saboten',
+  '大かまど飯 寅福': 'Okamado-meshi Torafuku',
+  'とんかつ まい泉': 'Tonkatsu Maisen',
 };

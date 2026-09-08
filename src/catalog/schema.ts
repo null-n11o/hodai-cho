@@ -1,4 +1,4 @@
-export const CATALOG_VERSION = '2026-09-08+en.2';
+export const CATALOG_VERSION = '2026-09-08+en.3';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
