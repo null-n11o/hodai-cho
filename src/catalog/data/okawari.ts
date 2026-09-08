@@ -27,9 +27,9 @@ export const OKAWARI_STORES: Store[] = [
     courses: [
       {
         slot: 'lunch',
-        name: '昼のおすすめ 前菜4種盛り',
-        nameEn: 'Lunch recommendation: 4-piece appetizer set',
-        priceInclTax: 3850,
+        name: 'ランチ定食（2026年9月7日訪問）',
+        nameEn: 'Lunch set (Sep 7, 2026 visit)',
+        priceInclTax: 2000,
         minutes: null,
         note: '主菜・ごはん・お味噌汁・お漬物付き。ご飯・味噌汁のおかわり自由は2026年9月7日の訪問情報。最新条件は来店時に確認してください。',
         noteEn: 'Main, rice, miso soup, and pickles included. Rice and miso soup refills are based on a visit report from Sep 7, 2026; confirm the current terms when visiting.',
