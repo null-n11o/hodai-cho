@@ -14,7 +14,7 @@
 - 対象: 東京・神奈川の食べ放題店（2026-09-08時点で107店）。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会食放・パン食べ放題・お好み焼き・サラダバー・バイキング・定食おかわり自由の12ジャンル。
 - 採否: 食べ放題が来店目的になりうる店・宴会コースまで可。飲み放題本体の居酒屋・バー、カラオケは除外。
 - 予約リンクは外部素リンク（別タブ）のみ。アフィリエイトID付与・在庫連動・決済・クーポン発行はしない。
-- 公開URL確定・Search Console登録・配信設定は実装外（別作業）。
+- 本番公開URLの確定・DNS切替・Search Console登録は実装外（別作業）。Cloudflare Workers Static Assetsの設定とPreview検証手順は実装する。
 
 ## 3. アーキテクチャ
 
@@ -27,6 +27,9 @@
 
 - 画面は `CatalogRepository` 抽象（`listStores()` / `getStore(id)` / `catalogVersion()`）にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
 - フィルタ条件は永続化しない（再訪時は初期条件＝都県:東京）。永続化するのはお気に入りIDのみ（キー `tabeho`）。
+- 公開基盤は Cloudflare Workers Static Assets とする。`npm run build:ssg` が生成する `dist/` を配信し、現時点では Worker の動的APIとD1は使わない。
+- Cloudflare上のサービス名は `tabeho` とする。`/api/*` は将来のWorker API用に予約し、D1が必要になった場合も画面から直接接続せず、Worker APIとRepository実装を介して接続する。
+- ドメイン・DNS・HTTPS・エッジ配信はCloudflareで管理する。ソースコードのGitリポジトリはCloudflare外でもよく、Git pushを起点にCloudflareへデプロイする。
 
 ## 4. カタログ
 
@@ -63,6 +66,7 @@
 ## 8. SSG・SEO・多言語
 
 - `npm run build:ssg` で店別・エリア別静的HTML（日英）＋ `sitemap.xml` ＋ `robots.txt` を `dist/` へ生成。`SITE_URL` 環境変数で本番URL上書き可（既定は仮置きURL）。
+- Cloudflareへの初期デプロイは `build:ssg` 後の `dist/` をWorkers Static Assetsとして公開する。店別・エリア別の静的HTMLを優先し、未知IDや未生成パスはSPAフォールバックで既存の専用表示へ委譲する。
 - プリレンダはJS無効でも店名・料金・分数・リンクが読めること。localStorage参照はSSRで落ちないこと（`try/catch` 済み）。
 - 基盤: `src/seo/meta.ts`（タイトル・説明・JSON-LD・sitemap）・`src/seo/prerender.tsx`・`scripts/prerender.mjs`・`src/routes.tsx`（Routes木）。
 

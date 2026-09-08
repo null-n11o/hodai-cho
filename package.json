@@ -7,6 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:ssg": "npm run build && node scripts/prerender.mjs",
+    "verify:cloudflare": "node scripts/verify-cloudflare-build.mjs",
+    "build:cloudflare": "npm run build:ssg && npm run verify:cloudflare",
+    "cf:dev": "npm run build:ssg && wrangler dev",
+    "cf:deploy": "npm run build:ssg && node scripts/verify-cloudflare-build.mjs --require-site-url && wrangler deploy",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run"
@@ -30,6 +34,7 @@
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",
     "vite": "^8.2.2",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "wrangler": "^4.129.1"
   }
 }
