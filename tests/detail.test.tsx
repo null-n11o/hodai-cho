@@ -28,4 +28,11 @@ describe('DetailPage', () => {
     expect(screen.getByTestId('hero').className).toContain('md:grid-cols-2');
     expect(screen.getByTestId('actions').className).toContain('md:flex-row');
   });
+
+  it('画像注記を画像の直下ではなくページ下部にまとめる', () => {
+    const first = new BundledCatalogRepository().listStores()[0];
+    renderDetail(first.id);
+    expect(screen.getByText('写真はジャンルイメージです。')).toBeTruthy();
+    expect(screen.queryByText('ジャンルイメージ（店舗の写真ではありません）')).toBeNull();
+  });
 });

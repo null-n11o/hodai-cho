@@ -7,6 +7,7 @@ import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { useState } from 'react';
 import { dictionary, useLanguage } from '../i18n/language';
 import { areaCountLine, areaTitle, prefName } from '../i18n/format';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -65,7 +66,7 @@ export function AreaPage() {
           {t.changeFilters}
         </Link>
       </div>
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      <SiteDisclaimer />
     </main>
   );
 }

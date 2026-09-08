@@ -6,6 +6,7 @@ import { StoreCard } from '../components/StoreCard';
 import { EmptyState } from '../components/EmptyState';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, useLanguage } from '../i18n/language';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -45,7 +46,7 @@ export function SavedPage() {
           ))
         )}
       </div>
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      <SiteDisclaimer />
     </main>
   );
 }

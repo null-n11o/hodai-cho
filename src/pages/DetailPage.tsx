@@ -6,6 +6,7 @@ import type { Store } from '../catalog/schema';
 import { CourseTable } from '../components/CourseTable';
 import { EmptyState } from '../components/EmptyState';
 import { GenreImage } from '../components/GenreImage';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
 import { prefName, stationLine } from '../i18n/format';
@@ -86,7 +87,6 @@ export function DetailPage() {
       <div data-testid="hero" className="detail-hero mt-2 md:mt-4 md:grid md:grid-cols-2 md:items-start md:gap-6">
       <div>
         <GenreImage genre={store.genres[0]} />
-        <p className="image-caption">{lang === 'en' ? 'Category illustration, not a photo of this shop' : 'ジャンルイメージ（店舗の写真ではありません）'}</p>
       </div>
 
       <div className="mt-2 flex items-start justify-between gap-3 md:mt-0">
@@ -183,7 +183,7 @@ export function DetailPage() {
           </ul>
         </section>
       ) : null}
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      <SiteDisclaimer />
     </main>
   );
 }

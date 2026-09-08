@@ -120,6 +120,7 @@ export interface Dict {
     title: string;
     advice: string[];
   };
+  imageDisclaimer: string;
   disclaimer: string;
   genres: Record<Genre, string>;
   prefs: Record<Prefecture, string>;
@@ -244,6 +245,7 @@ export const ja: Dict = {
     title: 'その条件の店はない',
     advice: ['エリアを「すべて」に戻してみる', '予算の上限を上げてみる', '分数の条件を緩めてみる'],
   },
+  imageDisclaimer: '写真はジャンルイメージです。',
   disclaimer:
     '掲載は東京・神奈川の食べ放題店に限った目安です。料金・制限時間は2026年時点の公開情報を編集したもので、店舗・曜日・フェアで変わります。行く前に公式を確認してください。',
   genres: {

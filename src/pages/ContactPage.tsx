@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
 import { AREA_EN } from '../catalog/en-names';
 import { dictionary, useLanguage } from '../i18n/language';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository = new BundledCatalogRepository();
 const GITHUB_NEW_ISSUE_URL = 'https://github.com/null-n11o/hodai-cho/issues/new';
@@ -232,7 +233,7 @@ export function ContactPage() {
       <div className="mt-8">
         <Link to={searchTo} className="inline-flex min-h-[44px] items-center border-b border-stonedim/60 text-sm font-bold text-ivory">← {t.backToSearch}</Link>
       </div>
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      <SiteDisclaimer />
     </main>
   );
 }

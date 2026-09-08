@@ -13,6 +13,7 @@ import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
 import { budgetLabel, prefName, resultsCount } from '../i18n/format';
 import { AREA_EN } from '../catalog/en-names';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -259,7 +260,7 @@ export function SearchPage() {
           </nav>
         </section>
       </div>
-      <footer className="site-disclaimer"><p>{dict.disclaimer}</p></footer>
+      <SiteDisclaimer />
       <FilterSheet
         open={sheetOpen}
         slot={cond.slot}

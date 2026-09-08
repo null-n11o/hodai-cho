@@ -13,6 +13,12 @@ describe('SearchPage', () => {
     expect(screen.getByText(/\d+件/)).toBeTruthy();
   });
 
+  it('画像注記はカードごとでなくページ下部にまとめて出る', () => {
+    render(<MemoryRouter><SearchPage /></MemoryRouter>);
+    expect(screen.getByText('写真はジャンルイメージです。')).toBeTruthy();
+    expect(screen.queryAllByText('ジャンルイメージ', { exact: true })).toHaveLength(0);
+  });
+
   it('0件のときダミー店を出さず緩和案内がある', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
     // 存在しない駅で0件にする操作はUI経由で行う。ここでは空状態コンポーネントの文言を保証する
