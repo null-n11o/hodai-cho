@@ -238,14 +238,14 @@ git commit -m "docs: add tabeho cloudflare deployment workflow"
 - Consumes: Task 1〜2の設定、テスト、ドキュメント
 - Produces: 本番デプロイを実行せずに、Cloudflare配信の引き渡し判断ができるレビュー結果
 
-- [ ] **Step 1: 既存制約との差分を確認する**
+- [x] **Step 1: 既存制約との差分を確認する**
 
 Confirm there is no D1 dependency, `CatalogRepository` is preserved, `SITE_URL` is build-time only, and no credentials or production identifiers are committed.
 
-- [ ] **Step 2: 全検証を確認する**
+- [x] **Step 2: 全検証を確認する**
 
 Require `npm test`, `npm run lint`, `npm run build`, `npm run build:ssg`, and `npm run verify:cloudflare` to pass before requesting a release PR.
 
-- [ ] **Step 3: PRを作成して引き渡す**
+- [x] **Step 3: PRを作成して引き渡す**
 
-Use the repository review and ship workflow to create a PR from the work branch. Do not merge, attach the production domain, or deploy production without explicit user approval.
+Use the repository review and ship workflow to create or update a PR from the work branch. The existing PR is `https://github.com/null-n11o/tabeho/pull/13`. Do not merge, attach the production domain, or deploy production without explicit user approval.
