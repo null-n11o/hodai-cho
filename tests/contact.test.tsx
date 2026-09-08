@@ -26,7 +26,7 @@ describe('ContactPage', () => {
     fireEvent.click(screen.getByRole('button', { name: 'GitHubの投稿画面を開く' }));
     expect(open).toHaveBeenCalledTimes(1);
     const opened = String(open.mock.calls[0][0]);
-    expect(opened).toContain('github.com/null-n11o/hodai-cho/issues/new');
+    expect(opened).toContain('github.com/null-n11o/tabeho/issues/new');
     expect(new URL(opened).searchParams.get('title')).toContain('蔵部 銀座 / 銀座');
     expect(new URL(opened).searchParams.get('body')).toContain('ランチは税込2000円');
     expect(screen.getByRole('status').textContent).toContain('投稿内容をGitHubの下書きにしました');

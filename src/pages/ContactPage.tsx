@@ -7,7 +7,7 @@ import { dictionary, useLanguage } from '../i18n/language';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository = new BundledCatalogRepository();
-const GITHUB_NEW_ISSUE_URL = 'https://github.com/null-n11o/hodai-cho/issues/new';
+const GITHUB_NEW_ISSUE_URL = 'https://github.com/null-n11o/tabeho/issues/new';
 
 type RequestType = 'correction' | 'addition' | 'closed' | 'other';
 
