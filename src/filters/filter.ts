@@ -13,6 +13,7 @@ export interface FilterCond {
   slot: SlotCond;
   timeLimit: TimeLimitCond;
   budget?: number;
+  walkMax?: number;
   sort: SortCond;
 }
 
@@ -74,6 +75,7 @@ export function filterStores(stores: Store[], cond: FilterCond): Store[] {
     if (cond.timeLimit === 'le90' && !scoped.some((c) => c.minutes !== null && c.minutes <= 90)) return false;
     if (cond.timeLimit === 'le120' && !scoped.some((c) => c.minutes === null || (c.minutes !== null && c.minutes <= 120))) return false;
     if (cond.budget !== undefined && minPrice(scoped) > cond.budget) return false;
+    if (cond.walkMax !== undefined && s.walkMinutes > cond.walkMax) return false;
     return true;
   });
   const by = {

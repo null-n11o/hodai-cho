@@ -32,6 +32,7 @@ const INITIAL: FilterCond = {
 const PREFECTURES: Prefecture[] = ['東京', '神奈川'];
 
 const BUDGETS = Array.from({ length: 15 }, (_, index) => 1000 + index * 500);
+const WALK_MAXES = [3, 5, 10, 15];
 const SLOTS: SlotCond[] = ['all', 'lunch', 'dinner'];
 const SORTS: SortCond[] = ['recommend', 'cheap', 'near', 'short'];
 
@@ -63,7 +64,7 @@ export function SearchPage() {
   );
 
   const sheetActive =
-    cond.slot !== 'all' || cond.timeLimit !== 'all' || cond.budget !== undefined || cond.sort !== 'recommend';
+    cond.slot !== 'all' || cond.timeLimit !== 'all' || cond.budget !== undefined || cond.walkMax !== undefined || cond.sort !== 'recommend';
 
   const switchPrefecture = (prefecture: Prefecture) => {
     setCond({ ...INITIAL, prefecture });
@@ -86,6 +87,8 @@ export function SearchPage() {
 
   const areaLabel = (area: string): string => (lang === 'en' ? (AREA_EN[area] ?? area) : area);
 
+  const quickGenre = cond.genres.length > 1 ? '__multiple__' : (cond.genres[0] ?? '');
+
   const areaLink = (prefecture: string, area: string): string => {
     const path = areaPath(prefecture, area);
     return lang === 'en' ? toEnPath(path) : path;
@@ -94,22 +97,65 @@ export function SearchPage() {
   return (
     <main className="site-main search-page">
       <header className="search-hero">
-        <p className="eyebrow">TOKYO / KANAGAWA</p>
-        <h1>{lang === 'en' ? 'Find your next all-you-can-eat.' : '今日の食べ放題を、見つけよう。'}</h1>
-        <p>{lang === 'en' ? 'Compare prices, time limits and locations across Tokyo and Kanagawa.' : '東京・神奈川の食べ放題を、料金・時間・場所で探せます。'}</p>
+        <div className="search-hero-copy">
+          <p className="eyebrow">TOKYO / KANAGAWA</p>
+          <h1>{lang === 'en' ? 'Find your next all-you-can-eat.' : '今日の食べ放題を、見つけよう。'}</h1>
+          <p>{lang === 'en' ? 'Compare prices, time limits and locations across Tokyo and Kanagawa.' : '東京・神奈川の食べ放題を、料金・時間・場所で探せます。'}</p>
+        </div>
+        <img className="search-hero-image" src="/food/hero-all-day.png" alt="" />
       </header>
 
       <section className="search-panel" aria-label={lang === 'en' ? 'Search restaurants' : 'お店を検索'}>
-        <label className="keyword-field">
-          <span>{dict.search.keywordSr}</span>
-          <input
-            type="search"
-            placeholder={dict.search.keywordPlaceholder}
-            value={cond.freeword}
-            onChange={(e) => setCond((prev) => ({ ...prev, freeword: e.target.value }))}
-          />
-        </label>
-        <div className="quick-filters">
+        <div className="search-panel-heading">
+          <div>
+            <p className="search-panel-kicker">{lang === 'en' ? 'TODAY’S TABLE' : '今日の食卓'}</p>
+            <h2>{lang === 'en' ? 'Start with area and cuisine.' : 'エリアとジャンルから、まず絞る。'}</h2>
+          </div>
+          <p>{lang === 'en' ? 'Then compare price and distance to find a table that fits.' : '料金と駅からの距離を見比べて、今日の候補を探せます。'}</p>
+        </div>
+        <div className="search-fields">
+          <label className="keyword-field">
+            <span>{dict.search.keywordSr}</span>
+            <input
+              type="search"
+              placeholder={dict.search.keywordPlaceholder}
+              value={cond.freeword}
+              onChange={(e) => setCond((prev) => ({ ...prev, freeword: e.target.value }))}
+            />
+          </label>
+          <label className="select-field">
+            <span>{lang === 'en' ? 'Region' : '都県'}</span>
+            <select
+              aria-label={lang === 'en' ? 'Region' : '都県'}
+              value={cond.prefecture}
+              onChange={(e) => switchPrefecture(e.target.value as Prefecture)}
+            >
+              {PREFECTURES.map((prefecture) => <option key={prefecture} value={prefecture}>{prefName(lang, prefecture)}</option>)}
+            </select>
+          </label>
+          <label className="select-field">
+            <span>{lang === 'en' ? 'Area' : 'エリア'}</span>
+            <select
+              aria-label={lang === 'en' ? 'Area' : 'エリア'}
+              value={cond.area ?? ''}
+              onChange={(e) => setCond((prev) => ({ ...prev, area: e.target.value || undefined }))}
+            >
+              <option value="">{lang === 'en' ? `All ${prefName(lang, cond.prefecture)}` : `${prefName(lang, cond.prefecture)}すべて`}</option>
+              {areas.map((area) => <option key={area} value={area}>{areaLabel(area)}</option>)}
+            </select>
+          </label>
+          <label className="select-field">
+            <span>{lang === 'en' ? 'Cuisine' : '料理ジャンル'}</span>
+            <select
+              aria-label={lang === 'en' ? 'Cuisine' : '料理ジャンル'}
+              value={quickGenre}
+              onChange={(e) => setCond((prev) => ({ ...prev, genres: e.target.value ? [e.target.value as Genre] : [] }))}
+            >
+              <option value="">{lang === 'en' ? 'All cuisines' : 'すべて'}</option>
+              {cond.genres.length > 1 && <option value="__multiple__" disabled>{lang === 'en' ? 'Multiple selected' : '複数選択中'}</option>}
+              {GENRES.map((genre) => <option key={genre} value={genre}>{dict.genres[genre]}</option>)}
+            </select>
+          </label>
           <label className="select-field">
             <span>{lang === 'en' ? 'Time' : '時間帯'}</span>
             <select
@@ -129,6 +175,17 @@ export function SearchPage() {
             >
               <option value="">{budgetLabel(lang, undefined)}</option>
               {BUDGETS.map((yen) => <option key={yen} value={yen}>{budgetLabel(lang, yen)}</option>)}
+            </select>
+          </label>
+          <label className="select-field">
+            <span>{lang === 'en' ? 'Walk from station' : '駅からの徒歩時間'}</span>
+            <select
+              aria-label={lang === 'en' ? 'Walk from station' : '駅からの徒歩時間'}
+              value={cond.walkMax ?? ''}
+              onChange={(e) => setCond((prev) => ({ ...prev, walkMax: e.target.value === '' ? undefined : Number(e.target.value) }))}
+            >
+              <option value="">{lang === 'en' ? 'No preference' : '指定なし'}</option>
+              {WALK_MAXES.map((minutes) => <option key={minutes} value={minutes}>{lang === 'en' ? `Within ${minutes} min` : `徒歩${minutes}分以内`}</option>)}
             </select>
           </label>
           <button type="button" aria-pressed={sheetActive} onClick={() => setSheetOpen(true)} className={`filter-button${sheetActive ? ' is-active' : ''}`}>
@@ -208,6 +265,7 @@ export function SearchPage() {
         slot={cond.slot}
         timeLimit={cond.timeLimit}
         budget={cond.budget}
+        walkMax={cond.walkMax}
         sort={cond.sort}
         onChange={(patch) => setCond((prev) => ({ ...prev, ...patch }))}
         onClose={() => setSheetOpen(false)}

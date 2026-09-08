@@ -29,6 +29,23 @@ describe('SearchPage', () => {
     expect(screen.getAllByRole('article')).toHaveLength(initial);
   });
 
+  it('検索の入口でエリア・ジャンル・駅近を選べる', () => {
+    render(<MemoryRouter><SearchPage /></MemoryRouter>);
+    expect(screen.getByRole('combobox', { name: 'エリア' })).toBeTruthy();
+    expect(screen.getByRole('combobox', { name: '料理ジャンル' })).toBeTruthy();
+    expect(screen.getByRole('combobox', { name: '駅からの徒歩時間' })).toBeTruthy();
+  });
+
+  it('検索の入口で選んだエリア・ジャンル・駅近が一覧に反映される', () => {
+    render(<MemoryRouter><SearchPage /></MemoryRouter>);
+    fireEvent.change(screen.getByRole('combobox', { name: 'エリア' }), { target: { value: '新宿' } });
+    fireEvent.change(screen.getByRole('combobox', { name: '料理ジャンル' }), { target: { value: '焼肉' } });
+    fireEvent.change(screen.getByRole('combobox', { name: '駅からの徒歩時間' }), { target: { value: '5' } });
+    const stores = screen.getAllByRole('article');
+    expect(stores.length).toBeGreaterThan(0);
+    expect(stores.every((article) => within(article).getAllByText(/徒歩[0-5]分/).length > 0)).toBe(true);
+  });
+
   it('一覧の並び替えとキーワード検索がすぐに反映される', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
     fireEvent.change(screen.getByRole('combobox', { name: '並び' }), { target: { value: 'cheap' } });

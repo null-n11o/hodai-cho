@@ -35,6 +35,7 @@ export interface Dict {
     time: string;
     duration: string;
     budget: string;
+    walk: string;
     sort: string;
     close: string;
     slots: Record<SlotCond, string>;
@@ -44,6 +45,7 @@ export interface Dict {
   card: {
     lunch: string;
     dinner: string;
+    walk: string;
     noBuffet: string;
     save: string;
   };
@@ -157,6 +159,7 @@ export const ja: Dict = {
     time: '時間帯',
     duration: '分数',
     budget: '予算の上限',
+    walk: '駅からの徒歩時間',
     sort: '並び',
     close: '閉じる',
     slots: { all: 'すべて', lunch: 'ランチ', dinner: 'ディナー' },
@@ -166,6 +169,7 @@ export const ja: Dict = {
   card: {
     lunch: 'ランチ',
     dinner: 'ディナー',
+    walk: '駅から',
     noBuffet: '食べ放題なし',
     save: '保存する',
   },

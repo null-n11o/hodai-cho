@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { Store } from '../catalog/schema';
 import { STATION_EN } from '../catalog/en-names';
 import { GenreImage } from './GenreImage';
+import { FoodImage } from './FoodImage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
 import type { Lang } from '../i18n/language';
 import { durationLabel, priceCore, stationLine } from '../i18n/format';
@@ -35,7 +36,7 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
   return (
     <article className="store-card">
       <div className="store-card-image">
-        <GenreImage genre={store.genres[0]} />
+        <FoodImage genre={store.genres[0]} fallback={<GenreImage genre={store.genres[0]} />} />
         <span>{lang === 'en' ? 'Category illustration' : 'ジャンルイメージ'}</span>
       </div>
       <div className="store-card-body">
@@ -58,6 +59,7 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
         <dl className="store-prices">
           <div><dt>{dict.card.lunch}</dt><dd>{lunch ?? dict.card.noBuffet}</dd></div>
           <div><dt>{dict.card.dinner}</dt><dd>{dinner ?? dict.card.noBuffet}</dd></div>
+          <div><dt>{dict.card.walk}</dt><dd>{lang === 'en' ? `${store.walkMinutes} min` : `徒歩${store.walkMinutes}分`}</dd></div>
         </dl>
         <div className="store-card-footer">
           <span>{lang === 'en' ? 'Prices include tax · Weekday guide' : '税込・平日の目安'}</span>

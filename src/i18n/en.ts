@@ -34,6 +34,7 @@ export const en: Dict = {
     time: 'Time',
     duration: 'Duration',
     budget: 'Max budget',
+    walk: 'Walk from station',
     sort: 'Sort',
     close: 'Close',
     slots: { all: 'All', lunch: 'Lunch', dinner: 'Dinner' },
@@ -43,6 +44,7 @@ export const en: Dict = {
   card: {
     lunch: 'Lunch',
     dinner: 'Dinner',
+    walk: 'From station',
     noBuffet: 'No buffet',
     save: 'Save',
   },

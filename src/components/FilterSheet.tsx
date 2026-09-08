@@ -8,14 +8,16 @@ interface FilterSheetProps {
   slot: SlotCond;
   timeLimit: TimeLimitCond;
   budget: number | undefined;
+  walkMax?: number;
   sort: SortCond;
-  onChange: (patch: { slot?: SlotCond; timeLimit?: TimeLimitCond; budget?: number | undefined; sort?: SortCond }) => void;
+  onChange: (patch: { slot?: SlotCond; timeLimit?: TimeLimitCond; budget?: number | undefined; walkMax?: number | undefined; sort?: SortCond }) => void;
   onClose: () => void;
 }
 
 const SLOT_VALUES: SlotCond[] = ['all', 'lunch', 'dinner'];
 const TIME_LIMIT_VALUES: TimeLimitCond[] = ['all', 'unlimited', 'le90', 'le120'];
 const SORT_VALUES: SortCond[] = ['recommend', 'cheap', 'near', 'short'];
+const WALK_MAX_VALUES = [3, 5, 10, 15];
 
 const BUDGETS: number[] = [];
 for (let yen = 1000; yen <= 8000; yen += 500) BUDGETS.push(yen);
@@ -26,7 +28,7 @@ function chip(active: boolean): string {
   }`;
 }
 
-export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onClose }: FilterSheetProps) {
+export function FilterSheet({ open, slot, timeLimit, budget, walkMax, sort, onChange, onClose }: FilterSheetProps) {
   const lang = useLanguage();
   const dict = dictionary(lang);
   const t = dict.sheet;
@@ -94,6 +96,18 @@ export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onC
                 {budgetLabel(lang, yen)}
               </option>
             ))}
+          </select>
+        </section>
+        <section className="mt-4" aria-label={t.walk}>
+          <h3 className="text-sm text-stone">{t.walk}</h3>
+          <select
+            aria-label={t.walk}
+            value={walkMax ?? ''}
+            onChange={(e) => onChange({ walkMax: e.target.value === '' ? undefined : Number(e.target.value) })}
+            className="mt-2 min-h-[44px] w-full rounded-lg border border-stonedim/60 bg-ink px-3 text-ivory"
+          >
+            <option value="">{lang === 'en' ? 'No preference' : '指定なし'}</option>
+            {WALK_MAX_VALUES.map((minutes) => <option key={minutes} value={minutes}>{lang === 'en' ? `Within ${minutes} min` : `徒歩${minutes}分以内`}</option>)}
           </select>
         </section>
         <section className="mt-4" aria-label={t.sort}>
