@@ -1,4 +1,4 @@
-# 放題帖 hodai-cho
+# タベホー Tabeho
 
 東京・神奈川の食べ放題条件帳。静的SPA（Vite + React + TS + Tailwind、DBなし）。
 

@@ -7,7 +7,7 @@ import { createServer } from 'vite';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = join(root, 'dist');
-const base = (process.env.SITE_URL ?? 'https://hodai-cho.example.invalid').replace(/\/$/, '');
+const base = (process.env.SITE_URL ?? 'https://tabeho.example.invalid').replace(/\/$/, '');
 const today = '2026-09-06';
 
 const enPathOf = (jaPath) => (jaPath === '/' ? '/en/' : `/en${jaPath}`);
@@ -54,7 +54,7 @@ try {
   writePair(
     '/',
     {
-      title: '放題帖｜東京・神奈川の食べ放題だけを、料金と時間で切る',
+      title: 'タベホー｜東京・神奈川の食べ放題だけを、料金と時間で切る',
       description:
         '東京・神奈川の食べ放題だけを料金と制限時間で切る条件帳。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会・パン・お好み焼き・サラダバーから探せます。',
     },

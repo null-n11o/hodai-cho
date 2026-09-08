@@ -85,7 +85,7 @@ export const en: Dict = {
   contact: {
     title: 'A community-updated guide to all-you-can-eat',
     lead: 'Tell us when a listing is wrong or a new shop should be added.',
-    intro: 'Hodai-cho gets better through tips from people who visit these shops. We review every report before adding it to the catalog.',
+    intro: 'Tabeho gets better through tips from people who visit these shops. We review every report before adding it to the catalog.',
     formTitle: 'Send information',
     requestType: 'What would you like to send?',
     requestTypes: {

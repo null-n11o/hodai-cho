@@ -8,7 +8,7 @@ afterEach(() => cleanup());
 describe('prerender', () => {
   it('トップがJSなしで読める断片を出す', () => {
     const html = renderRoute('/');
-    expect(html).toContain('放題帖');
+    expect(html).toContain('タベホー');
     expect(html).toContain('件');
   });
 

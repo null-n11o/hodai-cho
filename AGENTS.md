@@ -1,4 +1,4 @@
-# 放題帖 hodai-cho
+# タベホー Tabeho
 
 東京・神奈川の食べ放題条件帳。静的SPA（Vite + React + TS + Tailwind、DBなし）。
 
@@ -24,7 +24,7 @@
 
 - 同梱カタログ→Repository抽象→メモリ内即時フィルタ→3画面（探す `/` / 詳細 `/r/:id` / 保存 `/saved`＋エリア `/a/:pref/:area`）。
 - 画面は `CatalogRepository` 抽象（`src/catalog/repository.ts`）にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
-- お気に入りIDのみlocalStorage永続化（キー `hodai-cho`）。フィルタ条件は永続化しない。
+- お気に入りIDのみlocalStorage永続化（キー `tabeho`）。フィルタ条件は永続化しない。
 - `src/seo/`（meta・prerender）と `scripts/prerender.mjs` はSSG基盤。`src/routes.tsx` がRoutes木、`src/main.tsx` は `BrowserRouter` を残す。
 
 ## Working rules
@@ -67,7 +67,7 @@
 
 ### Product Design の使い方
 
-- Product Designプラグインは、放題帖のUI/UX探索・再設計・画面監査・プロトタイプ検討の第一候補とする。通常の実装や単純なCSS修正だけでは使わず、主目的がデザインの探索・評価・改善である場合に使う。
+- Product Designプラグインは、タベホーのUI/UX探索・再設計・画面監査・プロトタイプ検討の第一候補とする。通常の実装や単純なCSS修正だけでは使わず、主目的がデザインの探索・評価・改善である場合に使う。
 - 新しいUI方向や再設計では、まず `product-design:get-context` で対象とユーザー成果を確認し、次に `product-design:ideate` で視覚案を作る。視覚ターゲットがない場合は、3案を比較してユーザーが選ぶまで、ファイル編集・サーバー起動・実装に進まない。
 - 既存画面・既存フローのレビューや改善では、まず `product-design:audit` でスクリーンショットに基づくUX・デザイン・アクセシビリティの指摘を出す。監査と実装を同じ依頼で行う場合も、監査を先に完了する。
 - Product Designの提案・プロトタイプは、PLAN Global Constraints、既存設計書、実データのみ・日英対応・アクセシビリティ・横スクロール禁止などのリポジトリ制約を上書きしない。

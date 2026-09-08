@@ -16,7 +16,7 @@ describe('SavedPage', () => {
 
   it('保存一覧は10件ずつ表示しさらに表示で残りを追加する', () => {
     const ids = new BundledCatalogRepository().listStores().slice(0, 12).map((store) => store.id);
-    localStorage.setItem('hodai-cho', JSON.stringify(ids));
+    localStorage.setItem('tabeho', JSON.stringify(ids));
     render(<MemoryRouter><SavedPage /></MemoryRouter>);
     expect(screen.getAllByRole('article')).toHaveLength(10);
     fireEvent.click(screen.getByRole('button', { name: 'さらに表示' }));

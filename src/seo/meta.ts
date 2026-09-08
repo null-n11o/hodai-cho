@@ -2,7 +2,7 @@ import type { Store } from '../catalog/schema';
 import { AREA_EN, STATION_EN } from '../catalog/en-names';
 import { en } from '../i18n/en';
 
-export const SITE_URL = 'https://hodai-cho.example.invalid';
+export const SITE_URL = 'https://tabeho.example.invalid';
 
 export interface AreaKey {
   prefecture: string;
@@ -14,7 +14,7 @@ export function cheapestPrice(store: Store): number {
 }
 
 export function storeTitle(store: Store): string {
-  return `${store.name}｜${store.area}の食べ放題・料金と時間｜放題帖`;
+  return `${store.name}｜${store.area}の食べ放題・料金と時間｜タベホー`;
 }
 
 export function storeDescription(store: Store): string {
@@ -66,11 +66,11 @@ export function areaPageUrl(prefecture: string, area: string, base: string = SIT
 }
 
 export function areaTitle(_prefecture: string, area: string, count: number): string {
-  return `${area}の食べ放題${count}件｜料金と時間で切る｜放題帖`;
+  return `${area}の食べ放題${count}件｜料金と時間で切る｜タベホー`;
 }
 
 export function areaDescription(prefecture: string, area: string, count: number): string {
-  return `${prefecture}・${area}の食べ放題${count}件を料金と制限時間で整理。${area}駅周辺で食べ放題を探すなら放題帖。行く前に公式の最新情報を確認してください。`;
+  return `${prefecture}・${area}の食べ放題${count}件を料金と制限時間で整理。${area}駅周辺で食べ放題を探すならタベホー。行く前に公式の最新情報を確認してください。`;
 }
 
 export interface SitemapEntry {
@@ -94,7 +94,7 @@ function prefectureEn(prefecture: string): string {
 }
 
 export function topTitleEn(): string {
-  return 'Hodai-cho｜All-you-can-eat in Tokyo & Kanagawa by price and time';
+  return 'Tabeho｜All-you-can-eat in Tokyo & Kanagawa by price and time';
 }
 
 export function topDescriptionEn(): string {
@@ -102,23 +102,23 @@ export function topDescriptionEn(): string {
 }
 
 export function contactTitle(): string {
-  return '情報提供・修正依頼｜みんなで更新する食べ放題の条件帳｜放題帖';
+  return '情報提供・修正依頼｜みんなで更新する食べ放題の条件帳｜タベホー';
 }
 
 export function contactDescription(): string {
-  return '放題帖の掲載内容の修正依頼や、新しい食べ放題店の情報提供はこちら。公式ページや訪問情報を添えて、運営に知らせてください。';
+  return 'タベホーの掲載内容の修正依頼や、新しい食べ放題店の情報提供はこちら。公式ページや訪問情報を添えて、運営に知らせてください。';
 }
 
 export function contactTitleEn(): string {
-  return 'Contribute a correction or shop tip｜Hodai-cho';
+  return 'Contribute a correction or shop tip｜Tabeho';
 }
 
 export function contactDescriptionEn(): string {
-  return 'Suggest a correction, a new all-you-can-eat shop, or an ended offer for Hodai-cho. Share an official source or firsthand details with the team.';
+  return 'Suggest a correction, a new all-you-can-eat shop, or an ended offer for Tabeho. Share an official source or firsthand details with the team.';
 }
 
 export function storeTitleEn(store: Store): string {
-  return `${store.nameEn}｜All-you-can-eat in ${AREA_EN[store.area] ?? store.area}: prices & time｜Hodai-cho`;
+  return `${store.nameEn}｜All-you-can-eat in ${AREA_EN[store.area] ?? store.area}: prices & time｜Tabeho`;
 }
 
 export function storeDescriptionEn(store: Store): string {
@@ -127,7 +127,7 @@ export function storeDescriptionEn(store: Store): string {
 }
 
 export function areaTitleEn(_prefecture: string, area: string, count: number): string {
-  return `All-you-can-eat in ${AREA_EN[area] ?? area}: ${count} places by price and time｜Hodai-cho`;
+  return `All-you-can-eat in ${AREA_EN[area] ?? area}: ${count} places by price and time｜Tabeho`;
 }
 
 export function areaDescriptionEn(prefecture: string, area: string, count: number): string {

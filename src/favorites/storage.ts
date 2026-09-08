@@ -1,13 +1,31 @@
-const KEY = 'hodai-cho';
+const KEY = 'tabeho';
+const LEGACY_KEY = 'hodai-cho';
 
-export function loadFavorites(): string[] {
+function parseIds(raw: string | null): string[] {
   try {
-    const raw = localStorage.getItem(KEY);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
     return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === 'string') : [];
   } catch {
     return [];
   }
+}
+
+function readRawWithMigration(): string | null {
+  try {
+    const current = localStorage.getItem(KEY);
+    if (current !== null) return current;
+    const legacy = localStorage.getItem(LEGACY_KEY);
+    if (legacy === null) return null;
+    localStorage.setItem(KEY, legacy);
+    localStorage.removeItem(LEGACY_KEY);
+    return legacy;
+  } catch {
+    return null;
+  }
+}
+
+export function loadFavorites(): string[] {
+  return parseIds(readRawWithMigration());
 }
 
 export function toggleFavorite(id: string): string[] {

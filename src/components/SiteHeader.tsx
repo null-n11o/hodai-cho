@@ -9,9 +9,9 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="site-header-inner">
-        <Link to={base} className="brand" aria-label={lang === 'en' ? 'Hodai-cho home' : '放題帖 ホーム'}>
-          <span className="brand-mark" aria-hidden="true">放</span>
-          <span>放題帖<span className="brand-reading">HODAI-CHO</span></span>
+        <Link to={base} className="brand" aria-label={lang === 'en' ? 'Tabeho home' : 'タベホー ホーム'}>
+          <span className="brand-mark" aria-hidden="true">タ</span>
+          <span>タベホー<span className="brand-reading">TABEHO</span></span>
         </Link>
         <span className="brand-description">{lang === 'en' ? 'Your all-you-can-eat guide' : '食べ放題に、迷わない。'}</span>
         <nav className="header-nav" aria-label={lang === 'en' ? 'Site navigation' : 'サイトナビゲーション'}>
