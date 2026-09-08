@@ -11,4 +11,4 @@
 
 ### 検証
 
-`tests/okawari.test.ts` 2件、`npm test`、`npm run build` を通す。SSGでは新店の個別ページとエリアページが生成されることを確認する。
+`tests/okawari.test.ts` 3件、`npm test`、`npm run build` を通す。SSGでは新店の個別ページとエリアページが生成されることを確認する。
