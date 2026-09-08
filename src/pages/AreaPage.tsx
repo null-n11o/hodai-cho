@@ -7,8 +7,10 @@ import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { useState } from 'react';
 import { dictionary, useLanguage } from '../i18n/language';
 import { areaCountLine, areaTitle, prefName } from '../i18n/format';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
+const PAGE_SIZE = 10;
 
 export function AreaPage() {
   const lang = useLanguage();
@@ -16,10 +18,14 @@ export function AreaPage() {
   const t = dict.area;
   const { prefecture, area } = useParams();
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
+  const [pagination, setPagination] = useState({ key: '', count: PAGE_SIZE });
 
   const stores = repository
     .listStores()
     .filter((s) => s.prefecture === prefecture && s.area === area);
+  const paginationKey = `${prefecture ?? ''}/${area ?? ''}`;
+  const visibleCount = pagination.key === paginationKey ? pagination.count : PAGE_SIZE;
+  const visibleStores = stores.slice(0, visibleCount);
 
   const onToggleSave = (id: string) => {
     setSavedIds(toggleFavorite(id));
@@ -39,6 +45,7 @@ export function AreaPage() {
             </Link>
           }
         />
+        <SiteDisclaimer />
       </main>
     );
   }
@@ -56,16 +63,26 @@ export function AreaPage() {
         {areaCountLine(lang, stores.length)}
       </p>
       <div data-testid="results" className="results-list mt-4">
-        {stores.map((store) => (
+        {visibleStores.map((store) => (
           <StoreCard key={store.id} store={store} saved={savedIds.includes(store.id)} onToggleSave={onToggleSave} />
         ))}
       </div>
+      {visibleCount < stores.length ? (
+        <div className="load-more-wrap">
+          <button type="button" className="load-more-button" onClick={() => setPagination((previous) => ({
+            key: paginationKey,
+            count: Math.min((previous.key === paginationKey ? previous.count : PAGE_SIZE) + PAGE_SIZE, stores.length),
+          }))}>
+            {dict.search.showMore}
+          </button>
+        </div>
+      ) : null}
       <div className="mt-6">
         <Link to={searchTo} className="inline-block min-h-[44px] rounded-lg border border-stonedim/60 px-6 py-3 font-bold text-ivory">
           {t.changeFilters}
         </Link>
       </div>
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      <SiteDisclaimer />
     </main>
   );
 }

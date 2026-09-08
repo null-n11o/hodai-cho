@@ -25,6 +25,7 @@ export const en: Dict = {
     keywordPlaceholder: 'Search by shop or station',
     filters: 'Filters',
     reset: 'Reset',
+    showMore: 'Show more',
     browseByArea: 'Browse by area',
   },
   sheet: {
@@ -119,6 +120,7 @@ export const en: Dict = {
     title: 'No shops match these filters',
     advice: ['Reset the area filter to All', 'Raise the budget limit', 'Loosen the duration filter'],
   },
+  imageDisclaimer: 'Images are genre illustrations.',
   disclaimer:
     'Listings cover all-you-can-eat shops in Tokyo and Kanagawa only. Prices and time limits are edited from public info as of 2026 and vary by shop, day, and seasonal fairs. Check the official source before you go.',
   genres: {

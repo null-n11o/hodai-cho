@@ -6,14 +6,17 @@ import { StoreCard } from '../components/StoreCard';
 import { EmptyState } from '../components/EmptyState';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, useLanguage } from '../i18n/language';
+import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
+const PAGE_SIZE = 10;
 
 export function SavedPage() {
   const lang = useLanguage();
   const dict = dictionary(lang);
   const t = dict.saved;
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
+  const [pagination, setPagination] = useState({ key: '', count: PAGE_SIZE });
 
   const onToggleSave = (id: string) => {
     setSavedIds(toggleFavorite(id));
@@ -22,6 +25,9 @@ export function SavedPage() {
   const savedStores = savedIds
     .map((id) => repository.getStore(id))
     .filter((s): s is NonNullable<typeof s> => s !== undefined);
+  const paginationKey = savedIds.join('\u0000');
+  const visibleCount = pagination.key === paginationKey ? pagination.count : PAGE_SIZE;
+  const visibleStores = savedStores.slice(0, visibleCount);
 
   const searchTo = lang === 'en' ? '/en/' : '/';
 
@@ -40,12 +46,22 @@ export function SavedPage() {
             }
           />
         ) : (
-          savedStores.map((store) => (
+          visibleStores.map((store) => (
             <StoreCard key={store.id} store={store} saved onToggleSave={onToggleSave} />
           ))
         )}
       </div>
-      <footer className="site-disclaimer">{dict.disclaimer}</footer>
+      {visibleCount < savedStores.length ? (
+        <div className="load-more-wrap">
+          <button type="button" className="load-more-button" onClick={() => setPagination((previous) => ({
+            key: paginationKey,
+            count: Math.min((previous.key === paginationKey ? previous.count : PAGE_SIZE) + PAGE_SIZE, savedStores.length),
+          }))}>
+            {dict.search.showMore}
+          </button>
+        </div>
+      ) : null}
+      <SiteDisclaimer />
     </main>
   );
 }

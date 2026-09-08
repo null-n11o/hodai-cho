@@ -37,7 +37,6 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
     <article className="store-card">
       <div className="store-card-image">
         <FoodImage genre={store.genres[0]} fallback={<GenreImage genre={store.genres[0]} />} />
-        <span>{lang === 'en' ? 'Category illustration' : 'ジャンルイメージ'}</span>
       </div>
       <div className="store-card-body">
         <div className="store-card-heading">
