@@ -282,7 +282,7 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   border-top: 1px solid var(--paper-line);
   border-bottom: 2px solid var(--paper-ink);
   border-radius: 0;
-  background: var(--paper-strong);
+  background: var(--paper);
   color: var(--paper-ink);
 }
 .search-panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 40px; }
@@ -294,7 +294,7 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 .search-page .keyword-field input, .search-page .select-field select, .search-page .sort-field select {
   border-color: var(--paper-line);
   border-radius: 2px;
-  background: var(--paper-strong);
+  background: var(--paper);
   color: var(--paper-ink);
 }
 .search-page .keyword-field input::placeholder { color: var(--paper-muted); }

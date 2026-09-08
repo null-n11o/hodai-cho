@@ -26,6 +26,11 @@ describe('light editorial theme', () => {
     expect(css).toMatch(/@media \(max-width: 767px\)[\s\S]*?\.search-panel-heading \{[^}]*margin-bottom: 22px;/);
   });
 
+  it('検索パネルと条件入力の背景をページと揃える', () => {
+    expect(css).toMatch(/\.search-page \.search-panel \{[\s\S]*?background: var\(--paper\);/);
+    expect(css).toMatch(/\.search-page \.keyword-field input, \.search-page \.select-field select, \.search-page \.sort-field select \{[\s\S]*?background: var\(--paper\);/);
+  });
+
   it('空状態の見出しはライトベースで読める色になる', () => {
     expect(css).toContain('.search-page .empty-state > p');
     expect(css).toContain('.content-page .empty-state > p');
