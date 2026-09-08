@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { FormEvent } from 'react';
+import type { FormEvent, KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
 import { AREA_EN } from '../catalog/en-names';
@@ -48,6 +48,8 @@ export function ContactPage() {
   const dict = dictionary(lang);
   const t = dict.contact;
   const [submitted, setSubmitted] = useState(false);
+  const [storeMenuOpen, setStoreMenuOpen] = useState(false);
+  const [activeStoreIndex, setActiveStoreIndex] = useState(0);
   const [values, setValues] = useState<ReportValues>({
     requestType: 'correction',
     store: '',
@@ -57,6 +59,17 @@ export function ContactPage() {
     replyTo: '',
   });
   const stores = useMemo(() => repository.listStores(), []);
+  const storeOptions = useMemo(() => {
+    const query = values.store.trim().toLocaleLowerCase('ja-JP');
+    if (!query) return stores.slice(0, 12);
+    return stores
+      .filter((store) => {
+        const name = lang === 'en' ? store.nameEn : store.name;
+        const area = lang === 'en' ? (AREA_EN[store.area] ?? store.area) : store.area;
+        return `${name} ${area}`.toLocaleLowerCase('ja-JP').includes(query);
+      })
+      .slice(0, 12);
+  }, [lang, stores, values.store]);
   const labels: Record<RequestType, string> = {
     correction: t.requestTypes.correction,
     addition: t.requestTypes.addition,
@@ -67,6 +80,33 @@ export function ContactPage() {
   const update = <K extends keyof ReportValues>(key: K, value: ReportValues[K]) => {
     setSubmitted(false);
     setValues((previous) => ({ ...previous, [key]: value }));
+  };
+
+  const storeLabel = (store: (typeof stores)[number]) => {
+    const name = lang === 'en' ? store.nameEn : store.name;
+    const area = lang === 'en' ? (AREA_EN[store.area] ?? store.area) : store.area;
+    return `${name} / ${area}`;
+  };
+
+  const chooseStore = (store: (typeof stores)[number]) => {
+    update('store', storeLabel(store));
+    setStoreMenuOpen(false);
+  };
+
+  const onStoreKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setStoreMenuOpen(true);
+      setActiveStoreIndex((index) => Math.min(index + 1, Math.max(storeOptions.length - 1, 0)));
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setActiveStoreIndex((index) => Math.max(index - 1, 0));
+    } else if (event.key === 'Enter' && storeMenuOpen && storeOptions[activeStoreIndex]) {
+      event.preventDefault();
+      chooseStore(storeOptions[activeStoreIndex]);
+    } else if (event.key === 'Escape') {
+      setStoreMenuOpen(false);
+    }
   };
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -99,18 +139,43 @@ export function ContactPage() {
               </select>
             </label>
 
-            <label>
+            <label className="contact-store-field">
               <span>{t.store}</span>
               <input
                 required
-                list="contact-store-suggestions"
+                role="combobox"
+                aria-autocomplete="list"
+                aria-expanded={storeMenuOpen}
+                aria-controls="contact-store-suggestions"
                 value={values.store}
-                onChange={(event) => update('store', event.target.value)}
+                onChange={(event) => {
+                  update('store', event.target.value);
+                  setActiveStoreIndex(0);
+                  setStoreMenuOpen(true);
+                }}
+                onFocus={() => setStoreMenuOpen(true)}
+                onBlur={() => setTimeout(() => setStoreMenuOpen(false), 0)}
+                onKeyDown={onStoreKeyDown}
                 placeholder={t.storePlaceholder}
               />
-              <datalist id="contact-store-suggestions">
-                {stores.map((store) => <option key={store.id} value={`${lang === 'en' ? store.nameEn : store.name} / ${lang === 'en' ? (AREA_EN[store.area] ?? store.area) : store.area}`} />)}
-              </datalist>
+              {storeMenuOpen ? (
+                <div id="contact-store-suggestions" role="listbox" className="contact-store-options">
+                  {storeOptions.length > 0 ? storeOptions.map((store, index) => (
+                    <button
+                      key={store.id}
+                      type="button"
+                      role="option"
+                      aria-selected={index === activeStoreIndex}
+                      className={index === activeStoreIndex ? 'is-active' : ''}
+                      onMouseDown={(event) => event.preventDefault()}
+                      onClick={() => chooseStore(store)}
+                    >
+                      {storeLabel(store)}
+                    </button>
+                  )) : <p className="contact-store-empty">{t.storeNoMatches}</p>}
+                  <p className="contact-store-hint">{t.storeSearchHint}</p>
+                </div>
+              ) : null}
             </label>
 
             <label>

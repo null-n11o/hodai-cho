@@ -131,6 +131,12 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 .contact-panel, .contact-aside { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 24px; }
 .contact-form { display: flex; flex-direction: column; gap: 18px; }
 .contact-form label { display: flex; flex-direction: column; gap: 7px; }
+.contact-store-field { position: relative; }
+.contact-store-options { position: absolute; z-index: 10; top: calc(100% - 1px); left: 0; right: 0; max-height: 310px; overflow-y: auto; border: 1px solid var(--line); border-top-color: var(--accent); background: var(--surface); box-shadow: 0 8px 18px rgb(0 0 0 / 30%); }
+.contact-store-options button { display: block; width: 100%; min-height: 44px; padding: 9px 12px; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--text); text-align: left; font: inherit; font-size: 13px; line-height: 1.5; }
+.contact-store-options button:hover, .contact-store-options button.is-active { background: var(--accent-soft); color: var(--text); }
+.contact-store-empty, .contact-store-hint { padding: 10px 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.contact-store-hint { border-top: 1px solid var(--line); }
 .contact-form label > span, .contact-aside h2 { font-size: 13px; font-weight: 700; }
 .contact-form input, .contact-form select, .contact-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 5px; background: var(--page); color: var(--text); padding: 10px 12px; font-size: 16px; line-height: 1.6; }
 .contact-form textarea { resize: vertical; min-height: 140px; }

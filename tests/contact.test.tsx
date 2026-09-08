@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { ContactPage } from '../src/pages/ContactPage';
 
@@ -30,6 +30,17 @@ describe('ContactPage', () => {
     expect(new URL(opened).searchParams.get('title')).toContain('蔵部 銀座 / 銀座');
     expect(new URL(opened).searchParams.get('body')).toContain('ランチは税込2000円');
     expect(screen.getByRole('status').textContent).toContain('投稿内容をGitHubの下書きにしました');
+  });
+
+  it('店名・エリアを入力して候補を絞り込み、選択できる', () => {
+    render(<MemoryRouter initialEntries={['/contact']}><ContactPage /></MemoryRouter>);
+    const storeInput = screen.getByRole('combobox', { name: '店名・エリア' });
+    fireEvent.change(storeInput, { target: { value: '蔵部' } });
+    const suggestions = within(screen.getByRole('listbox')).getAllByRole('option');
+    expect(suggestions).toHaveLength(1);
+    fireEvent.click(within(screen.getByRole('listbox')).getByRole('option', { name: /蔵部 銀座/ }));
+    expect((storeInput as HTMLInputElement).value).toBe('小布施 寄り付き料理 蔵部 銀座 / 銀座');
+    expect(storeInput.getAttribute('aria-expanded')).toBe('false');
   });
 
   it('英語URLでは英語の案内と検索導線になる', () => {

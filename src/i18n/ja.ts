@@ -94,6 +94,8 @@ export interface Dict {
     };
     store: string;
     storePlaceholder: string;
+    storeSearchHint: string;
+    storeNoMatches: string;
     details: string;
     detailsPlaceholder: string;
     sourceUrl: string;
@@ -213,7 +215,9 @@ export const ja: Dict = {
       other: 'その他の問い合わせ',
     },
     store: '店名・エリア',
-    storePlaceholder: '例：蔵部 銀座 / 東銀座',
+    storePlaceholder: '店名・エリアを検索（例：蔵部 銀座）',
+    storeSearchHint: '候補にない店は、店名・エリアをそのまま入力できます。',
+    storeNoMatches: '候補がありません。そのまま入力して送れます。',
     details: '内容',
     detailsPlaceholder: '価格、食べ放題の対象、制限時間、提供曜日など、分かる範囲で書いてください。',
     sourceUrl: '公式ページ・参考URL（任意）',
