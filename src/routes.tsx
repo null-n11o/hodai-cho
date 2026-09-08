@@ -4,6 +4,7 @@ import { SearchPage } from './pages/SearchPage';
 import { DetailPage } from './pages/DetailPage';
 import { SavedPage } from './pages/SavedPage';
 import { AreaPage } from './pages/AreaPage';
+import { ContactPage } from './pages/ContactPage';
 
 export function AppRoutes() {
   return (
@@ -16,6 +17,8 @@ export function AppRoutes() {
       <Route path="/en/r/:id" element={<DetailPage />} />
       <Route path="/saved" element={<SavedPage />} />
       <Route path="/en/saved" element={<SavedPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+      <Route path="/en/contact" element={<ContactPage />} />
       <Route path="/a/:prefecture/:area" element={<AreaPage />} />
       <Route path="/en/a/:prefecture/:area" element={<AreaPage />} />
     </Routes>

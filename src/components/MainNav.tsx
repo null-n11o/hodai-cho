@@ -13,6 +13,7 @@ export function MainNav() {
   const dict = dictionary(lang);
   const searchTo = lang === 'en' ? '/en/' : '/';
   const savedTo = lang === 'en' ? '/en/saved' : '/saved';
+  const contactTo = lang === 'en' ? '/en/contact' : '/contact';
   return (
     <nav aria-label={dict.nav.main} className="mobile-nav fixed inset-x-0 bottom-0 z-40 border-t border-stonedim/40 bg-ink">
       <div className="mx-auto flex w-full max-w-lg items-center md:max-w-3xl lg:max-w-5xl" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
@@ -21,6 +22,9 @@ export function MainNav() {
         </NavLink>
         <NavLink to={savedTo} className={({ isActive }) => tabClass(isActive)}>
           {dict.nav.saved}
+        </NavLink>
+        <NavLink to={contactTo} className={({ isActive }) => tabClass(isActive)}>
+          {dict.nav.contact}
         </NavLink>
       </div>
     </nav>

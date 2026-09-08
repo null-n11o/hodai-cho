@@ -17,6 +17,7 @@ export function SiteHeader() {
         <nav className="header-nav" aria-label={lang === 'en' ? 'Site navigation' : 'サイトナビゲーション'}>
           <NavLink end to={base}>{dict.nav.search}</NavLink>
           <NavLink to={`${base}saved`}>{dict.nav.saved}</NavLink>
+          <NavLink to={`${base}contact`}>{dict.nav.contact}</NavLink>
         </nav>
         <LanguageToggle />
       </div>
