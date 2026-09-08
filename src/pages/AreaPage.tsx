@@ -29,7 +29,7 @@ export function AreaPage() {
 
   if (stores.length === 0) {
     return (
-      <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+      <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
         <EmptyState
           title={t.emptyTitle}
           advice={[t.emptyAdvice]}
@@ -47,7 +47,7 @@ export function AreaPage() {
   const shownPref = prefecture ?? '';
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+    <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <p className="text-xs tracking-widest text-stone">
         {prefName(lang, shownPref)} / AREA
       </p>
@@ -55,7 +55,7 @@ export function AreaPage() {
       <p className="mt-2 text-sm text-stone" aria-live="polite">
         {areaCountLine(lang, stores.length)}
       </p>
-      <div data-testid="results" className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div data-testid="results" className="results-list mt-4">
         {stores.map((store) => (
           <StoreCard key={store.id} store={store} saved={savedIds.includes(store.id)} onToggleSave={onToggleSave} />
         ))}
@@ -65,6 +65,7 @@ export function AreaPage() {
           {t.changeFilters}
         </Link>
       </div>
+      <footer className="site-disclaimer">{dict.disclaimer}</footer>
     </main>
   );
 }

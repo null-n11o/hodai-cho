@@ -26,9 +26,9 @@ export function SavedPage() {
   const searchTo = lang === 'en' ? '/en/' : '/';
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+    <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
       <h1 className="text-2xl font-bold">{t.title}</h1>
-      <div data-testid="results" className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div data-testid="results" className="results-list mt-4">
         {savedStores.length === 0 ? (
           <EmptyState
             title={t.emptyTitle}
@@ -45,6 +45,7 @@ export function SavedPage() {
           ))
         )}
       </div>
+      <footer className="site-disclaimer">{dict.disclaimer}</footer>
     </main>
   );
 }

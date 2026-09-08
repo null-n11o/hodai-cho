@@ -1,3 +1,4 @@
+import { dictionary, useLanguage } from '../i18n/language';
 import type { Genre } from '../catalog/schema';
 
 const GENRE_IMAGE: Record<Genre, string> = {
@@ -23,10 +24,12 @@ interface GenreImageProps {
 }
 
 export function GenreImage({ genre }: GenreImageProps) {
+  const lang = useLanguage();
+  const label = dictionary(lang).genres[genre];
   return (
     <img
       src={genreImageSrc(genre)}
-      alt={`${genre}のイラスト`}
+      alt={lang === 'en' ? `${label} illustration` : `${genre}のイラスト`}
       loading="lazy"
       className="h-28 w-full rounded-md object-contain md:h-40"
     />

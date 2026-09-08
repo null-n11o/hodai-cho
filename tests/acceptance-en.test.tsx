@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../src/routes';
-import { MainNav } from '../src/components/MainNav';
+import { SiteHeader } from '../src/components/SiteHeader';
 import { BundledCatalogRepository } from '../src/catalog/repository';
 import { filterStores } from '../src/filters/filter';
 import { LANG_STORAGE_KEY } from '../src/i18n/language';
@@ -12,7 +12,7 @@ afterEach(() => cleanup());
 function renderNavAt(path: string) {
   return render(
     <MemoryRouter initialEntries={[path]}>
-      <MainNav />
+      <SiteHeader />
     </MemoryRouter>,
   );
 }

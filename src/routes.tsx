@@ -1,3 +1,4 @@
+import { SiteHeader } from './components/SiteHeader';
 import { Route, Routes } from 'react-router-dom';
 import { SearchPage } from './pages/SearchPage';
 import { DetailPage } from './pages/DetailPage';
@@ -6,6 +7,8 @@ import { AreaPage } from './pages/AreaPage';
 
 export function AppRoutes() {
   return (
+    <>
+    <SiteHeader />
     <Routes>
       <Route path="/" element={<SearchPage />} />
       <Route path="/en/" element={<SearchPage />} />
@@ -16,5 +19,6 @@ export function AppRoutes() {
       <Route path="/a/:prefecture/:area" element={<AreaPage />} />
       <Route path="/en/a/:prefecture/:area" element={<AreaPage />} />
     </Routes>
+    </>
   );
 }

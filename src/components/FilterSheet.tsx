@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { SlotCond, SortCond, TimeLimitCond } from '../filters/filter';
 import { budgetLabel } from '../i18n/format';
 import { dictionary, useLanguage } from '../i18n/language';
@@ -29,11 +30,35 @@ export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onC
   const lang = useLanguage();
   const dict = dictionary(lang);
   const t = dict.sheet;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.activeElement;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+    return () => {
+      document.body.style.overflow = overflow;
+      if (previous instanceof HTMLElement) previous.focus();
+    };
+  }, [open]);
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50">
       <button type="button" aria-label={t.closeLabel} onClick={onClose} className="absolute inset-0 min-h-[44px] w-full bg-black/60" />
-      <div role="dialog" aria-modal="true" aria-label={t.dialogLabel} className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
+      <div ref={dialogRef} tabIndex={-1} onKeyDown={(event) => {
+        if (event.key === 'Escape') { event.preventDefault(); onClose(); }
+        if (event.key !== 'Tab') return;
+        const nodes = dialogRef.current?.querySelectorAll<HTMLElement>('button, select, input, a[href]');
+        if (!nodes?.length) return;
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === dialogRef.current)) {
+          event.preventDefault(); last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first.focus();
+        }
+      }} role="dialog" aria-modal="true" aria-label={t.dialogLabel} className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
         <h2 className="text-lg font-bold text-ivory">{t.title}</h2>
         <section className="mt-4" aria-label={t.time}>
           <h3 className="text-sm text-stone">{t.time}</h3>

@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { BundledCatalogRepository } from '../src/catalog/repository';
+import { filterStores } from '../src/filters/filter';
 import { SearchPage } from '../src/pages/SearchPage';
 
 afterEach(() => cleanup());
@@ -17,15 +19,28 @@ describe('SearchPage', () => {
     expect(screen.queryByText(/ダミー/)).toBeNull();
   });
 
-  it('PC幅では結果が複数列グリッドになる', () => {
+  it('一覧から時間帯・予算で絞り込んでリセットできる', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
-    const results = screen.getByTestId('results');
-    expect(results.className).toContain('md:grid-cols-2');
-    expect(results.className).toContain('xl:grid-cols-3');
+    const initial = screen.getAllByRole('article').length;
+    fireEvent.change(screen.getByRole('combobox', { name: '時間帯' }), { target: { value: 'lunch' } });
+    fireEvent.change(screen.getByRole('combobox', { name: '予算の上限' }), { target: { value: '1000' } });
+    expect(screen.queryAllByRole('article').length).toBeLessThan(initial);
+    fireEvent.click(screen.getByRole('button', { name: 'リセット', exact: true }));
+    expect(screen.getAllByRole('article')).toHaveLength(initial);
   });
 
-  it('PC幅では本文幅が広がる', () => {
+  it('一覧の並び替えとキーワード検索がすぐに反映される', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
-    expect(screen.getByRole('main').className).toContain('md:max-w-3xl');
+    fireEvent.change(screen.getByRole('combobox', { name: '並び' }), { target: { value: 'cheap' } });
+    const expected = filterStores(new BundledCatalogRepository().listStores(), {
+      prefecture: '東京', freeword: '', genres: [], slot: 'all', timeLimit: 'all', sort: 'cheap',
+    });
+    expect(screen.getAllByRole('article').map((article) => within(article).getByRole('heading').textContent))
+      .toEqual(expected.map((store) => store.name));
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: '存在しない店xyz' } });
+    expect(within(screen.getByTestId('results')).queryAllByRole('article')).toHaveLength(0);
+    expect(screen.getByText('その条件の店はない')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'リセット', exact: true }));
+    expect(screen.getAllByRole('article').length).toBeGreaterThan(0);
   });
 });
