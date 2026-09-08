@@ -24,6 +24,8 @@ describe('SearchPage', () => {
     render(<MemoryRouter initialEntries={['/en/']}><SearchPage /></MemoryRouter>);
     expect(screen.getByRole('button', { name: 'Show more' })).toBeTruthy();
     expect(screen.getByText('Images are genre illustrations.')).toBeTruthy();
+    expect(screen.getByText(/Listings cover all-you-can-eat shops/)).toBeTruthy();
+    expect(screen.queryByText('Category illustration')).toBeNull();
     fireEvent.click(screen.getByRole('button', { name: 'Show more' }));
     expect(screen.getAllByRole('article')).toHaveLength(20);
   });
@@ -37,8 +39,9 @@ describe('SearchPage', () => {
 
   it('画像注記はカードごとでなくページ下部にまとめて出る', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
-    expect(screen.getByText('写真はジャンルイメージです。')).toBeTruthy();
-    expect(screen.queryAllByText('ジャンルイメージ', { exact: true })).toHaveLength(0);
+    const footer = screen.getByRole('contentinfo');
+    expect(within(footer).getByText('写真はジャンルイメージです。')).toBeTruthy();
+    expect(within(screen.getByTestId('results')).queryByText('写真はジャンルイメージです。')).toBeNull();
   });
 
   it('0件のときダミー店を出さず緩和案内がある', () => {
