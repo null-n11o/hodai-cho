@@ -32,5 +32,6 @@ describe('AreaPage', () => {
   it('未知エリアで落ちず探すへの導線がある', () => {
     renderArea('東京', 'ないエリア');
     expect(screen.getByText('探すへ戻る')).toBeTruthy();
+    expect(screen.getByRole('contentinfo')).toBeTruthy();
   });
 });

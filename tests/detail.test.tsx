@@ -19,6 +19,7 @@ describe('DetailPage', () => {
     renderDetail('no-such-shop');
     expect(screen.getByText('店が見つからない')).toBeTruthy();
     expect(screen.getByText('探すへ戻る')).toBeTruthy();
+    expect(screen.getByRole('contentinfo')).toBeTruthy();
   });
 
   it('PC幅では本文幅が広がり見出しと操作が2列になる', () => {

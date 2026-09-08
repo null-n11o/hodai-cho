@@ -48,6 +48,7 @@ export function DetailPage() {
             </Link>
           }
         />
+        <SiteDisclaimer />
       </main>
     );
   }
