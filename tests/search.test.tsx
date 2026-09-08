@@ -20,6 +20,14 @@ describe('SearchPage', () => {
     expect(screen.getAllByRole('article')).toHaveLength(20);
   });
 
+  it('英語表示では英語の追加表示と画像注記になる', () => {
+    render(<MemoryRouter initialEntries={['/en/']}><SearchPage /></MemoryRouter>);
+    expect(screen.getByRole('button', { name: 'Show more' })).toBeTruthy();
+    expect(screen.getByText('Images are genre illustrations.')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Show more' }));
+    expect(screen.getAllByRole('article')).toHaveLength(20);
+  });
+
   it('並び替えを変えると表示件数を10件に戻す', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
     fireEvent.click(screen.getByRole('button', { name: 'さらに表示' }));

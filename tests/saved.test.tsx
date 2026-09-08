@@ -21,5 +21,6 @@ describe('SavedPage', () => {
     expect(screen.getAllByRole('article')).toHaveLength(10);
     fireEvent.click(screen.getByRole('button', { name: 'さらに表示' }));
     expect(screen.getAllByRole('article')).toHaveLength(12);
+    expect(screen.queryByRole('button', { name: 'さらに表示' })).toBeNull();
   });
 });
