@@ -43,6 +43,12 @@ describe('acceptance: language switch on all screens', () => {
     }
   });
 
+  it('英語URLでは文書言語も英語になる', () => {
+    const { unmount } = renderAppAt('/en/');
+    expect(document.documentElement.lang).toBe('en');
+    unmount();
+  });
+
   it('言語選択はlocalStorageに残りリロード後もURLで維持される', () => {
     localStorage.clear();
     renderNavAt('/');

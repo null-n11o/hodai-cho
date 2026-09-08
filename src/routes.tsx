@@ -1,14 +1,31 @@
 import { SiteHeader } from './components/SiteHeader';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { SearchPage } from './pages/SearchPage';
 import { DetailPage } from './pages/DetailPage';
 import { SavedPage } from './pages/SavedPage';
 import { AreaPage } from './pages/AreaPage';
 import { ContactPage } from './pages/ContactPage';
+import { getLangFromPath } from './i18n/language';
+
+function DocumentLanguage() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const previous = document.documentElement.lang;
+    document.documentElement.lang = getLangFromPath(pathname);
+    return () => {
+      document.documentElement.lang = previous;
+    };
+  }, [pathname]);
+
+  return null;
+}
 
 export function AppRoutes() {
   return (
     <>
+    <DocumentLanguage />
     <SiteHeader />
     <Routes>
       <Route path="/" element={<SearchPage />} />
