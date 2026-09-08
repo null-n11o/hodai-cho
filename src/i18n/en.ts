@@ -25,6 +25,7 @@ export const en: Dict = {
     keywordPlaceholder: 'Search by shop or station',
     filters: 'Filters',
     reset: 'Reset',
+    showMore: 'Show more',
     browseByArea: 'Browse by area',
   },
   sheet: {

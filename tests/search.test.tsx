@@ -13,6 +13,20 @@ describe('SearchPage', () => {
     expect(screen.getByText(/\d+件/)).toBeTruthy();
   });
 
+  it('一覧は10件ずつ表示しさらに表示で次の10件を追加する', () => {
+    render(<MemoryRouter><SearchPage /></MemoryRouter>);
+    expect(screen.getAllByRole('article')).toHaveLength(10);
+    fireEvent.click(screen.getByRole('button', { name: 'さらに表示' }));
+    expect(screen.getAllByRole('article')).toHaveLength(20);
+  });
+
+  it('並び替えを変えると表示件数を10件に戻す', () => {
+    render(<MemoryRouter><SearchPage /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('button', { name: 'さらに表示' }));
+    fireEvent.change(screen.getByRole('combobox', { name: '並び' }), { target: { value: 'cheap' } });
+    expect(screen.getAllByRole('article')).toHaveLength(10);
+  });
+
   it('画像注記はカードごとでなくページ下部にまとめて出る', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
     expect(screen.getByText('写真はジャンルイメージです。')).toBeTruthy();
@@ -59,7 +73,7 @@ describe('SearchPage', () => {
       prefecture: '東京', freeword: '', genres: [], slot: 'all', timeLimit: 'all', sort: 'cheap',
     });
     expect(screen.getAllByRole('article').map((article) => within(article).getByRole('heading').textContent))
-      .toEqual(expected.map((store) => store.name));
+      .toEqual(expected.slice(0, 10).map((store) => store.name));
     fireEvent.change(screen.getByRole('searchbox'), { target: { value: '存在しない店xyz' } });
     expect(within(screen.getByTestId('results')).queryAllByRole('article')).toHaveLength(0);
     expect(screen.getByText('その条件の店はない')).toBeTruthy();

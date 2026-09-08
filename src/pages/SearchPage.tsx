@@ -36,6 +36,7 @@ const BUDGETS = Array.from({ length: 15 }, (_, index) => 1000 + index * 500);
 const WALK_MAXES = [3, 5, 10, 15];
 const SLOTS: SlotCond[] = ['all', 'lunch', 'dinner'];
 const SORTS: SortCond[] = ['recommend', 'cheap', 'near', 'short'];
+const PAGE_SIZE = 10;
 
 function chip(active: boolean): string {
   return `filter-chip${active ? ' is-active' : ''}`;
@@ -47,6 +48,7 @@ export function SearchPage() {
   const [cond, setCond] = useState<FilterCond>(INITIAL);
   const [sheetOpen, setSheetOpen] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
+  const [pagination, setPagination] = useState({ key: '', count: PAGE_SIZE });
 
   const allStores = useMemo(() => repository.listStores(), []);
   const areas = useMemo(() => {
@@ -58,6 +60,9 @@ export function SearchPage() {
   }, [allStores, cond.prefecture]);
 
   const results = useMemo(() => filterStores(allStores, cond), [allStores, cond]);
+  const paginationKey = JSON.stringify(cond);
+  const visibleCount = pagination.key === paginationKey ? pagination.count : PAGE_SIZE;
+  const visibleResults = results.slice(0, visibleCount);
 
   const prefectureAreas = useMemo(
     () => listAreas(allStores).filter((a) => a.prefecture === cond.prefecture),
@@ -247,9 +252,19 @@ export function SearchPage() {
             {results.length === 0 ? (
               <EmptyState action={<button type="button" className="primary-button" onClick={resetCond}>{lang === 'en' ? 'Reset all filters' : 'すべての条件をリセット'}</button>} />
             ) : (
-              results.map((store) => <StoreCard key={store.id} store={store} saved={savedIds.includes(store.id)} onToggleSave={toggleSave} />)
+              visibleResults.map((store) => <StoreCard key={store.id} store={store} saved={savedIds.includes(store.id)} onToggleSave={toggleSave} />)
             )}
           </div>
+          {visibleCount < results.length ? (
+            <div className="load-more-wrap">
+              <button type="button" className="load-more-button" onClick={() => setPagination((previous) => ({
+                key: paginationKey,
+                count: Math.min((previous.key === paginationKey ? previous.count : PAGE_SIZE) + PAGE_SIZE, results.length),
+              }))}>
+                {dict.search.showMore}
+              </button>
+            </div>
+          ) : null}
           <nav className="browse-areas" aria-label={dict.search.browseByArea}>
             <h2>{dict.search.browseByArea}</h2>
             <ul>

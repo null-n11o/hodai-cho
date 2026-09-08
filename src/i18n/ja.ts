@@ -26,6 +26,7 @@ export interface Dict {
     keywordPlaceholder: string;
     filters: string;
     reset: string;
+    showMore: string;
     browseByArea: string;
   };
   sheet: {
@@ -151,6 +152,7 @@ export const ja: Dict = {
     keywordPlaceholder: '店名・駅名で探す',
     filters: '条件',
     reset: 'リセット',
+    showMore: 'さらに表示',
     browseByArea: 'エリアから探す',
   },
   sheet: {
