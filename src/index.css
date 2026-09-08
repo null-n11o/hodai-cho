@@ -126,6 +126,27 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 .content-page { padding-top: 24px; background: var(--page); }
 .content-page > h1 { margin-bottom: 20px; }
 .content-page .store-card { grid-template-columns: 190px minmax(0, 1fr); }
+.contact-hero { border-bottom: 1px solid var(--line); padding-bottom: 24px; }
+.contact-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(240px, .65fr); gap: 24px; align-items: start; }
+.contact-panel, .contact-aside { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 24px; }
+.contact-form { display: flex; flex-direction: column; gap: 18px; }
+.contact-form label { display: flex; flex-direction: column; gap: 7px; }
+.contact-form label > span, .contact-aside h2 { font-size: 13px; font-weight: 700; }
+.contact-form input, .contact-form select, .contact-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 5px; background: var(--page); color: var(--text); padding: 10px 12px; font-size: 16px; line-height: 1.6; }
+.contact-form textarea { resize: vertical; min-height: 140px; }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 1px; }
+.contact-form small { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.contact-submit { width: 100%; margin-top: 2px; }
+.contact-success { border: 1px solid var(--accent); background: var(--accent-soft); color: var(--text); padding: 12px; font-size: 13px; line-height: 1.7; }
+.contact-direct-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; color: var(--muted); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.contact-aside { padding: 0; }
+.contact-aside section { padding: 22px; }
+.contact-aside section + section { border-top: 1px solid var(--line); }
+.contact-aside ol, .contact-aside ul { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+.contact-aside ol li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 13px; line-height: 1.7; }
+.contact-aside ol li > span { display: grid; place-items: center; width: 26px; height: 26px; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); font-size: 12px; font-weight: 700; }
+.contact-aside ul li { padding-left: 16px; position: relative; color: var(--text); font-size: 13px; line-height: 1.7; }
+.contact-aside ul li::before { content: ''; width: 5px; height: 5px; background: var(--accent); position: absolute; left: 1px; top: .75em; border-radius: 50%; }
 .detail-hero { background: var(--surface); padding: 24px; border: 1px solid var(--line); border-radius: 8px; }
 .detail-hero img { height: 220px; }
 .image-caption { text-align: center; font-size: 12px; color: var(--muted); }
@@ -190,6 +211,10 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   .detail-hero, .detail-section { padding: 16px; }
   .detail-hero img { height: 170px; }
   .detail-section table { font-size: 11px; }
+  .contact-layout { display: block; }
+  .contact-panel { padding: 16px; }
+  .contact-aside { margin-top: 16px; }
+  .contact-aside section { padding: 16px; }
 }
 
 /* Keep accent-colored surfaces, with legible text on the dark palette. */
