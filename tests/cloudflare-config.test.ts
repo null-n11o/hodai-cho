@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 type WranglerConfig = {
   name: string;
   assets: { directory: string; not_found_handling: string };
+  routes: Array<{ pattern: string; custom_domain: boolean }>;
 };
 
 describe('Cloudflare Workers configuration', () => {
@@ -16,6 +17,10 @@ describe('Cloudflare Workers configuration', () => {
     expect(config.assets).toEqual({
       directory: './dist',
       not_found_handling: 'single-page-application',
+    });
+    expect(config.routes).toContainEqual({
+      pattern: 'tabeho.com',
+      custom_domain: true,
     });
   });
 });

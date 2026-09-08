@@ -73,6 +73,8 @@ D1を使う条件は、管理画面編集、頻繁な更新、情報提供の保
 - Production: 本番ドメイン、Cloudflare Workers本番デプロイ
 - Preview: ブランチまたはPRごとのCloudflare Preview URL
 - `SITE_URL`: SSGのcanonical URL、sitemap、robots生成用。Productionでは本番URLを設定する。
+- Production URL: `https://tabeho.com`
+- Custom Domain: `tabeho.com`。`www.tabeho.com`は別ホスト名として未設定。
 - 秘密値: 将来のWorker Secretに保存し、リポジトリやViteの公開環境変数へ入れない。
 
 ## 7. 採用しないもの
@@ -89,5 +91,5 @@ D1を使う条件は、管理画面編集、頻繁な更新、情報提供の保
 - `npm run build:ssg`で現在の店別・エリア別・日英HTML、sitemap、robotsが生成される。
 - Cloudflare Workers Static Assetsの設定が`tabeho`の`dist/`を公開する。
 - 生成済みの主要URLと未知IDのSPAフォールバックをローカルで確認できる。
-- 本番ドメインを設定していない状態でも、Preview検証ができる。
+- `tabeho.com`をProductionのカスタムドメインとして設定でき、`SITE_URL=https://tabeho.com`でcanonical URL、sitemap、robotsが生成される。
 - D1や動的APIを追加せずに、現在のカタログ検索・詳細・保存・SEOの挙動が維持される。

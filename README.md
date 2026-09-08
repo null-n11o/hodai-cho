@@ -121,20 +121,20 @@ npm run cf:dev
 npx wrangler deploy --dry-run
 ```
 
-本番URLを設定してビルドする場合:
+本番URL（`https://tabeho.com`）を設定してビルドする場合:
 
 ```bash
-SITE_URL=https://<本番ドメイン> npm run build:cloudflare
+SITE_URL=https://tabeho.com npm run build:cloudflare
 ```
 
-本番デプロイは、リリース承認後に次を実行します。
+本番デプロイ:
 
 ```bash
 npx wrangler login
-SITE_URL=https://<本番ドメイン> npm run cf:deploy
+SITE_URL=https://tabeho.com npm run cf:deploy
 ```
 
-カスタムドメインの接続はCloudflareダッシュボードで行います。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
+`wrangler.jsonc`で`tabeho.com`をWorkersのカスタムドメインとして設定しています。Cloudflare側でゾーンが有効になっているアカウントへデプロイすると、DNS・HTTPS証明書・エッジ配信をCloudflareが管理します。`www.tabeho.com`は別ホスト名のため、必要になった場合に別途設定します。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
 
 ## リポジトリ内の主な場所
 
