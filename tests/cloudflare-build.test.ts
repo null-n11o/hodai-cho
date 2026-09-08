@@ -34,4 +34,18 @@ describe('Cloudflare build output', () => {
       }),
     ).toThrow(/missing/);
   });
+
+  it('requires SITE_URL for a deployment verification', () => {
+    const fixture = mkdtempSync(join(tmpdir(), 'tabeho-cloudflare-'));
+    const env = { ...process.env, TABEHO_DIST_DIR: fixture };
+    delete env.SITE_URL;
+
+    expect(() =>
+      execFileSync(process.execPath, [resolve(process.cwd(), 'scripts/verify-cloudflare-build.mjs'), '--require-site-url'], {
+        env,
+        encoding: 'utf8',
+        stdio: 'pipe',
+      }),
+    ).toThrow(/SITE_URL is required/);
+  });
 });

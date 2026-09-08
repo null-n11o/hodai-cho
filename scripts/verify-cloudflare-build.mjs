@@ -5,6 +5,12 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const dist = resolve(process.env.TABEHO_DIST_DIR ?? join(root, 'dist'));
 const required = ['index.html', 'en/index.html', 'sitemap.xml', 'robots.txt'];
+
+if (process.argv.includes('--require-site-url') && !process.env.SITE_URL) {
+  console.error('SITE_URL is required for a Cloudflare deployment');
+  process.exit(1);
+}
+
 const missing = required.filter((relativePath) => !existsSync(join(dist, relativePath)));
 
 if (missing.length > 0) {

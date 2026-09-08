@@ -10,7 +10,7 @@
     "verify:cloudflare": "node scripts/verify-cloudflare-build.mjs",
     "build:cloudflare": "npm run build:ssg && npm run verify:cloudflare",
     "cf:dev": "npm run build:ssg && wrangler dev",
-    "cf:deploy": "npm run build:ssg && wrangler deploy",
+    "cf:deploy": "npm run build:ssg && node scripts/verify-cloudflare-build.mjs --require-site-url && wrangler deploy",
     "lint": "oxlint",
     "preview": "vite preview",
     "test": "vitest run"

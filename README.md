@@ -131,7 +131,7 @@ SITE_URL=https://<本番ドメイン> npm run build:cloudflare
 
 ```bash
 npx wrangler login
-npm run cf:deploy
+SITE_URL=https://<本番ドメイン> npm run cf:deploy
 ```
 
 カスタムドメインの接続はCloudflareダッシュボードで行います。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。

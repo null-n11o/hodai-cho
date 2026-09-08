@@ -202,7 +202,7 @@ Add these scripts:
 }
 ```
 
-Update `README.md` with the `tabeho` service name, `SITE_URL=https://<本番ドメイン> npm run build:cloudflare`, `npm run cf:dev`, `npx wrangler deploy --dry-run`, and the explicitly approved `npm run cf:deploy` release command. State that custom-domain attachment is a Cloudflare dashboard operation and that credentials, account IDs, database IDs, and secrets must not be committed.
+Update `README.md` with the `tabeho` service name, `SITE_URL=https://<本番ドメイン> npm run build:cloudflare`, `npm run cf:dev`, `npx wrangler deploy --dry-run`, and the explicitly approved `SITE_URL=https://<本番ドメイン> npm run cf:deploy` release command. Make `cf:deploy` fail when `SITE_URL` is absent so the placeholder URL cannot reach Production. State that custom-domain attachment is a Cloudflare dashboard operation and that credentials, account IDs, database IDs, and secrets must not be committed.
 
 - [x] **Step 4: 生成物とローカル検証を通す**
 
