@@ -121,20 +121,20 @@ npm run cf:dev
 npx wrangler deploy --dry-run
 ```
 
-本番URL（`https://tabeho.com`）を設定してビルドする場合:
+無料の `workers.dev` URLで公開する場合:
 
 ```bash
-SITE_URL=https://tabeho.com npm run build:cloudflare
+SITE_URL=https://tabeho.<アカウントのサブドメイン>.workers.dev npm run build:cloudflare
 ```
 
-本番デプロイ:
+デプロイ:
 
 ```bash
 npx wrangler login
-SITE_URL=https://tabeho.com npm run cf:deploy
+SITE_URL=https://tabeho.<アカウントのサブドメイン>.workers.dev npm run cf:deploy
 ```
 
-`wrangler.jsonc`で`tabeho.com`をWorkersのカスタムドメインとして設定しています。Cloudflare側でゾーンが有効になっているアカウントへデプロイすると、DNS・HTTPS証明書・エッジ配信をCloudflareが管理します。`www.tabeho.com`は別ホスト名のため、必要になった場合に別途設定します。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
+現在の無料公開URLは `https://tabeho.nakano-kentaro7.workers.dev` です。独自ドメインを取得した後は、`wrangler.jsonc`のカスタムドメイン設定と`SITE_URL`をそのドメインへ切り替えます。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
 
 ## リポジトリ内の主な場所
 
