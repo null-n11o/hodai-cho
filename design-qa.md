@@ -39,6 +39,12 @@ Focused region checks were made against the hero/search region and the first two
 - Fix: loaded Noto Sans JP from Google Fonts and applied it to body text and headings. Changed the root canvas, content routes, cards, form controls, and filter sheet to the shared light editorial tokens. Kept only the header and mobile navigation as the dark brand shell.
 - Post-fix evidence: `/tmp/hodai-cho-redesign-desktop-font-light.png`, `/tmp/hodai-cho-search-mobile-font-light.png`, and `/tmp/hodai-cho-filter-sheet-light.png`; all checked with Playwright without console/page errors.
 
+### Pass 4
+
+- User-directed adjustment: the search panel heading felt too tightly packed against the condition inputs.
+- Fix: increased the heading-to-fields gap to 32px on desktop and 22px on mobile, with a little more separation between the kicker, heading, and supporting copy.
+- Post-fix evidence: `/tmp/hodai-cho-search-spacing-desktop-top.png` and `/tmp/hodai-cho-search-spacing-mobile-top.png`; Playwright measured the intended 32px/22px gaps with no horizontal overflow.
+
 ## Required fidelity surfaces
 
 - Fonts and typography: Noto Sans JP is now used for both headings and body/UI as explicitly requested. This intentionally departs from the source mock's Mincho display face while retaining its hierarchy and line wrapping.

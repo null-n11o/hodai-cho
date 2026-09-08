@@ -20,4 +20,9 @@ describe('light editorial theme', () => {
     expect(css).toContain('.mobile-nav');
     expect(main).not.toContain('min-h-svh bg-ink');
   });
+
+  it('検索パネルの見出しと条件入力の間に余白を取る', () => {
+    expect(css).toMatch(/\.search-panel-heading \{[^}]*margin-bottom: 32px;/s);
+    expect(css).toMatch(/@media \(max-width: 767px\)[\s\S]*?\.search-panel-heading \{[^}]*margin-bottom: 22px;/);
+  });
 });

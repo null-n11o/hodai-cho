@@ -277,7 +277,7 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   z-index: 2;
   display: block;
   margin-top: -1px;
-  padding: 24px 0 26px;
+  padding: 28px 0 30px;
   border: 0;
   border-top: 1px solid var(--paper-line);
   border-bottom: 2px solid var(--paper-ink);
@@ -285,8 +285,8 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   background: var(--paper-strong);
   color: var(--paper-ink);
 }
-.search-panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 20px; }
-.search-panel-heading h2 { margin-top: 3px; font-size: 20px; font-weight: 700; line-height: 1.5; }
+.search-panel-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.search-panel-heading h2 { margin-top: 8px; font-size: 20px; font-weight: 700; line-height: 1.5; }
 .search-panel-heading > p { max-width: 360px; color: var(--paper-muted); font-size: 12px; line-height: 1.7; text-align: right; }
 .search-panel-kicker { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .16em; }
 .search-fields { display: grid; grid-template-columns: minmax(160px, 1.25fr) repeat(6, minmax(0, 1fr)) auto auto; gap: 10px; align-items: end; }
@@ -363,10 +363,10 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   .search-page .search-hero h1 { font-size: 26px; }
   .search-page .search-hero-copy > p:last-child { font-size: 12px; }
   .search-hero-image { display: none; }
-  .search-page .search-panel { padding: 18px 0 20px; }
-  .search-panel-heading { display: block; margin-bottom: 14px; }
-  .search-panel-heading h2 { font-size: 18px; }
-  .search-panel-heading > p { margin-top: 4px; text-align: left; }
+  .search-page .search-panel { padding: 22px 0 24px; }
+  .search-panel-heading { display: block; margin-bottom: 22px; }
+  .search-panel-heading h2 { margin-top: 7px; font-size: 18px; }
+  .search-panel-heading > p { margin-top: 8px; text-align: left; }
   .search-fields { grid-template-columns: 1fr 1fr; gap: 9px; }
   .search-fields .keyword-field { grid-column: 1 / -1; }
   .search-fields .filter-button, .search-fields .reset-button { width: 100%; }
