@@ -15,4 +15,4 @@
 
 掲載追加、依存更新、公開は含まない。視覚制約の変更はユーザー回答で確定する。
 
-検証: 98 tests PASS、lintは既存のGenreImage fast-refresh警告1件のみ、build:ssg成功（292 URL）。ブラウザで320/375/1280px・日英・保存・0件・パネル開閉を確認。白ベース案は保留し既存配色で完了。
+検証: 114 tests PASS、lintは既存のFoodImage/GenreImage fast-refresh警告2件のみ、build:ssg成功（328 URL）。ブラウザで320/375/1280px・日英・保存・0件・パネル開閉・文書言語を確認。ユーザー承認済みの「食卓の新聞」方向としてライトベースと Noto Sans JP を適用して完了。

@@ -228,7 +228,7 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 }
 
 /* Keep accent-colored surfaces, with legible text on the dark palette. */
-.filter-chip.is-active, .genre-label, .store-card-footer a, .header-nav a.active,
+.filter-chip.is-active, .genre-label, .store-card-footer a,
 .mobile-nav a[aria-current=page] { color: var(--text); }
 @media (max-width: 767px) {
   .search-hero { padding: 18px 0 16px; }
@@ -349,6 +349,12 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 .search-page .browse-areas h2 { color: var(--paper-ink); }
 .search-page .browse-areas a { color: var(--paper-muted); }
 .search-page .site-disclaimer { border-color: var(--paper-line); color: var(--paper-muted); }
+.search-page .empty-state {
+  border-color: var(--paper-line);
+  background: var(--paper-strong);
+}
+.search-page .empty-state > p { color: var(--paper-ink); }
+.search-page .empty-state > ul { color: var(--paper-muted); }
 
 @media (max-width: 1100px) and (min-width: 768px) {
   .search-fields { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -428,6 +434,12 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
 .content-page .contact-success { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
 .content-page .image-caption { color: var(--muted); }
 .content-page .site-disclaimer { border-color: var(--line); color: var(--muted); }
+.content-page .empty-state {
+  border-color: var(--line);
+  background: var(--surface);
+}
+.content-page .empty-state > p { color: var(--text); }
+.content-page .empty-state > ul { color: var(--muted); }
 .content-page .store-card { border-color: var(--line); background: var(--surface); color: var(--text); }
 .content-page .store-card-image { background: var(--soft); }
 .content-page .store-title-link h2 { color: var(--text); }

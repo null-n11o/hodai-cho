@@ -25,4 +25,10 @@ describe('light editorial theme', () => {
     expect(css).toMatch(/\.search-panel-heading \{[^}]*margin-bottom: 32px;/s);
     expect(css).toMatch(/@media \(max-width: 767px\)[\s\S]*?\.search-panel-heading \{[^}]*margin-bottom: 22px;/);
   });
+
+  it('空状態の見出しはライトベースで読める色になる', () => {
+    expect(css).toContain('.search-page .empty-state > p');
+    expect(css).toContain('.content-page .empty-state > p');
+    expect(css).not.toContain('.header-nav a.active,\n.mobile-nav a[aria-current=page] { color: var(--text); }');
+  });
 });
