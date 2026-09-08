@@ -8,7 +8,7 @@ import { MainNav } from './components/MainNav';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <div className="min-h-svh bg-ink">
+      <div className="min-h-svh">
         <AppRoutes />
         <MainNav />
       </div>

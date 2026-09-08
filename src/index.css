@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #0e0d0c;
-  color: #ece7de;
-  font-family: 'IBM Plex Sans JP', system-ui, sans-serif;
+  background-color: #f3efe8;
+  color: #29231e;
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
   overflow-x: hidden;
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Shippori Mincho', serif;
+  font-family: 'Noto Sans JP', system-ui, sans-serif;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -32,14 +32,18 @@ h3 {
 }
 
 :root {
-  --page: #0e0d0c;
-  --surface: #171512;
-  --soft: #211d19;
-  --text: #ece7de;
-  --muted: #9a9084;
-  --line: #49413a;
+  --page: #f3efe8;
+  --surface: #fbfaf7;
+  --soft: #e9e2d8;
+  --text: #29231e;
+  --muted: #756b61;
+  --line: #d5cbbf;
   --accent: #c4543a;
-  --accent-soft: #302019;
+  --accent-soft: #f0d9d2;
+  --shell: #171512;
+  --shell-text: #ece7de;
+  --shell-muted: #9a9084;
+  --shell-line: #49413a;
 }
 
 body { background: var(--page); color: var(--text); line-height: 1.7; }
@@ -49,12 +53,12 @@ button, select { cursor: pointer; }
 input, select { min-width: 0; max-width: 100%; font: inherit; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .site-main { width: 100%; max-width: 1024px; margin: 0 auto; padding: 0 28px 90px; }
-.site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
+.site-header { background: var(--shell); border-bottom: 1px solid var(--shell-line); color: var(--shell-text); }
 .site-header-inner { max-width: 1024px; margin: auto; min-height: 86px; padding: 16px 28px; display: flex; align-items: center; gap: 24px; }
 .brand { min-height: 44px; display: inline-flex; align-items: center; gap: 10px; flex-shrink: 0; font-size: 25px; font-weight: 700; line-height: 1.2; letter-spacing: .04em; }
 .brand-mark { width: 42px; height: 42px; border: 2px solid var(--accent); color: var(--accent); display: grid; place-items: center; border-radius: 10px 10px 10px 2px; font-size: 23px; }
-.brand-reading { display: block; font-size: 11px; letter-spacing: .17em; margin-top: 4px; color: var(--muted); }
-.brand-description { font-size: 12px; color: var(--muted); }
+.brand-reading { display: block; font-size: 11px; letter-spacing: .17em; margin-top: 4px; color: var(--shell-muted); }
+.brand-description { font-size: 12px; color: var(--shell-muted); }
 .header-nav { margin-left: auto; display: flex; gap: 24px; font-size: 14px; font-weight: 700; }
 .header-nav a { display: inline-flex; align-items: center; min-height: 44px; border-bottom: 2px solid transparent; }
 .header-nav a.active { color: var(--accent); border-color: var(--accent); }
@@ -381,3 +385,77 @@ input, select { min-width: 0; max-width: 100%; font: inherit; }
   .search-page .store-prices > div { padding: 8px 10px; }
   .search-page .store-prices > div + div { border-left: 0; border-top: 1px solid var(--paper-line); padding-top: 8px; }
 }
+
+/* Keep secondary routes on the same light editorial canvas as the search page. */
+.content-page {
+  background: var(--page);
+  color: var(--text);
+}
+.content-page .text-ivory { color: var(--text) !important; }
+.content-page .text-stone { color: var(--muted) !important; }
+.content-page .text-aka { color: var(--accent) !important; }
+.content-page .bg-aka.text-ivory { color: #fff !important; }
+.content-page .detail-hero, .content-page .detail-section {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.content-page .detail-section h2 { border-left-color: var(--accent); }
+.content-page .detail-section tr { border-color: var(--line); }
+.content-page .contact-hero { border-color: var(--line); }
+.content-page .contact-panel, .content-page .contact-aside {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+.content-page .contact-aside section + section { border-color: var(--line); }
+.content-page .contact-form input,
+.content-page .contact-form select,
+.content-page .contact-form textarea {
+  border-color: var(--line);
+  background: var(--paper-strong, var(--surface));
+  color: var(--text);
+}
+.content-page .contact-store-options {
+  border-color: var(--line);
+  border-top-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 8px 18px rgb(49 39 31 / 16%);
+}
+.content-page .contact-store-options button { border-color: var(--line); color: var(--text); }
+.content-page .contact-store-options button:hover,
+.content-page .contact-store-options button.is-active { background: var(--accent-soft); color: var(--text); }
+.content-page .contact-success { border-color: var(--accent); background: var(--accent-soft); color: var(--text); }
+.content-page .image-caption { color: var(--muted); }
+.content-page .site-disclaimer { border-color: var(--line); color: var(--muted); }
+.content-page .store-card { border-color: var(--line); background: var(--surface); color: var(--text); }
+.content-page .store-card-image { background: var(--soft); }
+.content-page .store-title-link h2 { color: var(--text); }
+.content-page .station-line,
+.content-page .store-card-footer > span,
+.content-page .store-prices dt { color: var(--muted); }
+.content-page .store-prices { background: var(--soft); }
+.content-page .store-prices > div + div { border-color: var(--line); }
+.content-page .save-button { border-color: var(--line); background: var(--surface); color: var(--muted); }
+.content-page .save-button[aria-pressed=true] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+.content-page a:not(.bg-aka) { border-color: var(--line); }
+.content-page .primary-button { color: #fff; }
+.content-page > .rounded-lg.border { border-color: var(--line); background: var(--surface); }
+
+/* Navigation remains a dark brand shell while every page canvas is light. */
+.mobile-nav { border-color: var(--shell-line); background: var(--shell); color: var(--shell-text); }
+.mobile-nav a.text-ivory { color: var(--shell-text) !important; }
+.mobile-nav a.text-stonedim { color: var(--shell-muted) !important; }
+.mobile-nav a[aria-current=page] { color: var(--accent) !important; }
+
+/* The filter sheet is a light paper surface too; its backdrop still separates it from the page. */
+[role=dialog] {
+  color-scheme: light;
+  background: var(--surface);
+  color: var(--text);
+}
+[role=dialog] .text-ivory { color: var(--text) !important; }
+[role=dialog] .text-stone { color: var(--muted) !important; }
+[role=dialog] button { border-color: var(--line); color: var(--text); }
+[role=dialog] button.bg-aka { border-color: var(--accent); background: var(--accent); color: #fff; }
+[role=dialog] select { border-color: var(--line); background: var(--paper-strong, var(--surface)); color: var(--text); }
