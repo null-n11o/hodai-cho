@@ -64,6 +64,18 @@ try {
     },
   );
 
+  writePair(
+    '/contact/',
+    {
+      title: meta.contactTitle(),
+      description: meta.contactDescription(),
+    },
+    {
+      title: meta.contactTitleEn(),
+      description: meta.contactDescriptionEn(),
+    },
+  );
+
   for (const store of stores) {
     const jaPath = `/r/${store.id}/`;
     writePair(

@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
+import { AREA_EN } from '../catalog/en-names';
 import { dictionary, useLanguage } from '../i18n/language';
 
 const repository = new BundledCatalogRepository();
@@ -108,7 +109,7 @@ export function ContactPage() {
                 placeholder={t.storePlaceholder}
               />
               <datalist id="contact-store-suggestions">
-                {stores.map((store) => <option key={store.id} value={`${lang === 'en' ? store.nameEn : store.name} / ${store.area}`} />)}
+                {stores.map((store) => <option key={store.id} value={`${lang === 'en' ? store.nameEn : store.name} / ${lang === 'en' ? (AREA_EN[store.area] ?? store.area) : store.area}`} />)}
               </datalist>
             </label>
 
