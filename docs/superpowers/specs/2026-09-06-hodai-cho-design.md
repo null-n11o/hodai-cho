@@ -27,6 +27,9 @@
 
 - 画面は `CatalogRepository` 抽象（`listStores()` / `getStore(id)` / `catalogVersion()`）にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
 - フィルタ条件は永続化しない（再訪時は初期条件＝都県:東京）。永続化するのはお気に入りIDのみ（キー `tabeho`）。
+- 公開基盤は Cloudflare Workers Static Assets とする。`npm run build:ssg` が生成する `dist/` を配信し、現時点では Worker の動的APIとD1は使わない。
+- Cloudflare上のサービス名は `tabeho` とする。`/api/*` は将来のWorker API用に予約し、D1が必要になった場合も画面から直接接続せず、Worker APIとRepository実装を介して接続する。
+- ドメイン・DNS・HTTPS・エッジ配信はCloudflareで管理する。ソースコードのGitリポジトリはCloudflare外でもよく、Git pushを起点にCloudflareへデプロイする。
 
 ## 4. カタログ
 
@@ -63,6 +66,7 @@
 ## 8. SSG・SEO・多言語
 
 - `npm run build:ssg` で店別・エリア別静的HTML（日英）＋ `sitemap.xml` ＋ `robots.txt` を `dist/` へ生成。`SITE_URL` 環境変数で本番URL上書き可（既定は仮置きURL）。
+- Cloudflareへの初期デプロイは `build:ssg` 後の `dist/` をWorkers Static Assetsとして公開する。店別・エリア別の静的HTMLを優先し、未知IDや未生成パスはSPAフォールバックで既存の専用表示へ委譲する。
 - プリレンダはJS無効でも店名・料金・分数・リンクが読めること。localStorage参照はSSRで落ちないこと（`try/catch` 済み）。
 - 基盤: `src/seo/meta.ts`（タイトル・説明・JSON-LD・sitemap）・`src/seo/prerender.tsx`・`scripts/prerender.mjs`・`src/routes.tsx`（Routes木）。
 
