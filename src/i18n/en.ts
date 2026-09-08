@@ -96,6 +96,7 @@ export const en: Dict = {
     お好み焼き: 'Okonomiyaki',
     サラダバー: 'Salad bar',
     バイキング: 'Buffet',
+    定食おかわり自由: 'Refillable set meal',
   },
   prefs: {
     東京: 'Tokyo',

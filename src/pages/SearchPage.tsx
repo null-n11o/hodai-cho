@@ -16,7 +16,7 @@ import { AREA_EN } from '../catalog/en-names';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
-const GENRES: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー', 'バイキング'];
+const GENRES: Genre[] = ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー', 'バイキング', '定食おかわり自由'];
 
 const INITIAL: FilterCond = {
   prefecture: '東京',

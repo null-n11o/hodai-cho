@@ -61,10 +61,12 @@ export const STATION_EN: Record<string, string> = {
   辻堂: 'Tsujido',
   都庁前: 'Tochomae',
   銀座: 'Ginza',
+  東銀座: 'Higashi-ginza',
   錦糸町: 'Kinshicho',
   関内: 'Kannai',
   青葉台: 'Aobadai',
   高田馬場: 'Takadanobaba',
+  神保町: 'Jimbocho',
   鷺沼: 'Saginuma',
 };
 
@@ -116,6 +118,8 @@ export const AREA_EN: Record<string, string> = {
   藤沢: 'Fujisawa',
   辻堂: 'Tsujido',
   '銀座・有楽町': 'Ginza & Yurakucho',
+  銀座: 'Ginza',
+  神保町: 'Jimbocho',
   錦糸町: 'Kinshicho',
   関内: 'Kannai',
   青葉台: 'Aobadai',
@@ -148,4 +152,10 @@ export const CHAIN_EN: Record<string, string> = {
   道とん堀: 'Dotonbori',
   雛鮨: 'Hina-zushi',
   鳥物語: 'Tori Monogatari',
+  蔵部: 'Kurabu',
+  酢重ダイニング: 'Suju Dining',
+  佳照庵: 'Kasho-an',
+  '洋食屋 伊勢十': 'Yousyokuya Iseju',
+  '和の菜彩 さとう': 'Wa no Saisai Satou',
+  'まぐろ相馬水産': 'Maguro Souma Suisan',
 };

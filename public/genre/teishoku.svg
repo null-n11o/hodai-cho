@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" role="img" aria-labelledby="title desc">
+  <title id="title">Set meal illustration</title>
+  <desc id="desc">A rice bowl, miso soup bowl and small plate</desc>
+  <rect width="240" height="160" rx="16" fill="#211d19"/>
+  <g fill="none" stroke="#ece7de" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M46 82h72l-7 34H53z"/>
+    <path d="M48 82c8 16 61 16 68 0"/>
+    <path d="M67 68c7-12 19-12 28 0"/>
+    <path d="M145 91h54l-8 29h-38z"/>
+    <path d="M148 91c8 12 40 12 48 0"/>
+  </g>
+  <g fill="#c4543a">
+    <circle cx="74" cy="101" r="4"/><circle cx="91" cy="101" r="4"/>
+    <path d="M167 72c0-9 7-13 7-21M180 72c0-9 7-13 7-21" fill="none" stroke="#c4543a" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>
