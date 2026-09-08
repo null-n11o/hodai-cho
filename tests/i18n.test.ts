@@ -88,10 +88,24 @@ describe('language storage', () => {
     expect(loadLanguage()).toBe('ja');
   });
 
-  it('お気に入りキー hodai-cho を壊さない', () => {
-    localStorage.setItem('hodai-cho', JSON.stringify(['a']));
+  it('お気に入りキー tabeho を壊さない', () => {
+    localStorage.setItem('tabeho', JSON.stringify(['a']));
     saveLanguage('en');
-    expect(JSON.parse(localStorage.getItem('hodai-cho') ?? '[]')).toEqual(['a']);
+    expect(JSON.parse(localStorage.getItem('tabeho') ?? '[]')).toEqual(['a']);
     expect(localStorage.getItem(LANG_STORAGE_KEY)).toBe('en');
+  });
+
+  it('旧言語キー hodai-cho-lang から新キーへ移行する', () => {
+    localStorage.setItem('hodai-cho-lang', 'en');
+    expect(loadLanguage()).toBe('en');
+    expect(localStorage.getItem(LANG_STORAGE_KEY)).toBe('en');
+    expect(localStorage.getItem('hodai-cho-lang')).toBeNull();
+  });
+
+  it('両方の言語キーがある場合は新キーを優先し上書きしない', () => {
+    localStorage.setItem(LANG_STORAGE_KEY, 'ja');
+    localStorage.setItem('hodai-cho-lang', 'en');
+    expect(loadLanguage()).toBe('ja');
+    expect(localStorage.getItem(LANG_STORAGE_KEY)).toBe('ja');
   });
 });

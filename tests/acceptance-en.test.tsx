@@ -87,7 +87,7 @@ describe('acceptance: english filtering equals japanese', () => {
     localStorage.clear();
     renderAppAt('/en/');
     fireEvent.click(screen.getAllByLabelText('Save')[0]);
-    const saved = JSON.parse(localStorage.getItem('hodai-cho') ?? '[]');
+    const saved = JSON.parse(localStorage.getItem('tabeho') ?? '[]');
     expect(saved.length).toBe(1);
     cleanup();
     renderAppAt('/saved');

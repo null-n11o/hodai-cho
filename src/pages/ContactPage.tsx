@@ -34,8 +34,8 @@ function issueUrl(values: ReportValues, labels: Record<RequestType, string>, lan
     values.details,
     '',
     lang === 'ja'
-      ? '> この投稿は放題帖の情報修正・店舗追加の依頼です。掲載前に運営が確認します。'
-      : '> This is a correction or shop suggestion for Hodai-cho. The team will verify it before publishing.',
+      ? '> この投稿はタベホーの情報修正・店舗追加の依頼です。掲載前に運営が確認します。'
+      : '> This is a correction or shop suggestion for Tabeho. The team will verify it before publishing.',
   ].join('\n');
   const url = new URL(GITHUB_NEW_ISSUE_URL);
   url.searchParams.set('title', title);

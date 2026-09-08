@@ -5,7 +5,8 @@ import type { Dict } from './ja';
 
 export type Lang = 'ja' | 'en';
 
-export const LANG_STORAGE_KEY = 'hodai-cho-lang';
+export const LANG_STORAGE_KEY = 'tabeho-lang';
+const LEGACY_LANG_STORAGE_KEY = 'hodai-cho-lang';
 
 export function getLangFromPath(pathname: string): Lang {
   return pathname === '/en' || pathname.startsWith('/en/') ? 'en' : 'ja';
@@ -25,7 +26,15 @@ export function toJaPath(pathname: string): string {
 export function loadLanguage(): Lang {
   try {
     const raw = localStorage.getItem(LANG_STORAGE_KEY);
-    return raw === 'en' || raw === 'ja' ? raw : 'ja';
+    if (raw !== null) return raw === 'en' || raw === 'ja' ? raw : 'ja';
+    const legacy = localStorage.getItem(LEGACY_LANG_STORAGE_KEY);
+    if (legacy === null) return 'ja';
+    if (legacy === 'en' || legacy === 'ja') {
+      localStorage.setItem(LANG_STORAGE_KEY, legacy);
+      localStorage.removeItem(LEGACY_LANG_STORAGE_KEY);
+      return legacy;
+    }
+    return 'ja';
   } catch {
     return 'ja';
   }

@@ -29,7 +29,7 @@ describe('english meta', () => {
     const t = storeTitleEn(first);
     expect(t).toContain(first.nameEn);
     expect(t).toContain(AREA_EN[first.area]);
-    expect(t).toContain('Hodai-cho');
+    expect(t).toContain('Tabeho');
   });
 
   it('英語の店説明文に料金と駅と公式確認が入る', () => {
@@ -46,7 +46,7 @@ describe('english meta', () => {
   });
 
   it('英語トップのタイトルと説明文がある', () => {
-    expect(topTitleEn()).toContain('Hodai-cho');
+    expect(topTitleEn()).toContain('Tabeho');
     expect(topDescriptionEn()).toBeTruthy();
   });
 

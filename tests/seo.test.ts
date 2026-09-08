@@ -21,11 +21,11 @@ const stores = repo.listStores();
 const first = stores[0];
 
 describe('seo meta', () => {
-  it('店タイトルに店名・エリア・放題帖が入る', () => {
+  it('店タイトルに店名・エリア・タベホーが入る', () => {
     const t = storeTitle(first);
     expect(t).toContain(first.name);
     expect(t).toContain(first.area);
-    expect(t).toContain('放題帖');
+    expect(t).toContain('タベホー');
   });
 
   it('店説明文に最安料金と駅徒歩が入る', () => {
