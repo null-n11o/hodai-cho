@@ -27,7 +27,7 @@ export const OKAWARI_STORES: Store[] = [
     courses: [
       {
         slot: 'lunch',
-        name: 'ランチ定食（2026年9月7日訪問）',
+        name: 'ランチ定食',
         nameEn: 'Lunch set (Sep 7, 2026 visit)',
         priceInclTax: 2000,
         minutes: null,
