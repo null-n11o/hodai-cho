@@ -45,7 +45,7 @@
 
 ## Skill routing
 
-ユーザーの依頼に合うスキルがあるときは Skill ツール（または各ランタイムの相当手段）で呼び出す。迷ったら呼び出す。
+ユーザーの依頼に合うスキルがあるときは、Skill ツール（または各ランタイムの相当手段）で、ファイル確認や質問より先に呼び出す。迷ったら呼び出す。スキルを使うターンは、冒頭で `Using <skill> to <purpose>` と明示する。
 
 - 新規アイデアの掘り下げ -> `superpowers:brainstorming`
 - 実装計画の作成 -> `superpowers:writing-plans`
@@ -66,5 +66,8 @@
 ### Superpowers の使い方
 
 - Claude Code: `superpowers` プラグインが全体に導入済み。`/superpowers-subagent-driven-development` のようにスラッシュ実行するか、Skill ツールで `superpowers:subagent-driven-development` を指定する。
-- Codex / Cursor / opencode 等: プロジェクトローカルのスキルはないため、`docs/superpowers/plans/` の計画書の手順（チェックボックス形式の Step、失敗テスト→最小実装→検証→コミット）をそのまま実行する。サブエージェント機能がある環境では1タスク1サブエージェント＋タスクごとのレビュー（仕様準拠→品質）を再現する。
+- Codex: グローバルの `superpowers@claude-plugins-official` プラグインを正規のスキル供給元として扱う。ランタイムにSkill呼び出し機能が公開されている場合は、該当するスキル名（例: `superpowers:brainstorming`）を直接呼び出す。呼び出し機能が公開されていない場合は、インストール済みプラグインの同名 `SKILL.md` を全文読んで、その手順をフォールバックとして厳密に実行する。このフォールバックを「直接発動済み」と表現しない。
+- Codexでは、毎回「適用スキルの選定→開始宣言→スキルの手順→検証」の順序を守る。`superpowers:brainstorming` は新規アイデア・機能・UI変更の前に、`superpowers:writing-plans` は承認済み設計の後に、`superpowers:subagent-driven-development` または `superpowers:executing-plans` は承認済み計画の実装時に使う。ブレインストーミングの設計承認前に実装へ進まない。
+- Codexでプラグインをインストール・更新・有効化した直後は、現在のセッションに反映されないことがあるため、新規セッションまたはアプリの再読み込み後に運用する。状態確認が必要な場合は `codex plugin list --json` で対象プラグインの `installed` と `enabled` を確認する。
+- Cursor / opencode 等: 各ランタイムのネイティブなスキル呼び出しを優先する。直接呼び出し機能がない場合は、該当する `SKILL.md` と `docs/superpowers/plans/` の計画書の手順（チェックボックス形式の Step、失敗テスト→最小実装→検証→コミット）をそのまま実行する。サブエージェント機能がある環境では1タスク1サブエージェント＋タスクごとのレビュー（仕様準拠→品質）を再現する。
 - 対応表: 同一セッションで逐次実行するなら `subagent-driven-development`、別セッションでチェックポイントを挟むなら `executing-plans`。どちらもテスト→実装→検証→コミットの順序は変えない。
