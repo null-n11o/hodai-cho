@@ -111,6 +111,31 @@ npm run preview             # 本番ビルドをローカル確認
 SITE_URL=https://example.com npm run build:ssg
 ```
 
+## CloudflareでPreview・配信する
+
+Cloudflare上のサービス名は `tabeho` です。現在はデータベースを使わず、SSGで生成した `dist/` をCloudflare Workers Static Assetsとして配信します。
+
+```bash
+npm run build:cloudflare
+npm run cf:dev
+npx wrangler deploy --dry-run
+```
+
+本番URLを設定してビルドする場合:
+
+```bash
+SITE_URL=https://<本番ドメイン> npm run build:cloudflare
+```
+
+本番デプロイは、リリース承認後に次を実行します。
+
+```bash
+npx wrangler login
+npm run cf:deploy
+```
+
+カスタムドメインの接続はCloudflareダッシュボードで行います。アカウントID、APIトークン、データベースID、秘密値はリポジトリへ保存しません。現在はD1や動的APIを設定していません。
+
 ## リポジトリ内の主な場所
 
 - `src/catalog/` — 店舗データ、型、カタログ検証、Repository

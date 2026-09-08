@@ -35,7 +35,7 @@
 - Consumes: 既存の`npm run build:ssg`と`dist/`
 - Produces: `tabeho`サービスが`dist/`を静的アセットとして扱う設定、`npm run cf:dev`、`npm run cf:deploy`のCLI入口
 
-- [ ] **Step 1: 設定契約の失敗テストを書く**
+- [x] **Step 1: 設定契約の失敗テストを書く**
 
 ```ts
 import { readFileSync } from 'node:fs';
@@ -61,13 +61,13 @@ describe('Cloudflare Workers configuration', () => {
 });
 ```
 
-- [ ] **Step 2: 失敗を確認する**
+- [x] **Step 2: 失敗を確認する**
 
 Run: `npx vitest run tests/cloudflare-config.test.ts`
 
 Expected: FAIL because `wrangler.jsonc` does not exist yet.
 
-- [ ] **Step 3: 最小設定とCLIスクリプトを追加する**
+- [x] **Step 3: 最小設定とCLIスクリプトを追加する**
 
 ```bash
 npm install -D wrangler
@@ -100,7 +100,7 @@ Add to `package.json`:
 
 Keep `npm run build:ssg` as the source of the `dist/` artifact. Do not add a D1 binding or Worker API file in this task.
 
-- [ ] **Step 4: 設定とdry-runを検証する**
+- [x] **Step 4: 設定とdry-runを検証する**
 
 ```bash
 npx vitest run tests/cloudflare-config.test.ts
@@ -110,7 +110,7 @@ npx wrangler deploy --dry-run
 
 Expected: the config test passes, `dist/` contains the existing SSG output, and Wrangler produces a dry-run deployment without changing DNS or production resources.
 
-- [ ] **Step 5: コミットする**
+- [x] **Step 5: コミットする**
 
 ```bash
 git add wrangler.jsonc package.json package-lock.json tests/cloudflare-config.test.ts
@@ -129,32 +129,67 @@ git commit -m "feat: add tabeho cloudflare static assets config"
 - Consumes: Task 1の`wrangler.jsonc`、既存の`dist/`、`SITE_URL`環境変数
 - Produces: ローカル検証可能なCloudflare用ビルドチェックと、Productionを変更しない運用手順
 
-- [ ] **Step 1: 生成物チェックの失敗テストを書く**
+- [x] **Step 1: 生成物チェックの失敗テストを書く**
 
 ```ts
-import { existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 describe('Cloudflare build output', () => {
-  it('contains the public entry points after build:ssg', () => {
-    expect(existsSync(resolve(process.cwd(), 'dist/index.html'))).toBe(true);
-    expect(existsSync(resolve(process.cwd(), 'dist/en/index.html'))).toBe(true);
-    expect(existsSync(resolve(process.cwd(), 'dist/sitemap.xml'))).toBe(true);
-    expect(existsSync(resolve(process.cwd(), 'dist/robots.txt'))).toBe(true);
+  it('accepts the required public entry points', () => {
+    const fixture = mkdtempSync(join(tmpdir(), 'tabeho-cloudflare-'));
+    mkdirSync(join(fixture, 'en'), { recursive: true });
+    writeFileSync(join(fixture, 'index.html'), '<html lang="ja"></html>');
+    writeFileSync(join(fixture, 'en/index.html'), '<html lang="en"></html>');
+    writeFileSync(join(fixture, 'sitemap.xml'), '<urlset />');
+    writeFileSync(join(fixture, 'robots.txt'), 'User-agent: *');
+
+    const output = execFileSync(process.execPath, [resolve(process.cwd(), 'scripts/verify-cloudflare-build.mjs')], {
+      env: { ...process.env, TABEHO_DIST_DIR: fixture, SITE_URL: 'https://tabeho.example.com' },
+      encoding: 'utf8',
+    });
+
+    expect(output).toContain('Cloudflare build verified');
+    expect(existsSync(join(fixture, 'sitemap.xml'))).toBe(true);
+  });
+
+  it('fails when a required entry point is missing', () => {
+    const fixture = mkdtempSync(join(tmpdir(), 'tabeho-cloudflare-'));
+    writeFileSync(join(fixture, 'sitemap.xml'), '<urlset />');
+
+    expect(() =>
+      execFileSync(process.execPath, [resolve(process.cwd(), 'scripts/verify-cloudflare-build.mjs')], {
+        env: { ...process.env, TABEHO_DIST_DIR: fixture },
+        encoding: 'utf8',
+        stdio: 'pipe',
+      }),
+    ).toThrow(/missing/);
   });
 });
 ```
 
-- [ ] **Step 2: 生成物がない状態で失敗することを確認する**
+- [x] **Step 2: 生成物がない状態で失敗することを確認する**
 
-Run: `rm -rf dist && npx vitest run tests/cloudflare-build.test.ts`
+Temporarily move the generated directory aside, run the test, and restore it without deleting source files:
 
-Expected: FAIL because the generated output has not been created. `dist/` is generated output only; do not remove source files.
+```bash
+mv dist .tabeho-dist-backup
+set +e
+npx vitest run tests/cloudflare-build.test.ts
+result=$?
+set -e
+mv .tabeho-dist-backup dist
+exit $result
+```
 
-- [ ] **Step 3: 検証スクリプトとREADME手順を追加する**
+Expected: FAIL because the generated output has not been created. The committed test uses a temporary fixture for repeatable pass/fail checks; `npm run verify:cloudflare` checks the real `dist/` directory.
 
-Create `scripts/verify-cloudflare-build.mjs` that checks the four entry files above, reads `dist/sitemap.xml`, fails when `SITE_URL` is set but the generated sitemap still contains `hodai-cho.example.invalid`, prints checked paths, and exits with code 1 naming a missing artifact.
+- [x] **Step 3: 検証スクリプトとREADME手順を追加する**
+
+Create `scripts/verify-cloudflare-build.mjs` that checks the four entry files above, reads `dist/sitemap.xml`, fails when `SITE_URL` is set but the generated sitemap still contains `hodai-cho.example.invalid`, prints checked paths, and exits with code 1 naming a missing artifact. Support `TABEHO_DIST_DIR` as a test-only override for the checked directory.
 
 Add these scripts:
 
@@ -169,7 +204,7 @@ Add these scripts:
 
 Update `README.md` with the `tabeho` service name, `SITE_URL=https://<本番ドメイン> npm run build:cloudflare`, `npm run cf:dev`, `npx wrangler deploy --dry-run`, and the explicitly approved `npm run cf:deploy` release command. State that custom-domain attachment is a Cloudflare dashboard operation and that credentials, account IDs, database IDs, and secrets must not be committed.
 
-- [ ] **Step 4: 生成物とローカル検証を通す**
+- [x] **Step 4: 生成物とローカル検証を通す**
 
 ```bash
 npm run build:cloudflare
@@ -177,9 +212,9 @@ npx vitest run tests/cloudflare-build.test.ts
 npm run cf:dev
 ```
 
-While `cf:dev` runs, verify `/`, `/en/`, one generated `/r/<id>/`, one generated `/a/<prefecture>/<area>/`, and `/r/no-such-shop`. Generated pages must include static HTML, and the unknown ID must reach the existing React empty state.
+While `cf:dev` runs, verify `/`, `/en/`, `/r/syabuyo-tachikawa/`, `/a/神奈川/溝の口/`, and `/r/no-such-shop`. The generated detail and area pages returned 200 with their prerendered markers; the unknown ID returned the SPA shell with 200 for the existing React empty state.
 
-- [ ] **Step 5: 全体検証とコミットする**
+- [x] **Step 5: 全体検証とコミットする**
 
 ```bash
 npm test
