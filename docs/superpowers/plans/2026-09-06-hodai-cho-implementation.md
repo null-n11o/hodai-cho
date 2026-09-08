@@ -13,7 +13,7 @@ review:
 
 # 放題帖 Implementation Plan
 
-> 実施状況: Task 1〜8は実施済み。以降は92店・SSG・英語対応まで拡張済み（git履歴参照）。以降の拡張は新規planを作ること。原本は `docs/PLAN-20260906-301-hodai-cho-implementation-plan.md`（同内容・履歴参照用）。
+> 実施状況: Task 1〜8は実施済み。以降は107店・SSG・英語対応まで拡張済み（git履歴参照）。以降の拡張は新規planを作ること。`docs/PLAN-20260906-301-hodai-cho-implementation-plan.md` は初期計画の履歴参照用。
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -27,9 +27,9 @@ review:
 
 ## Global Constraints
 
-- 日本語UIのみ。英語コピーはヒーローの TOKYO / KANAGAWA のみ。
-- ダーク固定。地 `#0e0d0c`、本文 `#ece7de`、補助 `#9a9084` / `#6f675e`、強調 `#c4543a`。ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示禁止。
-- 見出しは Shippori Mincho、本文は IBM Plex Sans JP（Google Fonts＋system fallback）。
+- 日英対応。既定は日本語、`/en/` 以下は英語ページとし、文書言語もパスに同期する。
+- コンテンツ面はライトベースの「食卓の新聞」。地 `#f3efe8`、面 `#fbfaf7`、本文 `#29231e`、補助 `#756b61`、罫線 `#d5cbbf`、強調 `#c4543a`。ヘッダーとモバイルナビは `#171512` のダークなブランドシェルとする。ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示は禁止。
+- 見出しと本文は Noto Sans JP（Google Fonts＋system fallback）。
 - 動きは150–400ms。保存ハートはアウトライン↔塗り。`prefers-reduced-motion` では無効化。
 - タップ面44px以上。保存ボタンは `aria-label` と `aria-pressed` を持つ。`lang="ja"`。
 - 料金表示は `¥` ＋ 日本ロケール（`toLocaleString('ja-JP')`）。税込の平日目安。土日加算は注記側。
@@ -43,12 +43,18 @@ review:
 
 ```text
 02_dev/hodai-cho/
-  index.html                      # lang="ja"、タイトル放題帖、フォントリンク
+  index.html                      # lang="ja"、タイトル放題帖、Noto Sans JPリンク
+  scripts/
+    prerender.mjs                 # 店・エリア・問い合わせの日英SSG、sitemap、robots
   src/
-    main.tsx                      # エントリ、ルータ（/ /r/:id /saved）
+    main.tsx                      # BrowserRouterを起動
+    routes.tsx                    # 日本語・英語のRoutes木
+    i18n/                         # 日英辞書・言語判定・表示整形
     catalog/
-      schema.ts                   # 型＋バリデーション（version付き）
-      seed.ts                     # 同梱カタログ実データ
+      schema.ts                   # 型＋日英を含むバリデーション（version付き）
+      seed.ts                     # 同梱カタログ実データの結合
+      data/*.ts                   # 店舗・定食おかわり自由データ
+      en-names.ts                 # 駅・系列の英語名
       repository.ts               # CatalogRepository抽象＋同梱実装
     filters/
       filter.ts                   # F-01〜F-08 の絞り込み・並び・正規化
@@ -59,14 +65,21 @@ review:
       StoreCard.tsx               # 一覧カード
       CourseTable.tsx             # 詳細コース表
       EmptyState.tsx              # 0件・未知ID表示
+      FoodImage.tsx               # 料理静物のジャンル画像
+      GenreImage.tsx              # ジャンル画像のフォールバック
+      SiteHeader.tsx              # 共通ヘッダー
+      MainNav.tsx                 # モバイル下部ナビ
     pages/
       SearchPage.tsx              # 探す（/）
       DetailPage.tsx              # 詳細（/r/:id）
       SavedPage.tsx               # 保存（/saved）
+      AreaPage.tsx                # エリア（/a/:prefecture/:area）
+      ContactPage.tsx             # 情報提供（/contact）
+    seo/
+      meta.ts                     # 日英meta、JSON-LD、sitemap
+      prerender.tsx               # 静的HTML断片
   tests/
-    filter.test.ts
-    repository.test.ts
-    favorites.test.ts
+    *.test.ts / *.test.tsx        # ロジック、画面、日英、SEO、SSGのテスト
 ```
 
 画面側は `CatalogRepository` 抽象にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
@@ -810,7 +823,7 @@ git commit -m "feat: complete catalog and acceptance pass"
 
 ## Self-Review
 
-- Spec coverage: §1（足場・縫い目→Task 1/2）、§2（カタログ→Task 2/6）、§3（画面→Task 4/5、予約リンク→Task 5）、§4（運用・受け入れ→Task 6）。v1.1のF-01〜F-08/D-01〜D-10相当はTask 3〜5に割当て済み。追加店リスト未確定はTask 6の入力条件として明示済み。
+- Spec coverage: §1（足場・縫い目→Task 1/2）、§2（カタログ→Task 2/6）、§3（画面→Task 4/5、予約リンク→Task 5）、§4（運用・受け入れ→Task 6）。v1.1のF-01〜F-08/D-01〜D-10相当はTask 3〜5に割当て済み。追加店リストは後続の定食おかわり自由計画で確定し、カタログへ反映済み。
 - SEO拡張（office-hours判定 2026-09-06）：Task 7（SSG＋JSON-LD＋sitemap）、Task 8（エリアページ＝楔）。Search Console登録・本番URL確定・バリューコマース登録はCEO作業で実装外。
 - Placeholder scan: 「TBD/TODO/あとで」「適切に」「同様に」の記述なし。各ステップに実コードまたは実コマンドあり。
 - Type consistency: `Store`/`Course`/`FilterCond`/`CatalogRepository` の名前と型は全タスクで同一。`minutes: null`＝無制限の扱いはTask 2の型とTask 3の判定で一致。

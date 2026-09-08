@@ -30,4 +30,10 @@ describe('filterStores', () => {
     const got = filterStores(SEED_STORES, { ...base, genres: ['宴会食放'] });
     expect(got.every((s) => s.genres.includes('宴会食放') || (s.subGenres ?? []).includes('宴会食放'))).toBe(true);
   });
+
+  it('駅からの徒歩時間の上限で絞れる', () => {
+    const got = filterStores(SEED_STORES, { ...base, walkMax: 3 } as Parameters<typeof filterStores>[1]);
+    expect(got.length).toBeGreaterThan(0);
+    expect(got.every((s) => s.walkMinutes <= 3)).toBe(true);
+  });
 });

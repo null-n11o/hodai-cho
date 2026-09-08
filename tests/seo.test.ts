@@ -5,6 +5,8 @@ import {
   areaDescription,
   areaPath,
   areaTitle,
+  contactDescription,
+  contactTitle,
   listAreas,
   sitemapXml,
   storeDescription,
@@ -58,6 +60,11 @@ describe('seo meta', () => {
     expect(t).toContain('5');
     const d = areaDescription('東京', '新宿', 5);
     expect(d).toContain('新宿');
+  });
+
+  it('問い合わせページのタイトルと説明がある', () => {
+    expect(contactTitle()).toContain('情報提供');
+    expect(contactDescription()).toContain('修正依頼');
   });
 
   it('sitemapがloc列を出す', () => {

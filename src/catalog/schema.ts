@@ -1,8 +1,8 @@
-export const CATALOG_VERSION = '2026-09-06+en.1';
+export const CATALOG_VERSION = '2026-09-08+en.3';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
-export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' | 'ピザ' | '串揚げ' | '宴会食放' | 'パン食べ放題' | 'お好み焼き' | 'サラダバー' | 'バイキング';
+export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' | 'ピザ' | '串揚げ' | '宴会食放' | 'パン食べ放題' | 'お好み焼き' | 'サラダバー' | 'バイキング' | '定食おかわり自由';
 
 export interface Course {
   slot: TimeSlot;

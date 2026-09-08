@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import type { SlotCond, SortCond, TimeLimitCond } from '../filters/filter';
 import { budgetLabel } from '../i18n/format';
 import { dictionary, useLanguage } from '../i18n/language';
@@ -7,14 +8,16 @@ interface FilterSheetProps {
   slot: SlotCond;
   timeLimit: TimeLimitCond;
   budget: number | undefined;
+  walkMax?: number;
   sort: SortCond;
-  onChange: (patch: { slot?: SlotCond; timeLimit?: TimeLimitCond; budget?: number | undefined; sort?: SortCond }) => void;
+  onChange: (patch: { slot?: SlotCond; timeLimit?: TimeLimitCond; budget?: number | undefined; walkMax?: number | undefined; sort?: SortCond }) => void;
   onClose: () => void;
 }
 
 const SLOT_VALUES: SlotCond[] = ['all', 'lunch', 'dinner'];
 const TIME_LIMIT_VALUES: TimeLimitCond[] = ['all', 'unlimited', 'le90', 'le120'];
 const SORT_VALUES: SortCond[] = ['recommend', 'cheap', 'near', 'short'];
+const WALK_MAX_VALUES = [3, 5, 10, 15];
 
 const BUDGETS: number[] = [];
 for (let yen = 1000; yen <= 8000; yen += 500) BUDGETS.push(yen);
@@ -25,15 +28,39 @@ function chip(active: boolean): string {
   }`;
 }
 
-export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onClose }: FilterSheetProps) {
+export function FilterSheet({ open, slot, timeLimit, budget, walkMax, sort, onChange, onClose }: FilterSheetProps) {
   const lang = useLanguage();
   const dict = dictionary(lang);
   const t = dict.sheet;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.activeElement;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialogRef.current?.focus();
+    return () => {
+      document.body.style.overflow = overflow;
+      if (previous instanceof HTMLElement) previous.focus();
+    };
+  }, [open]);
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50">
       <button type="button" aria-label={t.closeLabel} onClick={onClose} className="absolute inset-0 min-h-[44px] w-full bg-black/60" />
-      <div role="dialog" aria-modal="true" aria-label={t.dialogLabel} className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
+      <div ref={dialogRef} tabIndex={-1} onKeyDown={(event) => {
+        if (event.key === 'Escape') { event.preventDefault(); onClose(); }
+        if (event.key !== 'Tab') return;
+        const nodes = dialogRef.current?.querySelectorAll<HTMLElement>('button, select, input, a[href]');
+        if (!nodes?.length) return;
+        const first = nodes[0];
+        const last = nodes[nodes.length - 1];
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === dialogRef.current)) {
+          event.preventDefault(); last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault(); first.focus();
+        }
+      }} role="dialog" aria-modal="true" aria-label={t.dialogLabel} className="absolute inset-x-0 bottom-0 mx-auto w-full max-w-lg rounded-t-2xl bg-ink p-5 pb-8">
         <h2 className="text-lg font-bold text-ivory">{t.title}</h2>
         <section className="mt-4" aria-label={t.time}>
           <h3 className="text-sm text-stone">{t.time}</h3>
@@ -69,6 +96,18 @@ export function FilterSheet({ open, slot, timeLimit, budget, sort, onChange, onC
                 {budgetLabel(lang, yen)}
               </option>
             ))}
+          </select>
+        </section>
+        <section className="mt-4" aria-label={t.walk}>
+          <h3 className="text-sm text-stone">{t.walk}</h3>
+          <select
+            aria-label={t.walk}
+            value={walkMax ?? ''}
+            onChange={(e) => onChange({ walkMax: e.target.value === '' ? undefined : Number(e.target.value) })}
+            className="mt-2 min-h-[44px] w-full rounded-lg border border-stonedim/60 bg-ink px-3 text-ivory"
+          >
+            <option value="">{lang === 'en' ? 'No preference' : '指定なし'}</option>
+            {WALK_MAX_VALUES.map((minutes) => <option key={minutes} value={minutes}>{lang === 'en' ? `Within ${minutes} min` : `徒歩${minutes}分以内`}</option>)}
           </select>
         </section>
         <section className="mt-4" aria-label={t.sort}>

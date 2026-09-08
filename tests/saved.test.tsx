@@ -6,11 +6,9 @@ import { SavedPage } from '../src/pages/SavedPage';
 afterEach(() => cleanup());
 
 describe('SavedPage', () => {
-  it('PC幅では本文幅が広がり保存一覧が複数列グリッドになる', () => {
+  it('保存0件から検索に戻れる', () => {
     render(<MemoryRouter><SavedPage /></MemoryRouter>);
-    expect(screen.getByRole('main').className).toContain('md:max-w-3xl');
-    const results = screen.getByTestId('results');
-    expect(results.className).toContain('md:grid-cols-2');
-    expect(results.className).toContain('xl:grid-cols-3');
+    expect(screen.getByText('まだ保存した店はない')).toBeTruthy();
+    expect(screen.getByRole('link', { name: '探すへ戻る' }).getAttribute('href')).toBe('/');
   });
 });

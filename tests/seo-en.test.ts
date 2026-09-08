@@ -5,6 +5,8 @@ import { renderRoute } from '../src/seo/prerender';
 import {
   areaDescriptionEn,
   areaTitleEn,
+  contactDescriptionEn,
+  contactTitleEn,
   hreflangHead,
   listAreas,
   sitemapEntries,
@@ -48,6 +50,11 @@ describe('english meta', () => {
     expect(topDescriptionEn()).toBeTruthy();
   });
 
+  it('英語の問い合わせページのタイトルと説明文がある', () => {
+    expect(contactTitleEn()).toContain('Contribute');
+    expect(contactDescriptionEn()).toContain('Suggest');
+  });
+
   it('JSON-LDのidentifierに英語パスを渡せる', () => {
     const ld = storeJsonLd(first, base, `/en/r/${first.id}/`);
     expect(String(ld.identifier)).toContain(`/en/r/${first.id}/`);
@@ -73,10 +80,12 @@ describe('hreflang', () => {
 describe('sitemap entries', () => {
   it('日英のトップ・店・エリアを列挙する', () => {
     const entries = sitemapEntries(stores, areas, base, '2026-09-06');
-    expect(entries.length).toBe(2 * (1 + stores.length + areas.length));
+    expect(entries.length).toBe(2 * (2 + stores.length + areas.length));
     const locs = entries.map((e) => e.loc);
     expect(locs).toContain(`${base}/`);
     expect(locs).toContain(`${base}/en/`);
+    expect(locs).toContain(`${base}/contact/`);
+    expect(locs).toContain(`${base}/en/contact/`);
     expect(locs).toContain(`${base}/en/r/${first.id}/`);
     expect(locs).toContain(`${base}/r/${first.id}/`);
   });

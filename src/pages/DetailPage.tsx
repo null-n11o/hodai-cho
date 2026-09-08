@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
 import type { CatalogRepository } from '../catalog/repository';
 import type { Store } from '../catalog/schema';
@@ -26,7 +26,6 @@ export function DetailPage() {
   const dict = dictionary(lang);
   const t = dict.detail;
   const { id } = useParams();
-  const navigate = useNavigate();
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
 
   const store = id ? repository.getStore(id) : undefined;
@@ -38,7 +37,7 @@ export function DetailPage() {
 
   if (!store) {
     return (
-      <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+      <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
         <EmptyState
           title={t.notFound}
           advice={[t.notFoundAdvice]}
@@ -76,18 +75,18 @@ export function DetailPage() {
   };
 
   return (
-    <main className="mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
-      <button
-        type="button"
-        onClick={() => navigate(-1)}
-        className="mt-4 min-h-[44px] text-sm text-stone"
+    <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+      <Link
+        to={searchTo}
+        className="mt-4 inline-flex min-h-[44px] items-center text-sm text-stone"
       >
         {t.back}
-      </button>
+      </Link>
 
-      <div data-testid="hero" className="mt-2 md:mt-4 md:grid md:grid-cols-2 md:items-start md:gap-6">
+      <div data-testid="hero" className="detail-hero mt-2 md:mt-4 md:grid md:grid-cols-2 md:items-start md:gap-6">
       <div>
         <GenreImage genre={store.genres[0]} />
+        <p className="image-caption">{lang === 'en' ? 'Category illustration, not a photo of this shop' : 'ジャンルイメージ（店舗の写真ではありません）'}</p>
       </div>
 
       <div className="mt-2 flex items-start justify-between gap-3 md:mt-0">
@@ -106,7 +105,7 @@ export function DetailPage() {
           aria-label={dict.card.save}
           aria-pressed={saved}
           onClick={onToggleSave}
-          className="min-h-[44px] min-w-[44px] shrink-0 p-2 text-ivory transition-colors"
+          className="save-button"
         >
           <svg viewBox="0 0 24 24" width="24" height="24" fill={saved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
@@ -115,14 +114,14 @@ export function DetailPage() {
       </div>
       </div>
 
-      <section className="mt-6" aria-label={t.courses}>
+      <section className="detail-section mt-6" aria-label={t.courses}>
         <h2 className="text-lg font-bold">{t.courses}</h2>
         <div className="mt-2">
           <CourseTable courses={store.courses} />
         </div>
       </section>
 
-      <section className="mt-6" aria-label={t.highlights}>
+      <section className="detail-section mt-6" aria-label={t.highlights}>
         <h2 className="text-lg font-bold">{t.highlights}</h2>
         <ul className="mt-2 space-y-1 text-sm text-ivory">
           {shownHighlights.map((h) => (
@@ -131,7 +130,7 @@ export function DetailPage() {
         </ul>
       </section>
 
-      <section className="mt-6" aria-label={t.beforeYouGo}>
+      <section className="detail-section mt-6" aria-label={t.beforeYouGo}>
         <h2 className="text-lg font-bold">{t.beforeYouGo}</h2>
         <p className="mt-2 text-sm leading-relaxed text-stone">{shownNotice}</p>
       </section>
@@ -168,7 +167,7 @@ export function DetailPage() {
       </div>
 
       {similar.length > 0 ? (
-        <section className="mt-8" aria-label={t.similar}>
+        <section className="detail-section mt-8" aria-label={t.similar}>
           <h2 className="text-lg font-bold">{t.similar}</h2>
           <ul className="mt-2 grid gap-2 md:grid-cols-2">
             {similar.map((s) => (
@@ -184,6 +183,7 @@ export function DetailPage() {
           </ul>
         </section>
       ) : null}
+      <footer className="site-disclaimer">{dict.disclaimer}</footer>
     </main>
   );
 }

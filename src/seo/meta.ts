@@ -101,6 +101,22 @@ export function topDescriptionEn(): string {
   return 'All-you-can-eat shops in Tokyo and Kanagawa, filtered by price and time limit. Yakiniku, shabu-shabu, sushi, sweets, pizza, party buffets and more.';
 }
 
+export function contactTitle(): string {
+  return '情報提供・修正依頼｜みんなで更新する食べ放題の条件帳｜放題帖';
+}
+
+export function contactDescription(): string {
+  return '放題帖の掲載内容の修正依頼や、新しい食べ放題店の情報提供はこちら。公式ページや訪問情報を添えて、運営に知らせてください。';
+}
+
+export function contactTitleEn(): string {
+  return 'Contribute a correction or shop tip｜Hodai-cho';
+}
+
+export function contactDescriptionEn(): string {
+  return 'Suggest a correction, a new all-you-can-eat shop, or an ended offer for Hodai-cho. Share an official source or firsthand details with the team.';
+}
+
 export function storeTitleEn(store: Store): string {
   return `${store.nameEn}｜All-you-can-eat in ${AREA_EN[store.area] ?? store.area}: prices & time｜Hodai-cho`;
 }
@@ -132,6 +148,8 @@ export function sitemapEntries(stores: Store[], areas: AreaKey[], base: string, 
   const entries: SitemapEntry[] = [
     { loc: `${base}/`, lastmod: today },
     { loc: `${base}/en/`, lastmod: today },
+    { loc: `${base}/contact/`, lastmod: today },
+    { loc: `${base}/en/contact/`, lastmod: today },
   ];
   for (const store of stores) {
     entries.push({ loc: `${base}/r/${store.id}/`, lastmod: today });

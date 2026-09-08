@@ -1,3 +1,4 @@
+import { dictionary, useLanguage } from '../i18n/language';
 import type { Genre } from '../catalog/schema';
 
 const GENRE_IMAGE: Record<Genre, string> = {
@@ -12,6 +13,7 @@ const GENRE_IMAGE: Record<Genre, string> = {
   お好み焼き: '/genre/okonomiyaki.svg',
   サラダバー: '/genre/salad.svg',
   バイキング: '/genre/viking.svg',
+  定食おかわり自由: '/genre/teishoku.svg',
 };
 
 export function genreImageSrc(genre: Genre): string {
@@ -23,10 +25,12 @@ interface GenreImageProps {
 }
 
 export function GenreImage({ genre }: GenreImageProps) {
+  const lang = useLanguage();
+  const label = dictionary(lang).genres[genre];
   return (
     <img
       src={genreImageSrc(genre)}
-      alt={`${genre}のイラスト`}
+      alt={lang === 'en' ? `${label} illustration` : `${genre}のイラスト`}
       loading="lazy"
       className="h-28 w-full rounded-md object-contain md:h-40"
     />
