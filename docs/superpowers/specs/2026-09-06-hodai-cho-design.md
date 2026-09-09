@@ -13,7 +13,8 @@
 
 - 対象: 東京・神奈川の食べ放題店（2026-09-08時点で107店）。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会食放・パン食べ放題・お好み焼き・サラダバー・バイキング・定食おかわり自由の12ジャンル。
 - 採否: 食べ放題が来店目的になりうる店・宴会コースまで可。飲み放題本体の居酒屋・バー、カラオケは除外。
-- 予約リンクは別タブの外部リンク。任意の `reservationAffiliateUrl` がある店のみ予約CTAをアフィリエイトURLにし、なければ `reservationUrl` の素リンクに倒す。アフィリエイトは `rel="sponsored nofollow noreferrer"`。公式サイト（`officialUrl`）は素リンクのまま。在庫連動・決済・クーポン発行はしない。LinkSwitchは使わず、明示した `reservationAffiliateUrl` のみ。詳細は `docs/superpowers/specs/2026-09-09-reservation-affiliate-design.md`。
+- 予約は `reservationAffiliateUrl` があればそれを使い、なければ `reservationUrl` に倒す。アフィリエイトリンクは `rel="sponsored nofollow noreferrer"`。`officialUrl` は素リンクのまま。共通免責に日英のアフィリエイト広告表示を出す。詳細は `docs/superpowers/specs/2026-09-09-reservation-affiliate-design.md`。
+- 在庫連動・決済・クーポン発行はしない。
 - 本番公開URLの確定・DNS切替・Search Console登録は実装外（別作業）。Cloudflare Workers Static Assetsの設定とPreview検証手順は実装する。
 
 ## 3. アーキテクチャ

@@ -10,17 +10,19 @@
 
 ## 方針
 
-- `officialUrl` は今後も素の外部リンク。アフィリエイトにしない。
-- 予約だけ任意の `reservationAffiliateUrl` を持てる。未設定なら既存の `reservationUrl` に倒す。
-- LinkSwitch は SPA/SSG 向きではないため使わない。明示した `reservationAffiliateUrl` のみ。
-- 在庫連動・決済・クーポン・ダミーASP IDは入れない。秘密値はリポジトリに置かない。
+- 予約は `reservationAffiliateUrl` があればそれを使い、なければ `reservationUrl` に倒す。
+- `officialUrl` は素リンクのまま。
+- アフィリエイトリンクは `rel="sponsored nofollow noreferrer"`。
+- 共通免責に日英のアフィリエイト広告表示を出す。
+- 予約アフィリエイトは明示した `reservationAffiliateUrl` で渡す。
+- 在庫連動・決済・クーポンは別機能。秘密値はリポジトリに置かない。
 
 ## フィールド
 
-- `reservationUrl`（任意）: 予約の正規URL。素リンク。アフィリエイトではない。
-- `reservationAffiliateUrl`（任意）: 予約CTA用のアフィリエイトURL。未設定なら `reservationUrl` に倒す。
+- `reservationUrl`（任意）: 予約の正規URL。未設定のアフィリエイト時のフォールバック。
+- `reservationAffiliateUrl`（任意）: 予約CTA用のアフィリエイトURL。あれば予約CTAに使う。
 - `reservationAffiliateProvider`（任意）: `'valuecommerce' | 'linkshare' | 'a8'`。監査用。画面では使わない。
-- `officialUrl`（任意）: 公式サイトの素リンク。変更しない。
+- `officialUrl`（任意）: 公式サイトの素リンク。
 
 どの店も `reservationAffiliateUrl` を必須にしない。
 

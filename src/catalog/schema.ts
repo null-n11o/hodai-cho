@@ -40,10 +40,10 @@ export interface Store {
   notice: string; // 行く前に
   noticeEn: string;
   familyFriendly: boolean; // データは持つが画面では出さない
-  reservationUrl?: string; // 予約の正規URL（素リンク）。アフィリエイトではない
-  reservationAffiliateUrl?: string; // 予約CTA用の任意アフィリエイトURL。未設定なら reservationUrl に倒す
+  reservationUrl?: string; // 予約の正規URL。アフィリエイト未設定時のフォールバック
+  reservationAffiliateUrl?: string; // 予約CTA用の任意アフィリエイトURL。あれば予約CTAに使う
   reservationAffiliateProvider?: AffiliateProvider; // 監査用。画面では使わない
-  officialUrl?: string; // 公式サイトの外部素リンク。アフィリエイトにしない
+  officialUrl?: string; // 公式サイトの外部素リンク
 }
 
 export function validateCatalog(stores: Store[]): string[] {
