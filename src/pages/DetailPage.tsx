@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
 import type { CatalogRepository } from '../catalog/repository';
 import type { Store } from '../catalog/schema';
+import { getReservationLinkProps } from '../catalog/reservation';
 import { CourseTable } from '../components/CourseTable';
 import { EmptyState } from '../components/EmptyState';
 import { GenreImage } from '../components/GenreImage';
@@ -65,6 +66,7 @@ export function DetailPage() {
   const shownHours = lang === 'en' ? store.hoursEn : store.hours;
   const shownHighlights = lang === 'en' ? store.highlightsEn : store.highlights;
   const shownNotice = lang === 'en' ? store.noticeEn : store.notice;
+  const reservation = getReservationLinkProps(store);
   const similarName = (s: Store): string => {
     const base = lang === 'en' ? s.nameEn : s.name;
     const st = lang === 'en' ? (STATION_EN[s.station] ?? s.station) : s.station;
@@ -155,11 +157,11 @@ export function DetailPage() {
             {t.official}
           </a>
         ) : null}
-        {store.reservationUrl ? (
+        {reservation ? (
           <a
-            href={store.reservationUrl}
+            href={reservation.href}
             target="_blank"
-            rel="noreferrer"
+            rel={reservation.rel}
             className="min-h-[44px] rounded-lg bg-aka px-4 py-3 text-center font-bold text-ivory md:flex-1"
           >
             {t.reserve}

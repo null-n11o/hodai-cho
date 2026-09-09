@@ -22,6 +22,11 @@ describe('i18n dictionaries', () => {
     expect(ja.nav.saved).toBeTruthy();
     expect(en.nav.saved).toBeTruthy();
   });
+
+  it('アフィリエイト広告の日英表示がある', () => {
+    expect(ja.affiliateDisclosure).toBe('アフィリエイト広告を利用しています');
+    expect(en.affiliateDisclosure).toBe('This site uses affiliate advertising.');
+  });
 });
 
 describe('getLangFromPath', () => {

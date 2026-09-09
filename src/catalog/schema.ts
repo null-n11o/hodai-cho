@@ -1,8 +1,9 @@
-export const CATALOG_VERSION = '2026-09-08+en.3';
+export const CATALOG_VERSION = '2026-09-09+affiliate.0';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
 export type Genre = '焼肉' | 'しゃぶしゃぶ' | '寿司' | 'スイーツ' | 'ピザ' | '串揚げ' | '宴会食放' | 'パン食べ放題' | 'お好み焼き' | 'サラダバー' | 'バイキング' | '定食おかわり自由';
+export type AffiliateProvider = 'valuecommerce' | 'linkshare' | 'a8';
 
 export interface Course {
   slot: TimeSlot;
@@ -39,8 +40,10 @@ export interface Store {
   notice: string; // 行く前に
   noticeEn: string;
   familyFriendly: boolean; // データは持つが画面では出さない
-  reservationUrl?: string; // 外部素リンク
-  officialUrl?: string; // 公式サイトの外部素リンク
+  reservationUrl?: string; // 予約の正規URL（素リンク）。アフィリエイトではない
+  reservationAffiliateUrl?: string; // 予約CTA用の任意アフィリエイトURL。未設定なら reservationUrl に倒す
+  reservationAffiliateProvider?: AffiliateProvider; // 監査用。画面では使わない
+  officialUrl?: string; // 公式サイトの外部素リンク。アフィリエイトにしない
 }
 
 export function validateCatalog(stores: Store[]): string[] {
