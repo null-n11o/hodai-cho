@@ -123,6 +123,7 @@ export const en: Dict = {
   imageDisclaimer: 'Images are genre illustrations.',
   disclaimer:
     'Listings cover all-you-can-eat shops in Tokyo and Kanagawa only. Prices and time limits are edited from public info as of 2026 and vary by shop, day, and seasonal fairs. Check the official source before you go.',
+  affiliateDisclosure: 'This site uses affiliate advertising.',
   genres: {
     焼肉: 'Yakiniku',
     しゃぶしゃぶ: 'Shabu-shabu',

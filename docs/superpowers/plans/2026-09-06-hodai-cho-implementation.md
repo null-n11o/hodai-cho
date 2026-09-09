@@ -35,8 +35,9 @@ review:
 - 料金表示は `¥` ＋ 日本ロケール（`toLocaleString('ja-JP')`）。税込の平日目安。土日加算は注記側。
 - ページ全体の横スクロール禁止。横スクロールはエリア/ジャンルチップの横列のみ。最大幅モバイルカラム（`max-w-lg`）中央寄せ。
 - お気に入りIDのみ永続化（キー `hodai-cho`）。フィルタ条件は永続化しない（再訪時は初期条件＝都県:東京）。
-- カタログは人手精査済みのみ掲載。未精査店は入れない。共通免責を探す画面フッターに出す。「掲載は東京・神奈川の食べ放題店に限った目安です。料金・制限時間は2026年時点の公開情報を編集したもので、店舗・曜日・フェアで変わります。行く前に公式を確認してください。」
-- 予約リンクは外部素リンク（別タブ）。アフィリエイトID付与・在庫連動・決済・クーポン発行はしない。
+- カタログは人手精査済みのみ掲載。未精査店は入れない。共通免責を探す画面フッターに出す。「掲載は東京・神奈川の食べ放題店に限った目安です。料金・制限時間は2026年時点の公開情報を編集したもので、店舗・曜日・フェアで変わります。行く前に公式を確認してください。」日英のアフィリエイト広告表示（「アフィリエイト広告を利用しています」／ "This site uses affiliate advertising."）も出す。
+- 予約は `reservationAffiliateUrl` があればそれを使い、なければ `reservationUrl` に倒す。アフィリエイトリンクは `rel="sponsored nofollow noreferrer"`。`officialUrl` は素リンクのまま。
+- 在庫連動・決済・クーポン発行はしない。
 - ジャンル写真はカテゴリ共通の料理静物。店の実写は持たない。空状態にイラストやダミー店を出さない。
 
 ## File Structure
@@ -249,7 +250,8 @@ export interface Store {
   highlights: string[];
   notice: string; // 行く前に
   familyFriendly: boolean; // データは持つが画面では出さない
-  reservationUrl?: string; // 外部素リンク
+  reservationUrl?: string; // 予約の正規URL（素リンク）
+  reservationAffiliateUrl?: string; // 予約CTA用の任意アフィリエイトURL。未設定なら reservationUrl に倒す
 }
 
 export function validateCatalog(stores: Store[]): string[] {
@@ -679,7 +681,7 @@ export function toggleFavorite(id: string): string[] {
 }
 ```
 
-`DetailPage.tsx`: 店名・都県・エリア・ジャンル・駅・徒歩・施設・営業時間、コース表（時間帯/コース名/税込/制限時間、注記は表の下）、ハイライト全文、行く前に、地図で探す（`https://www.google.com/maps/search/?api=1&query=`＋`encodeURIComponent(店名＋' '＋駅)`を別タブ）、予約リンク（`reservationUrl` がある店のみ、別タブ・`rel="noreferrer"`）、近い・同じ系列（同一都県の同チェーン→同エリア他チェーン、最大4件）、戻る、保存ボタン。
+`DetailPage.tsx`: 店名・都県・エリア・ジャンル・駅・徒歩・施設・営業時間、コース表（時間帯/コース名/税込/制限時間、注記は表の下）、ハイライト全文、行く前に、地図で探す（`https://www.google.com/maps/search/?api=1&query=`＋`encodeURIComponent(店名＋' '＋駅)`を別タブ）、予約リンク（`reservationAffiliateUrl` があればそれを使い `rel="sponsored nofollow noreferrer"`、なければ `reservationUrl` の素リンク・`rel="noreferrer"`。別タブ）、近い・同じ系列（同一都県の同チェーン→同エリア他チェーン、最大4件）、戻る、保存ボタン。
 
 `SavedPage.tsx`: 保存順（新しいものが末尾）にカードを並べる。0件なら空状態＋探すへの導線。フィルタ条件は読まない。
 
