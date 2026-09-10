@@ -14,8 +14,8 @@ export function SiteHeader() {
             className="brand-logo"
             src="/brand/tabeho-logo-header.png"
             alt=""
-            width={2172}
-            height={724}
+            width={720}
+            height={240}
           />
         </Link>
         <span className="brand-description">{lang === 'en' ? 'Your all-you-can-eat guide' : '食べ放題に、迷わない。'}</span>
