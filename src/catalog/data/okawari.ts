@@ -105,6 +105,8 @@ export const OKAWARI_STORES: Store[] = [
     noticeEn: `Miso soup is selected as part of the set; rice refills are free. ${NOTICE_EN}`,
     familyFriendly: true,
     reservationUrl: 'https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13294135',
+    reservationAffiliateUrl: 'https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3781041&pid=892696253&vc_url=https%3A%2F%2Fyoyaku.tabelog.com%2Fyoyaku%2Fnet_booking_form%2Findex%3Frcd%3D13294135',
+    reservationAffiliateProvider: 'valuecommerce',
     officialUrl: 'https://www.chisakosyokudou.jp/kashoan/menu.html',
   },
   {

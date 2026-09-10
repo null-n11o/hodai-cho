@@ -16,7 +16,9 @@ function renderDetail(id: string) {
 }
 
 function storeWithReservation() {
-  const store = new BundledCatalogRepository().listStores().find((s) => s.reservationUrl && s.officialUrl);
+  const store = new BundledCatalogRepository()
+    .listStores()
+    .find((s) => s.reservationUrl && s.officialUrl && !s.reservationAffiliateUrl);
   if (!store) throw new Error('reservationUrl のある店がカタログにない');
   return store;
 }
@@ -81,6 +83,18 @@ describe('DetailPage', () => {
     } finally {
       delete store.reservationAffiliateUrl;
     }
+  });
+
+  it('kashoan-akihabara の予約CTAはカタログのアフィリエイトURLと sponsored を使う', () => {
+    const store = new BundledCatalogRepository().getStore('kashoan-akihabara');
+    if (!store?.reservationAffiliateUrl) throw new Error('kashoan-akihabara に reservationAffiliateUrl がない');
+    renderDetail(store.id);
+    const reserve = screen.getByRole('link', { name: '予約する' });
+    expect(reserve.getAttribute('href')).toBe(store.reservationAffiliateUrl);
+    expect(reserve.getAttribute('rel')).toBe('sponsored nofollow noreferrer');
+    const official = screen.getByRole('link', { name: '公式サイト' });
+    expect(official.getAttribute('href')).toBe(store.officialUrl);
+    expect(official.getAttribute('rel')).toBe('noreferrer');
   });
 
   it('詳細の免責にアフィリエイト広告の表示がある', () => {
