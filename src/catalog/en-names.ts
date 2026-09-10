@@ -69,6 +69,9 @@ export const STATION_EN: Record<string, string> = {
   高田馬場: 'Takadanobaba',
   神保町: 'Jimbocho',
   鷺沼: 'Saginuma',
+  水道橋: 'Suidobashi',
+  大井町: 'Oimachi',
+  三鷹: 'Mitaka',
 };
 
 export const AREA_EN: Record<string, string> = {
@@ -126,6 +129,9 @@ export const AREA_EN: Record<string, string> = {
   青葉台: 'Aobadai',
   高津: 'Takatsu',
   高田馬場: 'Takadanobaba',
+  水道橋: 'Suidobashi',
+  大井町: 'Oimachi',
+  三鷹: 'Mitaka',
 };
 
 export const CHAIN_EN: Record<string, string> = {
