@@ -10,8 +10,13 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-header-inner">
         <Link to={base} className="brand" aria-label={lang === 'en' ? 'Tabeho home' : 'タベホー ホーム'}>
-          <span className="brand-mark" aria-hidden="true">タ</span>
-          <span>タベホー<span className="brand-reading">TABEHO</span></span>
+          <img
+            className="brand-logo"
+            src="/brand/tabeho-logo-header.png"
+            alt=""
+            width={720}
+            height={240}
+          />
         </Link>
         <span className="brand-description">{lang === 'en' ? 'Your all-you-can-eat guide' : '食べ放題に、迷わない。'}</span>
         <nav className="header-nav" aria-label={lang === 'en' ? 'Site navigation' : 'サイトナビゲーション'}>
