@@ -38,4 +38,17 @@ describe('定食おかわり自由 catalog', () => {
     expect(got.length).toBeGreaterThanOrEqual(5);
     expect(got.every((store) => store.genres.includes('定食おかわり自由'))).toBe(true);
   });
+
+  it('有楽町で検索したときにねぎし 有楽町店がヒットする', () => {
+    const got = filterStores(SEED_STORES, {
+      prefecture: '東京', area: undefined, freeword: '有楽町', genres: [],
+      slot: 'all', timeLimit: 'all', budget: undefined, sort: 'recommend',
+    });
+    const negishi = got.find((store) => store.id === 'negishi-yurakucho');
+    expect(negishi).toBeDefined();
+    expect(negishi?.name).toBe('ねぎし 有楽町店');
+    expect(negishi?.chain).toBe('ねぎし');
+    expect(negishi?.station).toBe('有楽町');
+    expect(negishi?.area).toBe('銀座・有楽町');
+  });
 });
