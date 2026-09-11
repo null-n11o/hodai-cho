@@ -38,6 +38,8 @@ export function AppRoutes() {
       <Route path="/en/contact" element={<ContactPage />} />
       <Route path="/a/:prefecture/:area" element={<AreaPage />} />
       <Route path="/en/a/:prefecture/:area" element={<AreaPage />} />
+      <Route path="/a/:prefecture/:area/:genre" element={<AreaPage />} />
+      <Route path="/en/a/:prefecture/:area/:genre" element={<AreaPage />} />
     </Routes>
     </>
   );
