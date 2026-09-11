@@ -47,5 +47,13 @@ describe('Feature tags schema and validation', () => {
     expect(stores.length).toBeGreaterThan(100);
     const errors = validateCatalog(stores);
     expect(errors).toEqual([]);
+
+    const soloCount = stores.filter((s) => s.soloFriendly).length;
+    const kidsCount = stores.filter((s) => s.kidsDiscount).length;
+    const unlimitedCount = stores.filter((s) => s.weekdayUnlimited).length;
+
+    expect(soloCount).toBeGreaterThanOrEqual(30);
+    expect(kidsCount).toBeGreaterThanOrEqual(40);
+    expect(unlimitedCount).toBeGreaterThanOrEqual(20);
   });
 });

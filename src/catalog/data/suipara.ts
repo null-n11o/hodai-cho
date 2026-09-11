@@ -40,6 +40,8 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suipara-shinjuku',
@@ -64,6 +66,8 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suipara-ikebukuro',
@@ -88,6 +92,8 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suipara-ueno-marui',
@@ -112,6 +118,8 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suipara-machida-modi',
@@ -136,6 +144,8 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suipara-yokohama-vivre',
@@ -160,5 +170,7 @@ export const SUIPARA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
 ];

@@ -41,6 +41,7 @@ export const SHAKEYS_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'shakeys-yokohama',
@@ -65,6 +66,7 @@ export const SHAKEYS_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'shakeys-shinjuku-ceno',
@@ -89,6 +91,7 @@ export const SHAKEYS_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'shakeys-kichijoji',
@@ -113,5 +116,6 @@ export const SHAKEYS_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

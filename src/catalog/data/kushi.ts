@@ -31,6 +31,7 @@ export const KUSHI_STORES: Store[] = [
     noticeEn:
       'Prices and time limits are edited from public info as of 2026. Prices and durations vary by day. Check the official source before you go.',
     familyFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ001044397/',
   },
 ];

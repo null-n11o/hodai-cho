@@ -43,6 +43,7 @@ export const YUZU_STORES: Store[] = [
     notice: `ランチ食べ放題は未実施の目安です。${NOTICE}`,
     noticeEn: NO_LUNCH_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'yuzu-akihabara',
@@ -67,6 +68,7 @@ export const YUZU_STORES: Store[] = [
     notice: `ランチ食べ放題は未実施の目安です。${NOTICE}`,
     noticeEn: NO_LUNCH_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'yuzu-hongodai',
@@ -89,6 +91,7 @@ export const YUZU_STORES: Store[] = [
     notice: `ランチ食べ放題の料金は公開情報の目安です。${NOTICE}`,
     noticeEn: LUNCH_PRICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'yuzu-atsugi',
@@ -111,5 +114,6 @@ export const YUZU_STORES: Store[] = [
     notice: `駅から遠いためバス・車利用が前提の目安です。ランチ食べ放題の料金は公開情報の目安です。${NOTICE}`,
     noticeEn: `Far from the station: bus or car needed (estimate). ${LUNCH_PRICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

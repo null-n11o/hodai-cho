@@ -65,6 +65,7 @@ export const BREAD_STORES: Store[] = [
     notice: KOBEYA_NOTICE,
     noticeEn: KOBEYA_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-kaminoge',
@@ -88,6 +89,7 @@ export const BREAD_STORES: Store[] = [
     notice: KOBEYA_NOTICE,
     noticeEn: KOBEYA_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-seijou',
@@ -111,6 +113,7 @@ export const BREAD_STORES: Store[] = [
     notice: KOBEYA_NOTICE,
     noticeEn: KOBEYA_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-chofugaoka',
@@ -134,6 +137,7 @@ export const BREAD_STORES: Store[] = [
     notice: KOBEYA_NOTICE,
     noticeEn: KOBEYA_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-kitchen-ebisu',
@@ -158,6 +162,7 @@ export const BREAD_STORES: Store[] = [
     notice: KITCHEN_NOTICE,
     noticeEn: KITCHEN_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-kitchen-seiseki',
@@ -182,6 +187,7 @@ export const BREAD_STORES: Store[] = [
     notice: KITCHEN_NOTICE,
     noticeEn: KITCHEN_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-kitchen-aobadai',
@@ -206,6 +212,7 @@ export const BREAD_STORES: Store[] = [
     notice: KITCHEN_NOTICE,
     noticeEn: KITCHEN_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'kobeya-kitchen-fujisawa',
@@ -230,6 +237,7 @@ export const BREAD_STORES: Store[] = [
     notice: KITCHEN_NOTICE,
     noticeEn: KITCHEN_NOTICE_EN,
     familyFriendly: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-ikebukuro-tobu',
@@ -254,6 +262,8 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-hachioji-celeo',
@@ -278,6 +288,8 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-kitasenju-marui',
@@ -302,6 +314,8 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-tamaplaza',
@@ -330,6 +344,8 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-shinyurigaoka',
@@ -354,6 +370,8 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'saintmarc-minatomirai',
@@ -378,5 +396,7 @@ export const BREAD_STORES: Store[] = [
     notice: SAINTMARC_NOTICE,
     noticeEn: SAINTMARC_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
 ];

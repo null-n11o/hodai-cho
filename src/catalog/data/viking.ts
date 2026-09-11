@@ -50,6 +50,7 @@ export const VIKING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'stamina-kameido',
@@ -74,6 +75,7 @@ export const VIKING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'stamina-kawasaki-east',
@@ -99,5 +101,6 @@ export const VIKING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];
