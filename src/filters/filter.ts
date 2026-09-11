@@ -15,6 +15,9 @@ export interface FilterCond {
   budget?: number;
   walkMax?: number;
   sort: SortCond;
+  soloFriendly?: boolean;
+  kidsDiscount?: boolean;
+  weekdayUnlimited?: boolean;
 }
 
 function slotHit(slot: TimeSlot, cond: SlotCond): boolean {
@@ -76,6 +79,9 @@ export function filterStores(stores: Store[], cond: FilterCond): Store[] {
     if (cond.timeLimit === 'le120' && !scoped.some((c) => c.minutes === null || (c.minutes !== null && c.minutes <= 120))) return false;
     if (cond.budget !== undefined && minPrice(scoped) > cond.budget) return false;
     if (cond.walkMax !== undefined && s.walkMinutes > cond.walkMax) return false;
+    if (cond.soloFriendly && !s.soloFriendly) return false;
+    if (cond.kidsDiscount && !s.kidsDiscount) return false;
+    if (cond.weekdayUnlimited && !s.weekdayUnlimited) return false;
     return true;
   });
   const by = {
