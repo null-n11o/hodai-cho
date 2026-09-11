@@ -10,7 +10,7 @@ import { GenreImage } from '../components/GenreImage';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { dictionary, toEnPath, useLanguage } from '../i18n/language';
-import { prefName, stationLine } from '../i18n/format';
+import { areaTitle, prefName, stationLine } from '../i18n/format';
 import { AREA_EN, STATION_EN } from '../catalog/en-names';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
@@ -82,11 +82,29 @@ export function DetailPage() {
     setSavedIds(toggleFavorite(store.id));
   };
 
+  const areaTo = lang === 'en'
+    ? `/en/a/${encodeURIComponent(store.prefecture)}/${encodeURIComponent(store.area)}`
+    : `/a/${encodeURIComponent(store.prefecture)}/${encodeURIComponent(store.area)}`;
+
   return (
     <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">
+      <nav aria-label={lang === 'en' ? 'Breadcrumb' : 'パンくずリスト'} className="mt-4 mb-2 flex flex-wrap items-center gap-1.5 text-xs text-stone">
+        <Link to={searchTo} className="hover:underline">
+          {dict.nav.search}
+        </Link>
+        <span aria-hidden="true">/</span>
+        <Link to={areaTo} className="hover:underline">
+          {areaTitle(lang, store.area)}
+        </Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page" className="text-ivory">
+          {shownName}
+        </span>
+      </nav>
+
       <Link
         to={searchTo}
-        className="mt-4 inline-flex min-h-[44px] items-center text-sm text-stone"
+        className="inline-flex min-h-[44px] items-center text-sm text-stone"
       >
         {t.back}
       </Link>

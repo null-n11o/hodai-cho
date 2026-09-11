@@ -1,7 +1,8 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { BundledCatalogRepository } from '../src/catalog/repository';
+import { AREA_EN } from '../src/catalog/en-names';
 import { DetailPage } from '../src/pages/DetailPage';
 import { SiteDisclaimer } from '../src/components/SiteDisclaimer';
 
@@ -101,6 +102,34 @@ describe('DetailPage', () => {
     const store = storeWithReservation();
     renderDetail(store.id);
     expect(screen.getByText('アフィリエイト広告を利用しています')).toBeTruthy();
+  });
+
+  it('詳細画面にパンくずリスト（探す / エリア / 店舗名）が表示される', () => {
+    const store = new BundledCatalogRepository().listStores()[0];
+    renderDetail(store.id);
+
+    const breadcrumb = screen.getByRole('navigation', { name: 'パンくずリスト' });
+    expect(breadcrumb).toBeTruthy();
+    expect(within(breadcrumb).getByRole('link', { name: '探す' })).toBeTruthy();
+    expect(within(breadcrumb).getByRole('link', { name: `${store.area}の食べ放題` })).toBeTruthy();
+    expect(within(breadcrumb).getByText(store.name)).toBeTruthy();
+  });
+
+  it('英語詳細画面に英語パンくずリストが表示される', () => {
+    const store = new BundledCatalogRepository().listStores()[0];
+    render(
+      <MemoryRouter initialEntries={[`/en/r/${store.id}`]}>
+        <Routes>
+          <Route path="/en/r/:id" element={<DetailPage />} />
+        </Routes>
+      </MemoryRouter>,
+    );
+
+    const breadcrumb = screen.getByRole('navigation', { name: 'Breadcrumb' });
+    expect(breadcrumb).toBeTruthy();
+    expect(within(breadcrumb).getByRole('link', { name: 'Search' })).toBeTruthy();
+    expect(within(breadcrumb).getByRole('link', { name: `All-you-can-eat in ${AREA_EN[store.area] ?? store.area}` })).toBeTruthy();
+    expect(within(breadcrumb).getByText(store.nameEn)).toBeTruthy();
   });
 });
 
