@@ -1,4 +1,4 @@
-import type { Store } from '../catalog/schema';
+import type { Genre, Store } from '../catalog/schema';
 import { AREA_EN, STATION_EN } from '../catalog/en-names';
 import { en } from '../i18n/en';
 
@@ -7,6 +7,12 @@ export const SITE_URL = 'https://tabeho.example.invalid';
 export interface AreaKey {
   prefecture: string;
   area: string;
+}
+
+export interface AreaGenreKey {
+  prefecture: string;
+  area: string;
+  genre: Genre;
 }
 
 export function cheapestPrice(store: Store): number {
@@ -73,6 +79,38 @@ export function areaDescription(prefecture: string, area: string, count: number)
   return `${prefecture}・${area}の食べ放題${count}件を料金と制限時間で整理。${area}駅周辺で食べ放題を探すならタベホー。行く前に公式の最新情報を確認してください。`;
 }
 
+export function listAreaGenres(stores: Store[]): AreaGenreKey[] {
+  const map = new Map<string, AreaGenreKey>();
+  for (const s of stores) {
+    const allGenres = [...s.genres, ...(s.subGenres ?? [])];
+    for (const g of allGenres) {
+      const key = `${s.prefecture}/${s.area}/${g}`;
+      if (!map.has(key)) {
+        map.set(key, { prefecture: s.prefecture, area: s.area, genre: g });
+      }
+    }
+  }
+  return [...map.values()].sort((a, b) =>
+    `${a.prefecture}${a.area}${a.genre}`.localeCompare(`${b.prefecture}${b.area}${b.genre}`, 'ja'),
+  );
+}
+
+export function areaGenrePath(prefecture: string, area: string, genre: string): string {
+  return `/a/${encodeURIComponent(prefecture)}/${encodeURIComponent(area)}/${encodeURIComponent(genre)}/`;
+}
+
+export function areaGenrePageUrl(prefecture: string, area: string, genre: string, base: string = SITE_URL): string {
+  return `${base}${areaGenrePath(prefecture, area, genre)}`;
+}
+
+export function areaGenreTitle(_prefecture: string, area: string, genre: string, count: number): string {
+  return `${area}の${genre}食べ放題${count}件｜料金と時間で切る｜タベホー`;
+}
+
+export function areaGenreDescription(prefecture: string, area: string, genre: string, count: number): string {
+  return `${prefecture}・${area}の${genre}食べ放題${count}件を料金と制限時間で整理。${area}駅周辺で${genre}食べ放題を探すならタベホー。行く前に公式の最新情報を確認してください。`;
+}
+
 export interface SitemapEntry {
   loc: string;
   lastmod?: string;
@@ -134,6 +172,60 @@ export function areaDescriptionEn(prefecture: string, area: string, count: numbe
   return `${prefectureEn(prefecture)} · ${AREA_EN[area] ?? area}: ${count} all-you-can-eat places with prices and time limits. Check the official source before you go.`;
 }
 
+export function areaGenreTitleEn(_prefecture: string, area: string, genre: string, count: number): string {
+  const g = en.genres[genre as Genre] ?? genre;
+  const a = AREA_EN[area] ?? area;
+  return `All-you-can-eat ${g} in ${a}: ${count} places by price and time｜Tabeho`;
+}
+
+export function areaGenreDescriptionEn(prefecture: string, area: string, genre: string, count: number): string {
+  const p = prefectureEn(prefecture);
+  const a = AREA_EN[area] ?? area;
+  const g = (en.genres[genre as Genre] ?? genre).toLowerCase();
+  return `${p} · ${a}: ${count} all-you-can-eat ${g} places with prices and time limits. Check the official source before you go.`;
+}
+
+export function areaGenreJsonLd(
+  prefecture: string,
+  area: string,
+  genre: string,
+  base: string = SITE_URL,
+  pagePath?: string,
+): Record<string, unknown> {
+  const isEn = !!pagePath && (pagePath === '/en/' || pagePath.startsWith('/en/'));
+  const homeUrl = isEn ? `${base}/en/` : `${base}/`;
+  const areaUrl = isEn ? `${base}/en${areaPath(prefecture, area)}` : `${base}${areaPath(prefecture, area)}`;
+  const currentUrl = pagePath ? `${base}${pagePath}` : `${base}${areaGenrePath(prefecture, area, genre)}`;
+
+  const a = isEn ? (AREA_EN[area] ?? area) : area;
+  const g = isEn ? (en.genres[genre as Genre] ?? genre) : genre;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isEn ? 'Tabeho' : 'タベホー',
+        item: homeUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isEn ? `${a}` : `${area}の食べ放題`,
+        item: areaUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: isEn ? `${g} in ${a}` : `${area}の${genre}食べ放題`,
+        item: currentUrl,
+      },
+    ],
+  };
+}
+
 export function hreflangHead(jaPath: string, enPath: string, base: string = SITE_URL): string {
   const j = `${base}${jaPath}`;
   const e = `${base}${enPath}`;
@@ -144,7 +236,13 @@ export function hreflangHead(jaPath: string, enPath: string, base: string = SITE
   ].join('\n    ');
 }
 
-export function sitemapEntries(stores: Store[], areas: AreaKey[], base: string, today: string): SitemapEntry[] {
+export function sitemapEntries(
+  stores: Store[],
+  areas: AreaKey[],
+  base: string,
+  today: string,
+  areaGenres?: AreaGenreKey[],
+): SitemapEntry[] {
   const entries: SitemapEntry[] = [
     { loc: `${base}/`, lastmod: today },
     { loc: `${base}/en/`, lastmod: today },
@@ -159,6 +257,13 @@ export function sitemapEntries(stores: Store[], areas: AreaKey[], base: string, 
     const path = areaPath(a.prefecture, a.area);
     entries.push({ loc: `${base}${path}`, lastmod: today });
     entries.push({ loc: `${base}/en${path}`, lastmod: today });
+  }
+  if (areaGenres) {
+    for (const ag of areaGenres) {
+      const path = areaGenrePath(ag.prefecture, ag.area, ag.genre);
+      entries.push({ loc: `${base}${path}`, lastmod: today });
+      entries.push({ loc: `${base}/en${path}`, lastmod: today });
+    }
   }
   return entries;
 }
