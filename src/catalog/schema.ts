@@ -1,4 +1,4 @@
-export const CATALOG_VERSION = '2026-09-09+affiliate.0';
+export const CATALOG_VERSION = '2026-09-11+features.0';
 
 export type Prefecture = '東京' | '神奈川';
 export type TimeSlot = 'lunch' | 'dinner' | 'all-day';
@@ -40,6 +40,9 @@ export interface Store {
   notice: string; // 行く前に
   noticeEn: string;
   familyFriendly: boolean; // データは持つが画面では出さない
+  soloFriendly?: boolean; // 1人利用歓迎
+  kidsDiscount?: boolean; // 幼児無料・子供料金あり
+  weekdayUnlimited?: boolean; // 平日時間無制限コースあり
   reservationUrl?: string; // 予約の正規URL。アフィリエイト未設定時のフォールバック
   reservationAffiliateUrl?: string; // 予約CTA用の任意アフィリエイトURL。あれば予約CTAに使う
   reservationAffiliateProvider?: AffiliateProvider; // 監査用。画面では使わない
