@@ -70,7 +70,14 @@ export function SearchPage() {
   );
 
   const sheetActive =
-    cond.slot !== 'all' || cond.timeLimit !== 'all' || cond.budget !== undefined || cond.walkMax !== undefined || cond.sort !== 'recommend';
+    cond.slot !== 'all' ||
+    cond.timeLimit !== 'all' ||
+    cond.budget !== undefined ||
+    cond.walkMax !== undefined ||
+    cond.sort !== 'recommend' ||
+    !!cond.soloFriendly ||
+    !!cond.kidsDiscount ||
+    !!cond.weekdayUnlimited;
 
   const switchPrefecture = (prefecture: Prefecture) => {
     setCond({ ...INITIAL, prefecture });
@@ -233,6 +240,35 @@ export function SearchPage() {
               ))}
             </div>
           </section>
+          <section className="sidebar-section">
+            <h2>{dict.features.title}</h2>
+            <div className="filter-chip-list feature-filters" role="group" aria-label={dict.features.title}>
+              <button
+                type="button"
+                aria-pressed={!!cond.soloFriendly}
+                onClick={() => setCond((prev) => ({ ...prev, soloFriendly: !prev.soloFriendly }))}
+                className={chip(!!cond.soloFriendly)}
+              >
+                {dict.features.soloFriendly}
+              </button>
+              <button
+                type="button"
+                aria-pressed={!!cond.kidsDiscount}
+                onClick={() => setCond((prev) => ({ ...prev, kidsDiscount: !prev.kidsDiscount }))}
+                className={chip(!!cond.kidsDiscount)}
+              >
+                {dict.features.kidsDiscount}
+              </button>
+              <button
+                type="button"
+                aria-pressed={!!cond.weekdayUnlimited}
+                onClick={() => setCond((prev) => ({ ...prev, weekdayUnlimited: !prev.weekdayUnlimited }))}
+                className={chip(!!cond.weekdayUnlimited)}
+              >
+                {dict.features.weekdayUnlimited}
+              </button>
+            </div>
+          </section>
         </aside>
 
         <section className="search-results" aria-label={lang === 'en' ? 'Search results' : '検索結果'}>
@@ -283,6 +319,9 @@ export function SearchPage() {
         budget={cond.budget}
         walkMax={cond.walkMax}
         sort={cond.sort}
+        soloFriendly={cond.soloFriendly}
+        kidsDiscount={cond.kidsDiscount}
+        weekdayUnlimited={cond.weekdayUnlimited}
         onChange={(patch) => setCond((prev) => ({ ...prev, ...patch }))}
         onClose={() => setSheetOpen(false)}
       />
