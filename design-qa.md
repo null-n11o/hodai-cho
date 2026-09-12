@@ -42,3 +42,13 @@ final result: passed
 
 - P3: mock photo crop and paragraph line breaks are not pixel-identical. Required shared disclaimer is intentionally more detailed; mock decorative serif numerals are intentionally replaced with Noto Sans JP.
 - No blocking gaps. No merge or deployment was performed.
+
+
+## 2026-09-12 PC・スマホ対応の追加確認
+
+ユーザー指示により担当者が直接実装。PCでも512px幅だったLPを、900px以上で最大1180pxの2列hero・3列特徴に変更。900px未満は最大680pxで縦構成。既存検索画面の幅は変更なし。
+
+修正前1440px: main幅512px、写真はコピー下（PC幅利用・横並び検証ともFAIL）。
+修正後: ja/enそれぞれ320/390/414/768/1024/1440pxで文書横幅=viewport、画面外に出る子要素0。日本語1440px main幅1180px、写真はコピー右、CTA下端635px。320px英語と390px日本語、1440px日本語をスクリーンショットでも目視確認。英語の長いラベルは折り返し、文字切れなし。
+
+検証: landing.test.tsx 11/11、lint成功（既存FoodImage/GenreImageの警告2件）、build:ssg成功594URL。スクリーンショットと寸法記録はローカルの .superpowers/responsive-qa/。

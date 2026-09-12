@@ -35,14 +35,16 @@ export function LandingPage() {
   const to = searchPath(lang);
   return (
     <main className="landing-page">
-      <section className="landing-intro">
-        <div className="landing-kicker"><span>{copy.region}</span><span>{copy.label}</span></div>
-        <h1 aria-label={copy.title.join('')}>{copy.title.map((line) => <span key={line}>{line}</span>)}</h1>
-        <p className="landing-description">{copy.description}</p>
-      </section>
-      <img className="landing-photo" src="/food/hero-all-day.png" alt="" />
-      <div className="landing-body">
+      <div className="landing-hero">
+        <section className="landing-intro">
+          <div className="landing-kicker"><span>{copy.region}</span><span>{copy.label}</span></div>
+          <h1 aria-label={copy.title.join('')}>{copy.title.map((line) => <span key={line}>{line}</span>)}</h1>
+          <p className="landing-description">{copy.description}</p>
+        </section>
+        <img className="landing-photo" src="/food/hero-all-day.png" alt="" />
         <Link className="landing-primary" to={to}>{copy.cta}<ArrowRight aria-hidden="true" size={27} weight="light" /></Link>
+      </div>
+      <div className="landing-body">
         <ol className="landing-features">
           {copy.features.map(([title, description], index) => (
             <li key={title}><span className="landing-number">{String(index + 1).padStart(2, '0')}</span><div><h2>{title}</h2><p>{description}</p></div></li>
