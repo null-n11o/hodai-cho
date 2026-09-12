@@ -12,11 +12,29 @@ describe('prerender', () => {
     expect(html).toContain('食べ放題を探す');
   });
 
+  it('英語トップがJSなしでコピーとCTAを出す', () => {
+    const html = renderRoute('/en/');
+    expect(html).toContain('Today, eat to your heart’s content.');
+    expect(html).toContain('Find all-you-can-eat');
+    expect(html).toContain('href="/en/search/"');
+  });
+
   it('検索ページの断片に全ジャンルのチップが入る', () => {
     const html = renderRoute('/search/');
     for (const g of ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー', 'バイキング']) {
       expect(html).toContain(g);
     }
+  });
+
+  it.each([
+    ['/search/', 'name'],
+    ['/en/search/', 'nameEn'],
+  ] as const)('%s が実店舗と料金をSSRする', (path, nameKey) => {
+    const first = new BundledCatalogRepository().listStores()[0];
+    const price = Math.min(...first.courses.map((course) => course.priceInclTax)).toLocaleString('ja-JP');
+    const html = renderRoute(path);
+    expect(html).toContain(first[nameKey]);
+    expect(html).toContain(`¥${price}`);
   });
 
   it('店詳細が店名・料金を含む断片を出す', () => {

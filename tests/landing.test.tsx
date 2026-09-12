@@ -29,24 +29,42 @@ describe('first-visit landing page', () => {
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('今日は好きなだけ食べよう。');
   });
 
-  it('opens search from the secondary action and hides mobile navigation on the LP', () => {
-    render(<MemoryRouter initialEntries={['/']}><AppRoutes /><MainNav /></MemoryRouter>);
-    expect(screen.queryByRole('navigation', { name: 'メインナビゲーション' })).toBeNull();
-    fireEvent.click(screen.getByRole('link', { name: '条件を指定して探す' }));
+  it.each([
+    ['/', '条件を指定して探す'],
+    ['/en/', 'Search by your preferences'],
+  ])('opens search from the secondary action on %s', (path, action) => {
+    render(<MemoryRouter initialEntries={[path]}><AppRoutes /></MemoryRouter>);
+    fireEvent.click(screen.getByRole('link', { name: action }));
     expect(screen.getByRole('searchbox')).toBeTruthy();
   });
 
-  it('routes unknown, detail, and area search links to the new search entry', () => {
+  it.each(['/', '/en/'])('hides mobile navigation on LP %s', (path) => {
+    render(<MemoryRouter initialEntries={[path]}><MainNav /></MemoryRouter>);
+    expect(screen.queryByRole('navigation')).toBeNull();
+  });
+
+  it.each(['/search/', '/en/search/'])('keeps mobile navigation on search route %s', (path) => {
+    render(<MemoryRouter initialEntries={[path]}><MainNav /></MemoryRouter>);
+    expect(screen.getByRole('navigation')).toBeTruthy();
+  });
+
+  it('routes all Japanese and English return links to their search entry', () => {
     const first = new BundledCatalogRepository().listStores()[0];
-    const paths = [
-      '/r/no-such-shop',
-      `/r/${first.id}`,
-      `/a/${encodeURIComponent(first.prefecture)}/${encodeURIComponent(first.area)}`,
+    const cases = [
+      ['/r/no-such-shop', '/search/'],
+      [`/r/${first.id}`, '/search/'],
+      [`/a/${encodeURIComponent(first.prefecture)}/${encodeURIComponent(first.area)}`, '/search/'],
+      ['/saved', '/search/'],
+      ['/contact', '/search/'],
+      ['/en/r/no-such-shop', '/en/search/'],
+      [`/en/r/${first.id}`, '/en/search/'],
+      [`/en/a/${encodeURIComponent(first.prefecture)}/${encodeURIComponent(first.area)}`, '/en/search/'],
+      ['/en/saved', '/en/search/'],
+      ['/en/contact', '/en/search/'],
     ];
-    for (const path of paths) {
+    for (const [path, expected] of cases) {
       const view = render(<MemoryRouter initialEntries={[path]}><AppRoutes /></MemoryRouter>);
-      const links = screen.getAllByRole('link', { name: /探す|戻る/ });
-      expect(links.some((link) => link.getAttribute('href') === '/search/')).toBe(true);
+      expect(screen.getAllByRole('link').some((link) => link.getAttribute('href') === expected)).toBe(true);
       view.unmount();
       cleanup();
     }
