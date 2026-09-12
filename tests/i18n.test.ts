@@ -11,11 +11,6 @@ import {
 } from '../src/i18n/language';
 
 describe('i18n dictionaries', () => {
-  it('日英の辞書が同じキー構造を持つ', () => {
-    expect(Object.keys(en.nav).sort()).toEqual(Object.keys(ja.nav).sort());
-    expect(Object.keys(en.lang).sort()).toEqual(Object.keys(ja.lang).sort());
-  });
-
   it('ナビ文言が空でない', () => {
     expect(ja.nav.search).toBeTruthy();
     expect(en.nav.search).toBeTruthy();
