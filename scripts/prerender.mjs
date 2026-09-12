@@ -21,6 +21,7 @@ try {
   const repo = new BundledCatalogRepository();
   const stores = repo.listStores();
   const areas = meta.listAreas(stores);
+  const areaGenres = meta.listAreaGenres(stores);
 
   const template = readFileSync(join(dist, 'index.html'), 'utf8');
 
@@ -109,11 +110,36 @@ try {
     );
   }
 
-  const entries = meta.sitemapEntries(stores, areas, base, today);
+  for (const { prefecture, area, genre } of areaGenres) {
+    const jaPath = meta.areaGenrePath(prefecture, area, genre);
+    const inAreaGenre = stores.filter(
+      (s) =>
+        s.prefecture === prefecture &&
+        s.area === area &&
+        (s.genres.includes(genre) || (s.subGenres ?? []).includes(genre)),
+    );
+    writePair(
+      jaPath,
+      {
+        title: meta.areaGenreTitle(prefecture, area, genre, inAreaGenre.length),
+        description: meta.areaGenreDescription(prefecture, area, genre, inAreaGenre.length),
+        jsonLd: meta.areaGenreJsonLd(prefecture, area, genre, base, jaPath),
+      },
+      {
+        title: meta.areaGenreTitleEn(prefecture, area, genre, inAreaGenre.length),
+        description: meta.areaGenreDescriptionEn(prefecture, area, genre, inAreaGenre.length),
+        jsonLd: meta.areaGenreJsonLd(prefecture, area, genre, base, enPathOf(jaPath)),
+      },
+    );
+  }
+
+  const entries = meta.sitemapEntries(stores, areas, base, today, areaGenres);
   writeFileSync(join(dist, 'sitemap.xml'), meta.sitemapXml(entries));
   writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
 
-  console.log(`prerendered ${stores.length} stores x2 langs + ${areas.length} areas x2 langs + top x2 + sitemap (${entries.length} urls)`);
+  console.log(
+    `prerendered ${stores.length} stores x2 langs + ${areas.length} areas x2 langs + ${areaGenres.length} area-genres x2 langs + top x2 + sitemap (${entries.length} urls)`,
+  );
 } finally {
   await server.close();
 }

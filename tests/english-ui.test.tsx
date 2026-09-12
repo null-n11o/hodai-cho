@@ -57,7 +57,7 @@ describe('English detail page', () => {
     expect(screen.getByText('Before you go')).toBeTruthy();
     expect(screen.getByText('Back')).toBeTruthy();
     expect(screen.getByText('Open in Maps')).toBeTruthy();
-    expect(screen.getByText(first.nameEn)).toBeTruthy();
+    expect(screen.getByRole('heading', { level: 1, name: first.nameEn })).toBeTruthy();
   });
 
   it('英語の未知IDは英語の案内と探す導線がある', () => {

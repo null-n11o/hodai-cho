@@ -30,4 +30,18 @@ describe('prerender', () => {
     const html = renderRoute('/r/no-such-shop');
     expect(html).toContain('店が見つからない');
   });
+
+  it('エリア×ジャンルページの断片が見出しと店名を含む', () => {
+    const path = `/a/${encodeURIComponent('東京')}/${encodeURIComponent('新宿')}/${encodeURIComponent('焼肉')}`;
+    const html = renderRoute(path);
+    expect(html).toContain('新宿の焼肉食べ放題');
+    expect(html).toContain('牛角');
+  });
+
+  it('英語のエリア×ジャンルページの断片が英語見出しを含む', () => {
+    const path = `/en/a/${encodeURIComponent('東京')}/${encodeURIComponent('新宿')}/${encodeURIComponent('焼肉')}`;
+    const html = renderRoute(path);
+    expect(html).toContain('All-you-can-eat Yakiniku in Shinjuku');
+    expect(html).toContain('Gyu-kaku');
+  });
 });
