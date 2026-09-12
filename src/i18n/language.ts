@@ -5,6 +5,10 @@ import type { Dict } from './ja';
 
 export type Lang = 'ja' | 'en';
 
+export function searchPath(lang: Lang): string {
+  return lang === 'en' ? '/en/search/' : '/search/';
+}
+
 export const LANG_STORAGE_KEY = 'tabeho-lang';
 const LEGACY_LANG_STORAGE_KEY = 'hodai-cho-lang';
 

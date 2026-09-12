@@ -7,6 +7,7 @@ import { SavedPage } from './pages/SavedPage';
 import { AreaPage } from './pages/AreaPage';
 import { ContactPage } from './pages/ContactPage';
 import { getLangFromPath } from './i18n/language';
+import { LandingPage } from './pages/LandingPage';
 
 function DocumentLanguage() {
   const { pathname } = useLocation();
@@ -28,8 +29,10 @@ export function AppRoutes() {
     <DocumentLanguage />
     <SiteHeader />
     <Routes>
-      <Route path="/" element={<SearchPage />} />
-      <Route path="/en/" element={<SearchPage />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/en/" element={<LandingPage />} />
+      <Route path="/search" element={<SearchPage />} />
+      <Route path="/en/search" element={<SearchPage />} />
       <Route path="/r/:id" element={<DetailPage />} />
       <Route path="/en/r/:id" element={<DetailPage />} />
       <Route path="/saved" element={<SavedPage />} />

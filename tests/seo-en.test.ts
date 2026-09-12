@@ -80,10 +80,12 @@ describe('hreflang', () => {
 describe('sitemap entries', () => {
   it('日英のトップ・店・エリアを列挙する', () => {
     const entries = sitemapEntries(stores, areas, base, '2026-09-06');
-    expect(entries.length).toBe(2 * (2 + stores.length + areas.length));
+    expect(entries.length).toBe(2 * (3 + stores.length + areas.length));
     const locs = entries.map((e) => e.loc);
     expect(locs).toContain(`${base}/`);
     expect(locs).toContain(`${base}/en/`);
+    expect(locs).toContain(`${base}/search/`);
+    expect(locs).toContain(`${base}/en/search/`);
     expect(locs).toContain(`${base}/contact/`);
     expect(locs).toContain(`${base}/en/contact/`);
     expect(locs).toContain(`${base}/en/r/${first.id}/`);

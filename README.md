@@ -8,7 +8,7 @@
 
 ### 条件から店を探す
 
-トップページ（`/`）では、東京・神奈川を切り替えながら次の条件で絞り込めます。
+トップページ（`/`）は「今日は好きなだけ食べよう。」を入口にしたサービス紹介LPです。「食べ放題を探す」から検索ページ（`/search/`）へ進むと、東京・神奈川を切り替えながら次の条件で絞り込めます。
 
 - エリア、ジャンル、フリーワード（店名・系列・駅・施設など）
 - ランチ、ディナー、終日などの時間帯
@@ -41,8 +41,8 @@
 
 日本語を標準とし、英語ページは `/en/` 以下に用意しています。
 
-- 日本語: `/`、`/r/:id`、`/saved`、`/a/:prefecture/:area`、`/contact`
-- 英語: `/en/`、`/en/r/:id`、`/en/saved`、`/en/a/:prefecture/:area`、`/en/contact`
+- 日本語: `/`（LP）、`/search/`、`/r/:id`、`/saved`、`/a/:prefecture/:area`、`/contact`
+- 英語: `/en/`（LP）、`/en/search/`、`/en/r/:id`、`/en/saved`、`/en/a/:prefecture/:area`、`/en/contact`
 
 英語ページでは、画面文言、店名、コース名、駅名・エリア名などを英語で表示します。
 
@@ -105,7 +105,7 @@ npm run build:ssg           # 静的HTML、sitemap.xml、robots.txtを生成
 npm run preview             # 本番ビルドをローカル確認
 ```
 
-`npm run build:ssg` では、トップ、情報提供、店別、エリア別の日本語・英語HTMLと `sitemap.xml`、`robots.txt` を `dist/` に生成します。公開URLを設定する場合は `SITE_URL` を指定してください。
+`npm run build:ssg` では、トップLP、検索、情報提供、店別、エリア別の日本語・英語HTMLと `sitemap.xml`、`robots.txt` を `dist/` に生成します。公開URLを設定する場合は `SITE_URL` を指定してください。
 
 ```bash
 SITE_URL=https://example.com npm run build:ssg

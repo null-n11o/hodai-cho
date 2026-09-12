@@ -1,83 +1,54 @@
-# Product Design QA — 食卓の新聞
+# First-visit LP — design QA
 
-## Source and implementation
-
-- Source visual truth: `/Users/nakanokentaro/.codex/generated_images/01a07f21-1c8c-7091-87ea-ae997a679a29/exec-f13edde8-6e6b-4e48-8e70-8b18314700b3.png`
-- Implementation screenshot: `/tmp/hodai-cho-redesign-desktop-font-light.png`
-- Combined comparison input: `/tmp/hodai-cho-design-qa-font-light-comparison.png`
-- Route: `/`
-- State: Japanese default, Tokyo selected, no filters, 71 results, first result list visible
-- Viewport: 1487 × 1058 CSS px
-- Source pixels: 1487 × 1058
-- Implementation pixels: 1487 × 1058
-- Device scale factor: 1
-- Density normalization: none required
+final result: passed
 
 ## Evidence
 
-The source and rendered implementation were opened together in the combined comparison input. The full-view comparison confirms the same editorial composition: dark brand header, warm ivory paper surface, Japanese headline, terracotta accent, food still-life hero, direct search controls, and an information-dense restaurant list.
+- Date: 2026-09-12. Browser: Chrome via CUA (in-app browser was unavailable).
+- Source: user-selected `tabeho-lp.png`, with the requested headline/caption edits shown in `exec-98591822-d701-49c6-b9d4-d23ded497f9c.png` (683 × 2048 px).
+- Implementation: `http://127.0.0.1:4179/` and `/en/`, generated production HTML. Development preview at port 4178 was also exercised.
+- Local evidence directory: `.superpowers/sdd/2026-09-12-first-visit-lp/qa/` (ignored scratch artifacts).
+- Full comparison: `comparison-final.png` shows source left and final implementation right. Both normalized to 390 CSS pixels wide, aspect ratio retained; the comparison canvas is exported at 2× density (1560 × 2620 px).
+- Japanese: `ja-390-final.png` (390 × 1310 px, 390 × 844 viewport, full-page capture at 1× density); `ja-320-final.png`; `ja-1280-final.png`.
+- English: `en-320-final.png` (320px-wide full-page capture, 320 × 812 viewport).
+- State: default LP, Japanese or English as named, no filters, no overlays.
+- Focused inspection: headline, header language links, primary CTA, and three feature rows were inspected at native screenshot size as well as in the combined comparison. Photo loaded from the original local asset; no UI is rasterized.
 
-Focused region checks were made against the hero/search region and the first two result rows. The hero title stays on one line at the reference viewport. Result imagery uses food still-life assets throughout the visible catalog instead of mixing the refreshed surface with the former dark illustration blocks. Secondary-route captures were also checked at `/tmp/hodai-cho-detail-light-v2.png`, `/tmp/hodai-cho-saved-light-v2.png`, `/tmp/hodai-cho-contact-light-v2.png`, and `/tmp/hodai-cho-area-light-v2.png`.
+## Comparison and fixes
 
-## Comparison history
-
-### Pass 1
-
-- Finding: `[P2]` legacy dark genre illustrations appeared between the new food still-life images, creating an inconsistent visual rhythm in the bright editorial list.
-- Fix: generated and added real food still-life assets for the remaining catalog genres and mapped them through `FoodImage`.
-- Post-fix evidence: `/tmp/hodai-cho-redesign-desktop-qa.png` and `/tmp/hodai-cho-design-qa-comparison-final.png`; all 71 visible cards resolve to food image assets.
-
-### Pass 2
-
-- Finding: `[P2]` the hero headline wrapped earlier than the selected reference at the matched desktop viewport.
-- Fix: widened the hero copy region and tuned the desktop headline size/line-height.
-- Post-fix evidence: the hero title bounding box is 560 × 52.2 CSS px at 1487 × 1058; it renders on one line in `/tmp/hodai-cho-redesign-desktop-qa.png`.
-
-### Pass 3
-
-- User-directed adjustment: the source mock used a Mincho display face, but the product owner requested Noto Sans JP for Japanese UI and copy.
-- Fix: loaded Noto Sans JP from Google Fonts and applied it to body text and headings. Changed the root canvas, content routes, cards, form controls, and filter sheet to the shared light editorial tokens. Kept only the header and mobile navigation as the dark brand shell.
-- Post-fix evidence: `/tmp/hodai-cho-redesign-desktop-font-light.png`, `/tmp/hodai-cho-search-mobile-font-light.png`, and `/tmp/hodai-cho-filter-sheet-light.png`; all checked with Playwright without console/page errors.
-
-### Pass 4
-
-- User-directed adjustment: the search panel heading felt too tightly packed against the condition inputs.
-- Fix: increased the heading-to-fields gap to 32px on desktop and 22px on mobile, with a little more separation between the kicker, heading, and supporting copy.
-- Post-fix evidence: `/tmp/hodai-cho-search-spacing-desktop-top.png` and `/tmp/hodai-cho-search-spacing-mobile-top.png`; Playwright measured the intended 32px/22px gaps with no horizontal overflow.
+1. Initial 390px capture (`ja-390-initial.png`): [P1] existing fixed mobile nav covered the main CTA; [P2] header and fixed 300px photo pushed the CTA too far down. Fixed by hiding MainNav only on LP routes, reducing mobile header height, and making the photograph responsive at 1.7 aspect ratio.
+2. Second capture (`ja-390-v2.png`, `comparison-v2.png`): [P2] excess row spacing/header height and small-screen English CTA wrapping. Fixed by reducing mobile logo/header height, using responsive row minimum height with vertical padding, and centering the CTA label with a separately positioned library arrow.
+3. Final captures: Japanese header 61px and primary CTA y=656.7–724.7 at 390px. English CTA fits on one line at 320px; all headline words remain visible. No actionable P0/P1/P2 findings remain.
 
 ## Required fidelity surfaces
 
-- Fonts and typography: Noto Sans JP is now used for both headings and body/UI as explicitly requested. This intentionally departs from the source mock's Mincho display face while retaining its hierarchy and line wrapping.
-- Spacing and layout rhythm: paper surface, full-bleed hero, compact search band, sidebar/results split, and horizontal result rules are consistent with the source. The extra keyword/time/region controls are intentional because they preserve the existing product's working search flow.
-- Colors and visual tokens: the existing dark brand shell and required ink/ivory/stone/aka palette remain available, while the root canvas, secondary routes, forms, cards, and filter sheet now use warm light paper tokens.
-- Image quality and asset fidelity: hero and catalog imagery are real generated food still-life PNG assets with no people, text, logos, or CSS/HTML image approximations.
-- Copy and content: retained real catalog names, prices, hours, and station distances; added clear Japanese/English labels for region, cuisine, budget, and walking distance.
+- Typography: Noto Sans JP loaded, headline weight 900. Approved Japanese wording is exact and split across three lines. English adapts to four lines at 320px. Sans-serif section numbers deliberately follow repository constraints rather than the mock's serif numerals.
+- Layout: dark brand header, editorial kicker, headline, explanatory copy, food image, primary CTA, numbered sections, secondary CTA, disclaimer. LP width is 512px centered at a 1280px viewport. No viewport overflow at 320/390/1280px. CTA and feature spacing are responsive; footer is longer because it retains the complete required shared disclaimer.
+- Colors: existing page/surface/text/muted/line/accent/shell tokens retained. No added gradients, shadows, neon, or unsupported accent colors. The white CTA label is large bold text; body contrast is sufficient for normal text.
+- Images/icons: original local logo and food photograph, both confirmed loaded. Crop differs slightly from the generated mock while preserving the same meal and photographic direction. Phosphor arrow/search icons replace temporary text/CSS approximations. No photo caption is rendered on the LP.
+- Copy: requested headline, service description, budget/time/station explanations, Japanese and English CTA labels, full disclaimer, and affiliate disclosure. No fictional restaurant cards, counts, or reviews.
 
-## Interaction and responsive checks
+## Interaction/accessibility verification
 
-- Playwright verified direct area, cuisine, and walking-distance selection.
-- Playwright verified the detail-condition sheet's walking-distance select and close action.
-- Playwright verified the first result links to a real detail route.
-- Desktop: `scrollWidth === viewportWidth` (1487 px).
-- Mobile: `scrollWidth === viewportWidth` (390 px), six direct controls render, the filter sheet is light, and the fixed bottom navigation remains present as the dark brand shell.
-- Console/page errors: none observed in the desktop and mobile checks.
+- Japanese secondary CTA and English primary CTA open the matching search route. Japanese primary CTA is covered by integration tests.
+- English keyword search narrowed 87 results to 6 Kobeya records; a real store opened its course detail.
+- Save → Saved displayed the selected store; removing it restored the empty state and its search link. Test-created saved state was removed.
+- Breadcrumb/back links use the matching search route. Header logo returns to LP; language toggle switches LP language and document lang.
+- LP controls: logo 156 × 52px; language links 44 × 44px; primary CTA 346 × 68px; secondary CTA height 58px at 390px.
+- Focus styling and reduced-motion rules are inherited from the existing global stylesheet. Decorative photo/logo alt behavior retained.
+- Fresh production-preview browser tab: zero captured console errors. Earlier development-only import/HMR errors during file creation/dependency installation disappeared on the completed build.
 
-## Findings
+## Follow-up polish
 
-No actionable P0, P1, or P2 findings remain. The source visual is a design target rather than a fixed production wireframe, so preserving the existing immediate-filter behavior and adding the keyword/time controls is considered an intentional product constraint.
+- P3: mock photo crop and paragraph line breaks are not pixel-identical. Required shared disclaimer is intentionally more detailed; mock decorative serif numerals are intentionally replaced with Noto Sans JP.
+- No blocking gaps. No merge or deployment was performed.
 
-## Follow-up Polish
 
-- `[P3]` If the product later wants a more literal match to the selected target, the direct filter band could be given a larger single CTA and the advanced multi-genre/sidebar controls could move behind a secondary affordance.
-- `[P3]` Add a dedicated all-day course label to the compact card summary if catalog presentation rules expand beyond the current lunch/dinner summary.
+## 2026-09-12 PC・スマホ対応の追加確認
 
-## Implementation Checklist
+ユーザー指示により担当者が直接実装。PCでも512px幅だったLPを、900px以上で最大1180pxの2列hero・3列特徴に変更。900px未満は最大680pxで縦構成。既存検索画面の幅は変更なし。
 
-- [x] Selected visual target used as source truth.
-- [x] Same viewport/state captured and compared.
-- [x] Desktop and mobile overflow checked.
-- [x] Core filters and detail navigation exercised.
-- [x] Console errors checked.
-- [x] Full test suite, build, and lint run.
+修正前1440px: main幅512px、写真はコピー下（PC幅利用・横並び検証ともFAIL）。
+修正後: ja/enそれぞれ320/390/414/768/1024/1440pxで文書横幅=viewport、画面外に出る子要素0。日本語1440px main幅1180px、写真はコピー右、CTA下端635px。320px英語と390px日本語、1440px日本語をスクリーンショットでも目視確認。英語の長いラベルは折り返し、文字切れなし。
 
-final result: passed
+検証: landing.test.tsx 11/11、lint成功（既存FoodImage/GenreImageの警告2件）、build:ssg成功594URL。スクリーンショットと寸法記録はローカルの .superpowers/responsive-qa/。

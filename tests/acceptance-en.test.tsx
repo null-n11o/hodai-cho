@@ -28,7 +28,7 @@ function renderAppAt(path: string) {
 describe('acceptance: language switch on all screens', () => {
   it('ナビの切替が探す・詳細・保存の各パスで往復する', () => {
     const pairs: [string, string][] = [
-      ['/', '/en/'],
+      ['/search/', '/en/search/'],
       ['/r/syabuyo-shinjuku-nowa', '/en/r/syabuyo-shinjuku-nowa'],
       ['/saved', '/en/saved'],
     ];
@@ -64,7 +64,7 @@ describe('acceptance: language switch on all screens', () => {
 describe('acceptance: english filtering equals japanese', () => {
   it('英語UIのジャンル絞り込みがロジックと一致する', () => {
     localStorage.clear();
-    renderAppAt('/en/');
+    renderAppAt('/en/search/');
     const before = screen.getAllByRole('article').length;
     fireEvent.click(screen.getByRole('button', { name: 'Yakiniku' }));
     const after = screen.getAllByRole('article').length;
@@ -85,7 +85,7 @@ describe('acceptance: english filtering equals japanese', () => {
 
   it('英語UIの保存が日本語UIと同一キーに残る', () => {
     localStorage.clear();
-    renderAppAt('/en/');
+    renderAppAt('/en/search/');
     fireEvent.click(screen.getAllByLabelText('Save')[0]);
     const saved = JSON.parse(localStorage.getItem('tabeho') ?? '[]');
     expect(saved.length).toBe(1);
@@ -98,7 +98,7 @@ describe('acceptance: english filtering equals japanese', () => {
 
   it('英語UIの0件案内が出る', () => {
     localStorage.clear();
-    renderAppAt('/en/');
+    renderAppAt('/en/search/');
     fireEvent.change(screen.getByPlaceholderText(/shop or station/i), { target: { value: '存在しない店xyz' } });
     expect(screen.getByText('No shops match these filters')).toBeTruthy();
   });
