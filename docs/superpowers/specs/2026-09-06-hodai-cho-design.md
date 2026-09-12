@@ -88,5 +88,5 @@
 - 旧コピー: `docs/PLAN-20260906-300-hodai-cho-expansion.md`、`docs/PLAN-20260906-301-hodai-cho-implementation-plan.md`（内容は本設計書＋実装計画書に統合済み。履歴参照用に残す）
 
 - UI刷新設計: `docs/superpowers/specs/2026-09-08-search-redesign-design.md`（ユーザー承認済みの「食卓の新聞」方向）。
-- LPの料理画像・気分検索・モーション: `docs/superpowers/specs/2026-09-12-appetizing-landing-design.md`（2026-09-12承認済み）。検索機能の上部に料理を主役とした入口を追加。
+- LPの料理画像・気分検索・モーション: `docs/superpowers/specs/2026-09-12-appetizing-landing-design.md`（2026-09-12承認済み）。独立したLPに料理を主役とした入口を追加し、検索サービスへ誘導。
 - 予約アフィリエイト: `docs/superpowers/specs/2026-09-09-reservation-affiliate-design.md`（予約CTAのみ。公式は素リンク）。

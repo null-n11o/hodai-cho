@@ -3,6 +3,7 @@ import { ArrowRight, MagnifyingGlass } from '@phosphor-icons/react';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 import { searchPath, useLanguage } from '../i18n/language';
 import './landing.css';
+import { LandingHero } from '../components/LandingHero';
 
 const content = {
   ja: {
@@ -35,15 +36,7 @@ export function LandingPage() {
   const to = searchPath(lang);
   return (
     <main className="landing-page">
-      <div className="landing-hero">
-        <section className="landing-intro">
-          <div className="landing-kicker"><span>{copy.region}</span><span>{copy.label}</span></div>
-          <h1 aria-label={copy.title.join('')}>{copy.title.map((line) => <span key={line}>{line}</span>)}</h1>
-          <p className="landing-description">{copy.description}</p>
-        </section>
-        <img className="landing-photo" src="/food/hero-all-day.png" alt="" />
-        <Link className="landing-primary" to={to}>{copy.cta}<ArrowRight aria-hidden="true" size={27} weight="light" /></Link>
-      </div>
+      <LandingHero lang={lang} />
       <div className="landing-body">
         <ol className="landing-features">
           {copy.features.map(([title, description], index) => (

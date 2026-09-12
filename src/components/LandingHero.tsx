@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom';
+import { searchPath } from '../i18n/language';
 import type { Genre } from '../catalog/schema';
 import type { Lang } from '../i18n/language';
-import './SearchHero.css';
+import './LandingHero.css';
 
 const MOODS: { genre: Genre; image: string; ja: string; en: string }[] = [
   { genre: '焼肉', image: 'yakiniku', ja: 'お肉をがっつり', en: 'Craving a grill feast' },
@@ -10,11 +12,9 @@ const MOODS: { genre: Genre; image: string; ja: string; en: string }[] = [
 
 interface Props {
   lang: Lang;
-  genres: Genre[];
-  onChoose: (genre: Genre) => void;
 }
 
-export function SearchHero({ lang, genres, onChoose }: Props) {
+export function LandingHero({ lang }: Props) {
   const en = lang === 'en';
   return (
     <header className="appetite-hero">
@@ -22,7 +22,7 @@ export function SearchHero({ lang, genres, onChoose }: Props) {
         <p className="appetite-eyebrow">TOKYO / KANAGAWA <span>ALL YOU CAN EAT</span></p>
         <h1>{en ? <>A big appetite.<br /><em>What’s on your menu?</em></> : <>お腹いっぱい、<br /><em>今日は何食べる？</em></>}</h1>
         <p className="appetite-description">{en ? 'Grilled meat, sushi, and a little room for dessert. Find your next feast in Tokyo and Kanagawa.' : <>焼肉も、お寿司も、食後の甘いものも。<br />東京・神奈川で、好きなものを好きなだけ。</>}</p>
-        <a className="appetite-cta" href="#restaurant-search">{en ? 'Find a restaurant' : 'お店を探す'}<span aria-hidden="true">↗</span></a>
+        <Link className="appetite-cta" to={searchPath(lang)}>{en ? 'Find all-you-can-eat' : '食べ放題を探す'}<span aria-hidden="true">↗</span></Link>
         <p className="appetite-guide">{en ? 'Compare prices, time limits, and locations.' : '料金・時間・場所で、ぴったりの一軒へ。'}</p>
       </div>
 
@@ -38,10 +38,10 @@ export function SearchHero({ lang, genres, onChoose }: Props) {
         <p id="appetite-moods-title">{en ? 'Follow your appetite' : '今の気分で、ひとくち目。'}<span>{en ? 'Choose a craving' : '気になる料理から探す'}</span></p>
         <div className="appetite-mood-list">
           {MOODS.map((mood) => (
-            <button key={mood.genre} type="button" className="appetite-mood" aria-pressed={genres.includes(mood.genre)} onClick={() => onChoose(mood.genre)}>
+            <Link key={mood.genre} className="appetite-mood" to={`${searchPath(lang)}?genre=${encodeURIComponent(mood.genre)}`}>
               <img src={`/food/landing/${mood.image}.webp`} width="80" height="64" alt="" />
               <span>{en ? mood.en : mood.ja}</span><span className="appetite-mood-arrow" aria-hidden="true">↗</span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>

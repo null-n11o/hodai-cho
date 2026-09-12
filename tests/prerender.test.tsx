@@ -8,13 +8,13 @@ afterEach(() => cleanup());
 describe('prerender', () => {
   it('トップがJSなしで読める断片を出す', () => {
     const html = renderRoute('/');
-    expect(html).toContain('今日は好きなだけ食べよう。');
+    expect(html).toContain('今日は何食べる？');
     expect(html).toContain('食べ放題を探す');
   });
 
   it('英語トップがJSなしでコピーとCTAを出す', () => {
     const html = renderRoute('/en/');
-    expect(html).toContain('Today, eat to your heart’s content.');
+    expect(html).toContain('What’s on your menu?');
     expect(html).toContain('Find all-you-can-eat');
     expect(html).toContain('href="/en/search/"');
   });

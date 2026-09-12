@@ -1,5 +1,4 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import '@testing-library/jest-dom/vitest';
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { BundledCatalogRepository } from '../src/catalog/repository';
@@ -9,35 +8,6 @@ import { SearchPage } from '../src/pages/SearchPage';
 afterEach(() => cleanup());
 
 describe('SearchPage', () => {
-  it('気分でジャンルを切り替え、他条件を維持して結果にフォーカスする', () => {
-    render(<MemoryRouter><SearchPage /></MemoryRouter>);
-    fireEvent.change(screen.getByRole('combobox', { name: '都県' }), { target: { value: '神奈川' } });
-    fireEvent.change(screen.getByRole('combobox', { name: '時間帯' }), { target: { value: 'lunch' } });
-    fireEvent.click(screen.getByRole('button', { name: 'お肉をがっつり' }));
-    expect(screen.getByRole('combobox', { name: '料理ジャンル' })).toHaveValue('焼肉');
-    expect(screen.getByRole('combobox', { name: '都県' })).toHaveValue('神奈川');
-    expect(screen.getByRole('combobox', { name: '時間帯' })).toHaveValue('lunch');
-    const expected = filterStores(new BundledCatalogRepository().listStores(), {
-      prefecture: '神奈川', freeword: '', genres: ['焼肉'], slot: 'lunch', timeLimit: 'all', sort: 'recommend',
-    });
-    expect(screen.getAllByRole('article').map((article) => within(article).getByRole('heading').textContent))
-      .toEqual(expected.slice(0, 10).map((store) => store.name));
-    expect(screen.getByRole('region', { name: '検索結果' })).toHaveFocus();
-    fireEvent.click(screen.getByRole('button', { name: 'お寿司を好きなだけ' }));
-    expect(screen.getByRole('combobox', { name: '料理ジャンル' })).toHaveValue('寿司');
-    expect(screen.getByRole('button', { name: 'お肉をがっつり' })).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByRole('button', { name: 'お寿司を好きなだけ' })).toHaveAttribute('aria-pressed', 'true');
-    fireEvent.click(screen.getByRole('button', { name: 'リセット', exact: true }));
-    expect(screen.getByRole('button', { name: 'お寿司を好きなだけ' })).toHaveAttribute('aria-pressed', 'false');
-  });
-
-  it('英語の気分ボタンからスイーツを選べる', () => {
-    render(<MemoryRouter initialEntries={['/en/']}><SearchPage /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: 'Room for dessert' }));
-    expect(screen.getByRole('combobox', { name: 'Cuisine' })).toHaveValue('スイーツ');
-    expect(screen.getByRole('region', { name: 'Search results' })).toHaveFocus();
-  });
-
   it('東京の店一覧が出て件数が表示される', () => {
     render(<MemoryRouter><SearchPage /></MemoryRouter>);
     expect(screen.getByText(/\d+件/)).toBeTruthy();

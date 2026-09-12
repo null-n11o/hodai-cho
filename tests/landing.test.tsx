@@ -9,9 +9,26 @@ import { BundledCatalogRepository } from '../src/catalog/repository';
 afterEach(cleanup);
 
 describe('first-visit landing page', () => {
+  it.each([
+    ['/', 'お肉をがっつり', '焼肉', '料理ジャンル'],
+    ['/en/', 'Room for dessert', 'スイーツ', 'Cuisine'],
+  ])('keeps %s as a landing page and opens filtered search from a craving', (path, label, genre, field) => {
+    render(<MemoryRouter initialEntries={[path]}><AppRoutes /></MemoryRouter>);
+    expect(screen.queryByRole('searchbox')).toBeNull();
+    fireEvent.click(screen.getByRole('link', { name: label }));
+    expect(screen.getByRole('searchbox')).toBeTruthy();
+    expect((screen.getByRole('combobox', { name: field }) as HTMLSelectElement).value).toBe(genre);
+    expect(screen.queryByRole('group', { name: /今の気分|Follow your appetite/ })).toBeNull();
+  });
+
+  it('ignores an unknown genre in a direct search URL', () => {
+    render(<MemoryRouter initialEntries={['/search/?genre=unknown']}><AppRoutes /></MemoryRouter>);
+    expect((screen.getByRole('combobox', { name: '料理ジャンル' }) as HTMLSelectElement).value).toBe('');
+  });
+
   it('opens Japanese search from the primary action', () => {
     render(<MemoryRouter initialEntries={['/']}><AppRoutes /></MemoryRouter>);
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('今日は好きなだけ食べよう。');
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('お腹いっぱい、今日は何食べる？');
     expect(screen.queryByText('ジャンルイメージ')).toBeNull();
     fireEvent.click(screen.getByRole('link', { name: '食べ放題を探す' }));
     expect(screen.getByRole('searchbox')).toBeTruthy();
@@ -19,14 +36,14 @@ describe('first-visit landing page', () => {
 
   it('opens English search and switches the LP language', () => {
     render(<MemoryRouter initialEntries={['/en/']}><AppRoutes /></MemoryRouter>);
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Today, eat to your heart’s content.');
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('A big appetite.What’s on your menu?');
     expect(screen.getAllByRole('link', { name: 'Find all-you-can-eat' })[0].getAttribute('href')).toBe('/en/search/');
     fireEvent.click(screen.getByRole('link', { name: 'Find all-you-can-eat' }));
     expect(screen.getByRole('searchbox')).toBeTruthy();
     cleanup();
     render(<MemoryRouter initialEntries={['/en/']}><AppRoutes /></MemoryRouter>);
     fireEvent.click(screen.getByRole('link', { name: /switch to japanese/i }));
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('今日は好きなだけ食べよう。');
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('お腹いっぱい、今日は何食べる？');
   });
 
   it.each([
