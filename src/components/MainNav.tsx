@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { dictionary, getLangFromPath } from '../i18n/language';
+import { dictionary, getLangFromPath, searchPath } from '../i18n/language';
 
 function tabClass(active: boolean): string {
   return `min-h-[44px] flex-1 py-3 text-center font-bold transition-colors ${
@@ -11,7 +11,8 @@ export function MainNav() {
   const { pathname } = useLocation();
   const lang = getLangFromPath(pathname);
   const dict = dictionary(lang);
-  const searchTo = lang === 'en' ? '/en/' : '/';
+  if (pathname === '/' || pathname === '/en' || pathname === '/en/') return null;
+  const searchTo = searchPath(lang);
   const savedTo = lang === 'en' ? '/en/saved' : '/saved';
   const contactTo = lang === 'en' ? '/en/contact' : '/contact';
   return (

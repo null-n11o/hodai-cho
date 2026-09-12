@@ -46,6 +46,6 @@ describe('ContactPage', () => {
   it('英語URLでは英語の案内と検索導線になる', () => {
     render(<MemoryRouter initialEntries={['/en/contact']}><ContactPage /></MemoryRouter>);
     expect(screen.getByRole('heading', { name: 'A community-updated guide to all-you-can-eat' })).toBeTruthy();
-    expect(screen.getByRole('link', { name: /find a shop/i }).getAttribute('href')).toBe('/en/');
+    expect(screen.getByRole('link', { name: /find a shop/i }).getAttribute('href')).toBe('/en/search/');
   });
 });

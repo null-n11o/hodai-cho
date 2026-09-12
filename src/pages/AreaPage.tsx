@@ -8,7 +8,7 @@ import { StoreCard } from '../components/StoreCard';
 import { EmptyState } from '../components/EmptyState';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
 import { useState } from 'react';
-import { dictionary, useLanguage } from '../i18n/language';
+import { dictionary, searchPath, useLanguage } from '../i18n/language';
 import { areaCountLine, areaTitle, prefName } from '../i18n/format';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
@@ -39,7 +39,7 @@ export function AreaPage() {
     setSavedIds(toggleFavorite(id));
   };
 
-  const searchTo = lang === 'en' ? '/en/' : '/';
+  const searchTo = searchPath(lang);
   const areaTo = lang === 'en'
     ? `/en/a/${encodeURIComponent(prefecture ?? '')}/${encodeURIComponent(area ?? '')}`
     : `/a/${encodeURIComponent(prefecture ?? '')}/${encodeURIComponent(area ?? '')}`;

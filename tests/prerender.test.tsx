@@ -8,12 +8,12 @@ afterEach(() => cleanup());
 describe('prerender', () => {
   it('トップがJSなしで読める断片を出す', () => {
     const html = renderRoute('/');
-    expect(html).toContain('タベホー');
-    expect(html).toContain('件');
+    expect(html).toContain('今日は好きなだけ食べよう。');
+    expect(html).toContain('食べ放題を探す');
   });
 
-  it('トップの断片に全ジャンルのチップが入る', () => {
-    const html = renderRoute('/');
+  it('検索ページの断片に全ジャンルのチップが入る', () => {
+    const html = renderRoute('/search/');
     for (const g of ['焼肉', 'しゃぶしゃぶ', '寿司', 'スイーツ', 'ピザ', '串揚げ', '宴会食放', 'パン食べ放題', 'お好み焼き', 'サラダバー', 'バイキング']) {
       expect(html).toContain(g);
     }

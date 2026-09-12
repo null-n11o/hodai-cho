@@ -55,14 +55,19 @@ try {
   writePair(
     '/',
     {
-      title: 'タベホー｜東京・神奈川の食べ放題だけを、料金と時間で切る',
-      description:
-        '東京・神奈川の食べ放題だけを料金と制限時間で切る条件帳。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会・パン・お好み焼き・サラダバーから探せます。',
+      title: meta.topTitle(),
+      description: meta.topDescription(),
     },
     {
       title: meta.topTitleEn(),
       description: meta.topDescriptionEn(),
     },
+  );
+
+  writePair(
+    '/search/',
+    { title: meta.searchTitle(), description: meta.searchDescription() },
+    { title: meta.searchTitleEn(), description: meta.searchDescriptionEn() },
   );
 
   writePair(
