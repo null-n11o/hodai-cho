@@ -3,7 +3,7 @@ import type { FormEvent, KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { BundledCatalogRepository } from '../catalog/repository';
 import { AREA_EN } from '../catalog/en-names';
-import { dictionary, useLanguage } from '../i18n/language';
+import { dictionary, searchPath, useLanguage } from '../i18n/language';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository = new BundledCatalogRepository();
@@ -117,7 +117,7 @@ export function ContactPage() {
     setSubmitted(true);
   };
 
-  const searchTo = lang === 'en' ? '/en/' : '/';
+  const searchTo = searchPath(lang);
 
   return (
     <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">

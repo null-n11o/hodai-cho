@@ -1,0 +1,62 @@
+.appetite-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; padding-top: 32px; }
+.appetite-intro { align-self: center; padding: 20px 0 30px; animation: appetite-enter 400ms both; }
+.appetite-eyebrow { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .13em; }
+.appetite-eyebrow span { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; }
+.appetite-intro h1 { margin-top: 22px; font-size: clamp(30px, 3.3vw, 43px); line-height: 1.55; font-weight: 700; letter-spacing: -.04em; text-wrap: balance; }
+.appetite-intro h1 em { color: var(--accent); font-style: normal; }
+.appetite-description { margin-top: 18px; max-width: 380px; font-size: 13px; line-height: 1.9; color: var(--muted); }
+.appetite-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: 40px; min-height: 48px; margin-top: 24px; padding: 12px 22px; background: var(--accent); color: #fff; font-size: 14px; font-weight: 700; border-radius: 4px; transition: transform 200ms; }
+.appetite-cta span { font-size: 20px; line-height: 1; }
+.appetite-guide { margin-top: 10px; font-size: 10px; color: var(--muted); }
+.appetite-table { position: relative; min-width: 0; height: 380px; align-self: center; }
+.appetite-dish { position: absolute; overflow: hidden; border: 5px solid var(--surface); box-shadow: 0 8px 24px rgb(41 35 30 / 8%); animation: appetite-pop 400ms both; }
+.appetite-dish img { width: 100%; height: 100%; object-fit: cover; transition: transform 300ms; }
+.appetite-dish-main { left: 0; top: 4%; width: 84%; height: 74%; border-radius: 48% 48% 43% 43%; }
+.appetite-dish-sushi { right: 0; top: 0; width: 37%; height: 37%; border-radius: 50%; }
+.appetite-dish-sweets { right: 0; bottom: 7%; width: 44%; height: 42%; border-radius: 50%; }
+.appetite-stamp { position: absolute; left: 6%; bottom: 6%; display: grid; place-content: center; width: 88px; height: 88px; border-radius: 50%; background: var(--accent); color: var(--surface); border: 3px double var(--surface); font-size: 13px; font-weight: 700; line-height: 1.7; text-align: center; transform: rotate(-9deg); }
+.appetite-table figcaption { position: absolute; right: 0; bottom: 0; color: var(--muted); font-size: 9px; }
+.appetite-moods { grid-column: 1 / -1; padding: 22px 0 26px; border-top: 1px solid var(--line); }
+.appetite-moods > p { display: flex; align-items: baseline; gap: 16px; font-size: 14px; font-weight: 700; }
+.appetite-moods > p span { color: var(--muted); font-size: 10px; font-weight: 400; }
+.appetite-mood-list { display: flex; gap: 16px; margin-top: 14px; }
+.appetite-mood { display: flex; flex: 1; min-width: 0; align-items: center; gap: 12px; padding: 6px 12px 6px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); text-align: left; transition: transform 200ms; }
+.appetite-mood img { width: 66px; height: 54px; flex-shrink: 0; border-radius: 3px; object-fit: cover; }
+.appetite-mood > span { font-size: 12px; font-weight: 700; }
+.appetite-mood .appetite-mood-arrow { margin-left: auto; color: var(--accent); font-size: 19px; }
+.appetite-cta:focus-visible, .appetite-mood:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; transform: translateY(-3px); }
+.appetite-cta:active, .appetite-mood:active { transform: scale(.98); }
+@media (hover: hover) {
+  .appetite-cta:hover, .appetite-mood:hover { transform: translateY(-3px); }
+  .appetite-dish:hover img { transform: scale(1.045); }
+}
+@keyframes appetite-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes appetite-pop { 0% { opacity: 0; transform: translateY(14px) scale(.94); } 75% { opacity: 1; transform: translateY(-2px) scale(1.01); } 100% { opacity: 1; transform: none; } }
+@media (max-width: 899px) {
+  .appetite-hero { grid-template-columns: minmax(0, 1fr); padding-top: 20px; }
+  .appetite-intro { padding: 0; }
+  .appetite-eyebrow span { display: inline; margin-left: 10px; font-size: 8px; }
+  .appetite-intro h1 { margin-top: 12px; font-size: clamp(29px, 7.5vw, 40px); line-height: 1.4; }
+  .appetite-description { margin-top: 12px; font-size: 12px; }
+  .appetite-cta { margin-top: 16px; }
+  .appetite-table { height: 220px; width: 100%; max-width: 390px; justify-self: center; margin: 18px 0; }
+  .appetite-dish-main { width: 74%; height: 86%; top: 0; }
+  .appetite-dish-sushi { width: 34%; height: 47%; }
+  .appetite-dish-sweets { width: 36%; height: 45%; }
+  .appetite-stamp { width: 68px; height: 68px; font-size: 10px; bottom: 2%; left: 2%; }
+  .appetite-moods { padding: 18px 0; }
+  .appetite-moods > p { flex-wrap: wrap; gap: 4px 12px; }
+  .appetite-mood-list { flex-direction: column; gap: 8px; margin-top: 12px; }
+  .appetite-mood { gap: 14px; }
+  .appetite-mood img { width: 64px; height: 44px; }
+  .appetite-mood > span { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appetite-hero *, .appetite-hero *:hover, .appetite-hero *:focus-visible, .appetite-hero *:active { animation: none; transition: none; transform: none; }
+}
+
+.landing-page .appetite-hero { padding-inline: var(--landing-gutter); }
+.landing-page .appetite-intro h1 { font-size: clamp(30px, 3.3vw, 43px); }
+@media (max-width: 899px) {
+  .landing-page .appetite-hero { grid-template-columns: minmax(0, 1fr); }
+}

@@ -19,7 +19,7 @@ function renderAt(path: string) {
 
 describe('English search page', () => {
   it('英語の探す画面に英訳チップと操作が出る', () => {
-    renderAt('/en/');
+    renderAt('/en/search/');
     expect(screen.getAllByText('Yakiniku').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Sushi').length).toBeGreaterThan(0);
     expect(screen.getByPlaceholderText(/shop or station/i)).toBeTruthy();
@@ -29,18 +29,18 @@ describe('English search page', () => {
   });
 
   it('英語でも日本語と同じ件数のカードが出る', () => {
-    const { unmount } = renderAt('/');
+    const { unmount } = renderAt('/search/');
     const jaCount = screen.getAllByRole('article').length;
     unmount();
     cleanup();
-    renderAt('/en/');
+    renderAt('/en/search/');
     expect(screen.getAllByRole('article').length).toBe(jaCount);
     expect(jaCount).toBeGreaterThan(0);
   });
 
   it('店名は英語で出る', () => {
     const first = new BundledCatalogRepository().listStores()[0];
-    renderAt('/en/');
+    renderAt('/en/search/');
     expect(screen.getByText(first.nameEn)).toBeTruthy();
   });
 });
@@ -68,7 +68,7 @@ describe('English detail page', () => {
     );
     expect(screen.getByText('Shop not found')).toBeTruthy();
     const back = screen.getByText('Back to search');
-    expect(back.closest('a')?.getAttribute('href')).toBe('/en/');
+    expect(back.closest('a')?.getAttribute('href')).toBe('/en/search/');
   });
 });
 
@@ -93,8 +93,8 @@ describe('English empty state', () => {
 });
 
 describe('English prerender', () => {
-  it('/en/ の断片に英語UIと英語店名が出る', () => {
-    const html = renderRoute('/en/');
+  it('/en/search/ の断片に英語UIと英語店名が出る', () => {
+    const html = renderRoute('/en/search/');
     expect(html).toContain('Yakiniku');
     expect(html).toContain('results');
     const first = new BundledCatalogRepository().listStores()[0];

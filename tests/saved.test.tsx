@@ -11,7 +11,7 @@ describe('SavedPage', () => {
   it('保存0件から検索に戻れる', () => {
     render(<MemoryRouter><SavedPage /></MemoryRouter>);
     expect(screen.getByText('まだ保存した店はない')).toBeTruthy();
-    expect(screen.getByRole('link', { name: '探すへ戻る' }).getAttribute('href')).toBe('/');
+    expect(screen.getByRole('link', { name: '探すへ戻る' }).getAttribute('href')).toBe('/search/');
   });
 
   it('保存一覧は10件ずつ表示しさらに表示で残りを追加する', () => {

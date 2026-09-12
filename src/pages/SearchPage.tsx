@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import type { Genre, Prefecture } from '../catalog/schema';
 import { BundledCatalogRepository } from '../catalog/repository';
 import type { CatalogRepository } from '../catalog/repository';
@@ -45,7 +45,11 @@ function chip(active: boolean): string {
 export function SearchPage() {
   const lang = useLanguage();
   const dict = dictionary(lang);
-  const [cond, setCond] = useState<FilterCond>(INITIAL);
+  const [params] = useSearchParams();
+  const [cond, setCond] = useState<FilterCond>(() => {
+    const genre = params.get('genre');
+    return { ...INITIAL, genres: GENRES.filter((candidate) => candidate === genre) };
+  });
   const [sheetOpen, setSheetOpen] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
   const [pagination, setPagination] = useState({ key: '', count: PAGE_SIZE });
