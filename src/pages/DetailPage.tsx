@@ -9,7 +9,7 @@ import { EmptyState } from '../components/EmptyState';
 import { GenreImage } from '../components/GenreImage';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
-import { dictionary, toEnPath, useLanguage } from '../i18n/language';
+import { dictionary, searchPath, toEnPath, useLanguage } from '../i18n/language';
 import { areaTitle, prefName, stationLine } from '../i18n/format';
 import { AREA_EN, STATION_EN } from '../catalog/en-names';
 
@@ -31,7 +31,7 @@ export function DetailPage() {
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
 
   const store = id ? repository.getStore(id) : undefined;
-  const searchTo = lang === 'en' ? '/en/' : '/';
+  const searchTo = searchPath(lang);
   const similarTo = (storeId: string): string => {
     const path = `/r/${storeId}`;
     return lang === 'en' ? toEnPath(path) : path;

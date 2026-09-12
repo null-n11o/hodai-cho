@@ -4,6 +4,22 @@ import { en } from '../i18n/en';
 
 export const SITE_URL = 'https://tabeho.example.invalid';
 
+export function topTitle(): string {
+  return '今日は好きなだけ食べよう。｜タベホー';
+}
+
+export function topDescription(): string {
+  return '東京・神奈川の食べ放題を、料金・制限時間・最寄り駅などの条件で探せるグルメ情報サイトです。';
+}
+
+export function searchTitle(): string {
+  return '東京・神奈川の食べ放題を料金と時間で探す｜タベホー';
+}
+
+export function searchDescription(): string {
+  return '東京・神奈川の食べ放題だけを料金と制限時間で切る条件帳。焼肉・しゃぶしゃぶ・寿司・スイーツ・ピザ・串揚げ・宴会・パン・お好み焼き・サラダバーから探せます。';
+}
+
 export interface AreaKey {
   prefecture: string;
   area: string;
@@ -132,10 +148,18 @@ function prefectureEn(prefecture: string): string {
 }
 
 export function topTitleEn(): string {
-  return 'Tabeho｜All-you-can-eat in Tokyo & Kanagawa by price and time';
+  return 'Today, eat to your heart’s content.｜Tabeho';
 }
 
 export function topDescriptionEn(): string {
+  return 'Find all-you-can-eat restaurants in Tokyo and Kanagawa by price, time limit, nearest station, and more.';
+}
+
+export function searchTitleEn(): string {
+  return 'Tabeho｜All-you-can-eat in Tokyo & Kanagawa by price and time';
+}
+
+export function searchDescriptionEn(): string {
   return 'All-you-can-eat shops in Tokyo and Kanagawa, filtered by price and time limit. Yakiniku, shabu-shabu, sushi, sweets, pizza, party buffets and more.';
 }
 
@@ -246,6 +270,8 @@ export function sitemapEntries(
   const entries: SitemapEntry[] = [
     { loc: `${base}/`, lastmod: today },
     { loc: `${base}/en/`, lastmod: today },
+    { loc: `${base}/search/`, lastmod: today },
+    { loc: `${base}/en/search/`, lastmod: today },
     { loc: `${base}/contact/`, lastmod: today },
     { loc: `${base}/en/contact/`, lastmod: today },
   ];

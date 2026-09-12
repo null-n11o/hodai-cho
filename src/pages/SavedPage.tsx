@@ -5,7 +5,7 @@ import type { CatalogRepository } from '../catalog/repository';
 import { StoreCard } from '../components/StoreCard';
 import { EmptyState } from '../components/EmptyState';
 import { loadFavorites, toggleFavorite } from '../favorites/storage';
-import { dictionary, useLanguage } from '../i18n/language';
+import { dictionary, searchPath, useLanguage } from '../i18n/language';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
@@ -29,7 +29,7 @@ export function SavedPage() {
   const visibleCount = pagination.key === paginationKey ? pagination.count : PAGE_SIZE;
   const visibleStores = savedStores.slice(0, visibleCount);
 
-  const searchTo = lang === 'en' ? '/en/' : '/';
+  const searchTo = searchPath(lang);
 
   return (
     <main className="site-main content-page mx-auto w-full max-w-lg overflow-x-clip bg-ink px-4 pb-24 pt-8 text-ivory md:max-w-3xl md:px-8 lg:max-w-5xl">

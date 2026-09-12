@@ -23,7 +23,7 @@
 
 ## Architecture
 
-- 同梱カタログ→Repository抽象→メモリ内即時フィルタ→3画面（探す `/` / 詳細 `/r/:id` / 保存 `/saved`＋エリア `/a/:pref/:area`）。
+- トップLP `/` → 探す `/search/`。同梱カタログ→Repository抽象→メモリ内即時フィルタ→検索 / 詳細 `/r/:id` / 保存 `/saved`＋エリア `/a/:pref/:area`。英語は `/en/` 以下。
 - 画面は `CatalogRepository` 抽象（`src/catalog/repository.ts`）にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
 - お気に入りIDのみlocalStorage永続化（キー `tabeho`）。フィルタ条件は永続化しない。
 - `src/seo/`（meta・prerender）と `scripts/prerender.mjs` はSSG基盤。`src/routes.tsx` がRoutes木、`src/main.tsx` は `BrowserRouter` を残す。
@@ -33,7 +33,7 @@
 - PLAN-20260906-301 の Task 順で進める。Task 6 は追加店リスト確定待ちのため着手しない。
 - TDD厳守（RED-GREEN-REFACTOR）。プレースホルダ・ダミー店禁止。各タスク完了ごとにコミットし、次のタスクへの進行確認を取る。
 - 実装タスクが完了したら、検証後に必ず作業ブランチからPRを作成して引き渡す。マージ・デプロイは明示依頼がない限り実施しない。
-- **PLAN Global Constraints が最優先。** UIは日英対応（既定は日本語、`/en/` 以下に英語、`hreflang` 付き）、コンテンツ面はライトベースの「食卓の新聞」（`page #f3efe8` / `surface #fbfaf7` / `text #29231e` / `muted #756b61` / `line #d5cbbf` / `accent #c4543a`）、ヘッダーとモバイルナビはダークなブランドシェル（`shell #171512`）、ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示禁止、見出しと本文は Noto Sans JP、動き150–400ms（`prefers-reduced-motion` で無効化）、タップ面44px以上・保存ボタンに `aria-label`＋`aria-pressed`・文書言語はパスに合わせる（既定 `lang="ja"`、`/en/` は `lang="en"`）、料金は `¥`＋`toLocaleString('ja-JP')`、ページ全体の横スクロール禁止（横スクロールはチップ列のみ）・最大幅モバイルカラム（`max-w-lg`）中央寄せ、人手精査済み店のみ掲載＋共通免責フッター（日英のアフィリエイト広告表示を含む）、予約は `reservationAffiliateUrl` があればそれを使いなければ `reservationUrl`、アフィリエイトリンクは `rel="sponsored nofollow noreferrer"`、`officialUrl` は素リンクのまま、在庫連動・決済・クーポンなし、ジャンル画像は料理静物のみ。
+- **PLAN Global Constraints が最優先。** UIは日英対応（既定は日本語、`/en/` 以下に英語、`hreflang` 付き）、コンテンツ面はライトベースの「食卓の新聞」（`page #f3efe8` / `surface #fbfaf7` / `text #29231e` / `muted #756b61` / `line #d5cbbf` / `accent #c4543a`）、ヘッダーとモバイルナビはダークなブランドシェル（`shell #171512`）、ネオン・紫・金・絵文字・人物写真・外部口コミ星の表示禁止、見出しと本文は Noto Sans JP、動き150–400ms（`prefers-reduced-motion` で無効化）、タップ面44px以上・保存ボタンに `aria-label`＋`aria-pressed`・文書言語はパスに合わせる（既定 `lang="ja"`、`/en/` は `lang="en"`）、料金は `¥`＋`toLocaleString('ja-JP')`、ページ全体の横スクロール禁止（横スクロールはチップ列のみ）・最大幅モバイルカラム（`max-w-lg`）中央寄せ（初回LPは2026-09-12のユーザー指示によりPC最大1180pxのレスポンシブ構成）、人手精査済み店のみ掲載＋共通免責フッター（日英のアフィリエイト広告表示を含む）、予約は `reservationAffiliateUrl` があればそれを使いなければ `reservationUrl`、アフィリエイトリンクは `rel="sponsored nofollow noreferrer"`、`officialUrl` は素リンクのまま、在庫連動・決済・クーポンなし、ジャンル画像は料理静物のみ。
 - 未知ID・0件は落とさず専用表示＋探す導線にする。外部リンク失敗はブラウザに委譲する。
 - デプロイ・公開URL確定・Search Console登録はCEO作業で実装外。秘密値はリポジトリに入れない。
 
