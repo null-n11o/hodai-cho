@@ -30,5 +30,6 @@ export const ONYASAI_STORES: Store[] = [
     noticeEn:
       'No lunch buffet on weekdays (opens at 16:00). Prices are edited from public info as of 2026. Check the official source before you go.',
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

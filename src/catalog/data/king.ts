@@ -32,6 +32,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-minami-ikebukuro',
@@ -56,6 +57,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-asakusa-rox',
@@ -80,6 +82,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-machida',
@@ -104,6 +107,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-omori-atre',
@@ -128,6 +132,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-nakameguro',
@@ -152,6 +157,7 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-kawasaki-east',
@@ -176,5 +182,6 @@ export const KING_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

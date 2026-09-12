@@ -66,6 +66,10 @@ export function DetailPage() {
   const shownHours = lang === 'en' ? store.hoursEn : store.hours;
   const shownHighlights = lang === 'en' ? store.highlightsEn : store.highlights;
   const shownNotice = lang === 'en' ? store.noticeEn : store.notice;
+  const featureBadges: string[] = [];
+  if (store.soloFriendly) featureBadges.push(dict.features.soloFriendly);
+  if (store.kidsDiscount) featureBadges.push(dict.features.kidsDiscount);
+  if (store.weekdayUnlimited) featureBadges.push(dict.features.weekdayUnlimited);
   const reservation = getReservationLinkProps(store);
   const similarName = (s: Store): string => {
     const base = lang === 'en' ? s.nameEn : s.name;
@@ -102,6 +106,15 @@ export function DetailPage() {
             {stationLine(lang, shownStation, store.walkMinutes, shownFacility)}
           </p>
           <p className="mt-1 text-sm text-stone">{shownHours}</p>
+          {featureBadges.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {featureBadges.map((badge) => (
+                <span key={badge} className="rounded border border-line bg-surface px-2 py-0.5 text-xs text-muted">
+                  {badge}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         <button
           type="button"

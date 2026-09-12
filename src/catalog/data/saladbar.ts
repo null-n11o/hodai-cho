@@ -96,6 +96,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-otsuka',
@@ -119,6 +120,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-oshiage',
@@ -144,6 +146,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-sakurashinmachi',
@@ -167,6 +170,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-internationalforum',
@@ -192,6 +196,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-fuchu',
@@ -214,6 +219,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-landmark',
@@ -239,6 +245,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-shinjuku-toho',
@@ -263,6 +270,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-aquacity-odaiba',
@@ -287,6 +295,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-tokyo-dome-hotel',
@@ -311,6 +320,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-oimachi',
@@ -335,6 +345,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'sizzler-mitaka',
@@ -359,6 +370,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'suehirokan-ayase',
@@ -393,6 +405,8 @@ export const SALADBAR_STORES: Store[] = [
     noticeEn:
       'Prices are edited from public info as of 2026. The premium bar single price varies by branch. Check the official source before you go.',
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'suehirokan-higashikasai',
@@ -416,6 +430,8 @@ export const SALADBAR_STORES: Store[] = [
     notice: SUEHIRO_NOTICE,
     noticeEn: SUEHIRO_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'suehirokan-kawasaki',
@@ -439,6 +455,8 @@ export const SALADBAR_STORES: Store[] = [
     notice: SUEHIRO_NOTICE,
     noticeEn: SUEHIRO_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'suehirokan-takatsu',
@@ -463,6 +481,8 @@ export const SALADBAR_STORES: Store[] = [
     notice: `郊外ロードサイド店のため車利用が前提の目安です。${SUEHIRO_NOTICE}`,
     noticeEn: `${SUBURBAN_EN}${SUEHIRO_NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'suehirokan-tachikawahinobashi',
@@ -486,6 +506,8 @@ export const SALADBAR_STORES: Store[] = [
     notice: SUEHIRO_NOTICE,
     noticeEn: SUEHIRO_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'bigboy-machidaoyamagaoka',
@@ -510,6 +532,7 @@ export const SALADBAR_STORES: Store[] = [
     notice: `郊外ロードサイド店のため車利用が前提の目安です。${BIGBOY_NOTICE}`,
     noticeEn: `${SUBURBAN_EN}${BIGBOY_NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'bigboy-miyamaedaira',
@@ -532,5 +555,6 @@ export const SALADBAR_STORES: Store[] = [
     notice: BIGBOY_NOTICE,
     noticeEn: BIGBOY_NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

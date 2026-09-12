@@ -10,7 +10,19 @@ interface FilterSheetProps {
   budget: number | undefined;
   walkMax?: number;
   sort: SortCond;
-  onChange: (patch: { slot?: SlotCond; timeLimit?: TimeLimitCond; budget?: number | undefined; walkMax?: number | undefined; sort?: SortCond }) => void;
+  soloFriendly?: boolean;
+  kidsDiscount?: boolean;
+  weekdayUnlimited?: boolean;
+  onChange: (patch: {
+    slot?: SlotCond;
+    timeLimit?: TimeLimitCond;
+    budget?: number | undefined;
+    walkMax?: number | undefined;
+    sort?: SortCond;
+    soloFriendly?: boolean;
+    kidsDiscount?: boolean;
+    weekdayUnlimited?: boolean;
+  }) => void;
   onClose: () => void;
 }
 
@@ -28,7 +40,19 @@ function chip(active: boolean): string {
   }`;
 }
 
-export function FilterSheet({ open, slot, timeLimit, budget, walkMax, sort, onChange, onClose }: FilterSheetProps) {
+export function FilterSheet({
+  open,
+  slot,
+  timeLimit,
+  budget,
+  walkMax,
+  sort,
+  soloFriendly,
+  kidsDiscount,
+  weekdayUnlimited,
+  onChange,
+  onClose,
+}: FilterSheetProps) {
   const lang = useLanguage();
   const dict = dictionary(lang);
   const t = dict.sheet;
@@ -118,6 +142,35 @@ export function FilterSheet({ open, slot, timeLimit, budget, walkMax, sort, onCh
                 {t.sorts[value]}
               </button>
             ))}
+          </div>
+        </section>
+        <section className="mt-4" aria-label={dict.features.title}>
+          <h3 className="text-sm text-stone">{dict.features.title}</h3>
+          <div className="mt-2 flex flex-wrap gap-2">
+            <button
+              type="button"
+              aria-pressed={!!soloFriendly}
+              onClick={() => onChange({ soloFriendly: !soloFriendly })}
+              className={chip(!!soloFriendly)}
+            >
+              {dict.features.soloFriendly}
+            </button>
+            <button
+              type="button"
+              aria-pressed={!!kidsDiscount}
+              onClick={() => onChange({ kidsDiscount: !kidsDiscount })}
+              className={chip(!!kidsDiscount)}
+            >
+              {dict.features.kidsDiscount}
+            </button>
+            <button
+              type="button"
+              aria-pressed={!!weekdayUnlimited}
+              onClick={() => onChange({ weekdayUnlimited: !weekdayUnlimited })}
+              className={chip(!!weekdayUnlimited)}
+            >
+              {dict.features.weekdayUnlimited}
+            </button>
           </div>
         </section>
         <button type="button" onClick={onClose} className="mt-6 min-h-[44px] w-full rounded-lg bg-aka font-bold text-ivory">

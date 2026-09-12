@@ -39,6 +39,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://store.yayoiken.com/b/yayoiken/info/2143/',
   },
   {
@@ -65,6 +66,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://store.yayoiken.com/b/yayoiken/info/2147/',
   },
   {
@@ -91,6 +93,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `公式案内で麦めしのおかわり自由を確認しています。${NOTICE}`,
     noticeEn: `The official service guide confirms free barley-rice refills. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://www.negishi.co.jp/location/',
   },
   {
@@ -117,6 +120,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `公式案内で麦めしのおかわり自由を確認しています。${NOTICE}`,
     noticeEn: `The official service guide confirms free barley-rice refills. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://www.negishi.co.jp/location/',
   },
   {
@@ -143,6 +147,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `公式案内で麦めしのおかわり自由を確認しています。${NOTICE}`,
     noticeEn: `The official service guide confirms free barley-rice refills. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://www.negishi.co.jp/location/',
   },
   {
@@ -169,6 +174,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `和幸公式のサービス案内を基準に掲載しています。一部店舗では内容が異なります。${NOTICE}`,
     noticeEn: `Listed from Wako's official service guide; some branches differ. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://wako-group.co.jp/shop/detai/shop_2076/',
   },
   {
@@ -195,6 +201,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `公式メニューと店舗ページを確認しています。都市型店舗のため${NOTICE}`,
     noticeEn: `The official menu and branch page were checked. This is an urban branch, so ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://shinjuku-saboten.com/shop/list/shop-114/',
   },
   {
@@ -221,6 +228,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     reservationUrl: 'https://yoyaku.toreta.in/wsk3001',
     officialUrl: 'https://stores.four-seeds.jp/detail/3001/',
   },
@@ -249,6 +257,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
   },
   {
     id: 'torafuku-ikebukuro-tobu',
@@ -275,6 +284,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
   },
   {
     id: 'torafuku-yokohama-joinus',
@@ -300,6 +310,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://stores.four-seeds.jp/detail/3012/',
   },
   {
@@ -326,6 +337,7 @@ export const OKAWARI_CHAIN_STORES: Store[] = [
     notice: `公式メニュー・店舗案内を基準に掲載しています。${NOTICE}`,
     noticeEn: `Listed from the official menu and branch guide. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://mai-sen.com/restaurant/aoyama/',
   },
 ];

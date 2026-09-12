@@ -31,6 +31,7 @@ export const GYUKAKU_STORES: Store[] = [
     noticeEn:
       'Open for lunch on weekends. Check the official site for lunch course availability and prices. Prices are edited from public info as of 2026. Check the official source before you go.',
     familyFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ003365961/',
   },
 ];

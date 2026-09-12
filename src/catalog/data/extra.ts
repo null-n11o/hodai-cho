@@ -33,6 +33,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `駅から離れているためバス・車・自転車利用も前提の目安です。${NOTICE}`,
     noticeEn: `Far from the station: bus, car or bike needed (estimate). ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'king-fujisawa',
@@ -58,6 +59,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `郊外ロードサイド店のため車利用が前提の目安です。平日は17時開店です。${NOTICE}`,
     noticeEn: `Suburban roadside branch: car needed (estimate). Opens at 17:00 on weekdays. ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'yuzu-aobadai',
@@ -82,6 +84,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `店舗別価格のため他店と料金が異なります。駅から遠いためバス・車利用が前提の目安です。${NOTICE}`,
     noticeEn: `Branch-specific pricing differs from other branches. Far from the station: bus or car needed (estimate). ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'gyukaku-shibuya-center',
@@ -109,6 +112,7 @@ export const EXTRA_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ001195726/',
   },
   {
@@ -134,6 +138,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `深夜まで営業の目安です。料金はチェーン標準の目安です。${NOTICE}`,
     noticeEn: `Open late at night (estimate). Chain-standard pricing (estimate). ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'kizuna-shinjuku-kabukicho',
@@ -161,6 +166,8 @@ export const EXTRA_STORES: Store[] = [
     notice: `22時以降入店は深夜料金加算の目安です。${NOTICE}`,
     noticeEn: `Late-night surcharge for entry after 22:00 (estimate). ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://r.gnavi.co.jp/g111383/',
   },
   {
@@ -189,6 +196,8 @@ export const EXTRA_STORES: Store[] = [
     notice: `時期や仕入れで一部ネタが変わる場合があります。${NOTICE}`,
     noticeEn: `Items may change with season and stock. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'maita-shibuya',
@@ -321,6 +330,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `ランチコースの有無・料金は公式を確認してください。${NOTICE}`,
     noticeEn: `Check the official site for lunch course availability and prices. ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://r.gnavi.co.jp/a068813/',
   },
   {
@@ -348,6 +358,7 @@ export const EXTRA_STORES: Store[] = [
     notice: `ランチコースの有無・料金は公式を確認してください。${NOTICE}`,
     noticeEn: `Check the official site for lunch course availability and prices. ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'momo-akihabara',
@@ -374,5 +385,6 @@ export const EXTRA_STORES: Store[] = [
     notice: `ランチコースの有無・料金は公式を確認してください。${NOTICE}`,
     noticeEn: `Check the official site for lunch course availability and prices. ${NOTICE_EN}`,
     familyFriendly: true,
+    kidsDiscount: true,
   },
 ];

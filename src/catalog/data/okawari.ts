@@ -42,6 +42,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: `公式メニューでは主菜・ごはん・お味噌汁・お漬物付きまで確認できます。おかわり条件は訪問情報を含むため、${NOTICE}`,
     noticeEn: `The official menu confirms the set includes a main, rice, miso soup, and pickles. Refill details include a visit report, so ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     reservationUrl: 'https://res-reserve.com/ko/restaurants/kurabu-ginza',
     officialUrl: 'https://obusekurabu.com/ginza13f',
   },
@@ -77,6 +78,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://www.suju-masayuki.com/shops/yokohama_menu.php',
   },
   {
@@ -104,6 +106,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: `味噌汁は選択制で、ご飯のおかわり自由です。${NOTICE}`,
     noticeEn: `Miso soup is selected as part of the set; rice refills are free. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     reservationUrl: 'https://yoyaku.tabelog.com/yoyaku/net_booking_form/index?rcd=13294135',
     reservationAffiliateUrl: 'https://ck.jp.ap.valuecommerce.com/servlet/referral?sid=3781041&pid=892696253&vc_url=https%3A%2F%2Fyoyaku.tabelog.com%2Fyoyaku%2Fnet_booking_form%2Findex%3Frcd%3D13294135',
     reservationAffiliateProvider: 'valuecommerce',
@@ -134,6 +137,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: `ランチは平日のみ。公式掲載のメニュー・価格は日替わりや時期で変わる場合があります。${NOTICE}`,
     noticeEn: `Lunch is weekdays only. Menu and prices on the official site may change daily or seasonally. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://yousyokuya-iseju.jp/',
   },
   {
@@ -158,6 +162,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: `ランチは現金のみ・日祝休み。${NOTICE}`,
     noticeEn: `Lunch is cash-only; closed Sundays and holidays. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
     officialUrl: 'https://ginza-saisai-satou.owst.jp/',
   },
   {
@@ -182,6 +187,7 @@ export const OKAWARI_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ001274720/yoyaku/hpds',
     officialUrl: 'https://maguro-souma.com/lunch/',
   },

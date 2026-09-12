@@ -32,6 +32,8 @@ export const SUSHI_STORES: Store[] = [
     notice: `営業時間は曜日で変わります。${NOTICE}`,
     noticeEn: `Hours vary by day. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ001262726/',
   },
   {
@@ -57,6 +59,8 @@ export const SUSHI_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
     reservationUrl: 'https://www.hotpepper.jp/strJ000762760/',
   },
   {
@@ -82,6 +86,8 @@ export const SUSHI_STORES: Store[] = [
     notice: `営業時間は曜日で変わります。${NOTICE}`,
     noticeEn: `Hours vary by day. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'hina-shinjuku-annex',
@@ -106,6 +112,8 @@ export const SUSHI_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'hina-ueno-sakura',
@@ -130,6 +138,8 @@ export const SUSHI_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
   {
     id: 'hina-yokohama-matsuri',
@@ -154,5 +164,7 @@ export const SUSHI_STORES: Store[] = [
     notice: `雛鮨の姉妹店です。${NOTICE}`,
     noticeEn: `Sister brand of Hina-zushi. ${NOTICE_EN}`,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
   },
 ];

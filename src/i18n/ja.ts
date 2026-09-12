@@ -121,6 +121,12 @@ export interface Dict {
     title: string;
     advice: string[];
   };
+  features: {
+    title: string;
+    soloFriendly: string;
+    kidsDiscount: string;
+    weekdayUnlimited: string;
+  };
   imageDisclaimer: string;
   disclaimer: string;
   affiliateDisclosure: string;
@@ -247,6 +253,12 @@ export const ja: Dict = {
   empty: {
     title: 'その条件の店はない',
     advice: ['エリアを「すべて」に戻してみる', '予算の上限を上げてみる', '分数の条件を緩めてみる'],
+  },
+  features: {
+    title: 'こだわり条件',
+    soloFriendly: '1人歓迎',
+    kidsDiscount: '幼児無料・子供料金',
+    weekdayUnlimited: '平日時間無制限',
   },
   imageDisclaimer: '写真はジャンルイメージです。',
   disclaimer:

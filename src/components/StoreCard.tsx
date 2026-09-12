@@ -33,6 +33,10 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
   const shownStation = lang === 'en' ? (STATION_EN[store.station] ?? store.station) : store.station;
   const shownFacility = lang === 'en' ? (store.facilityEn ?? store.facility) : store.facility;
   const shownHighlight = lang === 'en' ? (store.highlightsEn[0] ?? store.highlights[0]) : store.highlights[0];
+  const featureBadges: string[] = [];
+  if (store.soloFriendly) featureBadges.push(dict.features.soloFriendly);
+  if (store.kidsDiscount) featureBadges.push(dict.features.kidsDiscount);
+  if (store.weekdayUnlimited) featureBadges.push(dict.features.weekdayUnlimited);
   return (
     <article className="store-card">
       <div className="store-card-image">
@@ -55,6 +59,15 @@ export function StoreCard({ store, saved, onToggleSave }: StoreCardProps) {
           </button>
         </div>
         {shownHighlight ? <p className="store-highlight">{shownHighlight}</p> : null}
+        {featureBadges.length > 0 && (
+          <div className="feature-badges flex flex-wrap gap-1 mt-1">
+            {featureBadges.map((badge) => (
+              <span key={badge} className="feature-badge text-[11px] px-1.5 py-0.5 border border-line bg-surface text-muted rounded">
+                {badge}
+              </span>
+            ))}
+          </div>
+        )}
         <dl className="store-prices">
           <div><dt>{dict.card.lunch}</dt><dd>{lunch ?? dict.card.noBuffet}</dd></div>
           <div><dt>{dict.card.dinner}</dt><dd>{dinner ?? dict.card.noBuffet}</dd></div>

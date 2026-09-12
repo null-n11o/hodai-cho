@@ -34,6 +34,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-shibuya-ekimae',
@@ -58,6 +61,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-ginza-marronnier',
@@ -85,6 +91,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: '店舗限定メニューのため料金・内容が異なる場合があります。行く前に公式を確認してください。',
     noticeEn: LIMITED_NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-asakusa-donki',
@@ -112,6 +121,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: '店舗限定メニューのため料金・内容が異なる場合があります。行く前に公式を確認してください。',
     noticeEn: LIMITED_NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-kinshicho-parco',
@@ -136,6 +148,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-machida',
@@ -160,6 +175,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-tachikawa',
@@ -182,6 +200,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-yokohama-wp',
@@ -206,6 +227,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-yokohama-west',
@@ -230,6 +254,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-motosumiyoshi',
@@ -254,6 +281,9 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
   {
     id: 'syabuyo-sagamiono',
@@ -276,5 +306,8 @@ export const SYABUYO_STORES: Store[] = [
     notice: NOTICE,
     noticeEn: NOTICE_EN,
     familyFriendly: true,
+    soloFriendly: true,
+    kidsDiscount: true,
+    weekdayUnlimited: true,
   },
 ];
