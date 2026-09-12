@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Genre, Prefecture } from '../catalog/schema';
 import { BundledCatalogRepository } from '../catalog/repository';
@@ -14,6 +14,7 @@ import { dictionary, toEnPath, useLanguage } from '../i18n/language';
 import { budgetLabel, prefName, resultsCount } from '../i18n/format';
 import { AREA_EN } from '../catalog/en-names';
 import { SiteDisclaimer } from '../components/SiteDisclaimer';
+import { SearchHero } from '../components/SearchHero';
 
 const repository: CatalogRepository = new BundledCatalogRepository();
 
@@ -49,6 +50,7 @@ export function SearchPage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [savedIds, setSavedIds] = useState<string[]>(() => loadFavorites());
   const [pagination, setPagination] = useState({ key: '', count: PAGE_SIZE });
+  const resultsRef = useRef<HTMLElement>(null);
 
   const allStores = useMemo(() => repository.listStores(), []);
   const areas = useMemo(() => {
@@ -109,16 +111,12 @@ export function SearchPage() {
 
   return (
     <main className="site-main search-page">
-      <header className="search-hero">
-        <div className="search-hero-copy">
-          <p className="eyebrow">TOKYO / KANAGAWA</p>
-          <h1>{lang === 'en' ? 'Find your next all-you-can-eat.' : '今日の食べ放題を、見つけよう。'}</h1>
-          <p>{lang === 'en' ? 'Compare prices, time limits and locations across Tokyo and Kanagawa.' : '東京・神奈川の食べ放題を、料金・時間・場所で探せます。'}</p>
-        </div>
-        <img className="search-hero-image" src="/food/hero-all-day.png" alt="" />
-      </header>
+      <SearchHero lang={lang} genres={cond.genres} onChoose={(genre) => {
+        setCond((prev) => ({ ...prev, genres: [genre] }));
+        resultsRef.current?.focus();
+      }} />
 
-      <section className="search-panel" aria-label={lang === 'en' ? 'Search restaurants' : 'お店を検索'}>
+      <section id="restaurant-search" tabIndex={-1} className="search-panel" aria-label={lang === 'en' ? 'Search restaurants' : 'お店を検索'}>
         <div className="search-panel-heading">
           <div>
             <p className="search-panel-kicker">{lang === 'en' ? 'TODAY’S TABLE' : '今日の食卓'}</p>
@@ -271,7 +269,7 @@ export function SearchPage() {
           </section>
         </aside>
 
-        <section className="search-results" aria-label={lang === 'en' ? 'Search results' : '検索結果'}>
+        <section ref={resultsRef} tabIndex={-1} className="search-results" aria-label={lang === 'en' ? 'Search results' : '検索結果'}>
           <div className="results-toolbar">
             <div>
               <h2>{lang === 'en' ? `All-you-can-eat in ${cond.area ? areaLabel(cond.area) : prefName(lang, cond.prefecture)}` : `${cond.area ?? cond.prefecture}の食べ放題`}</h2>
