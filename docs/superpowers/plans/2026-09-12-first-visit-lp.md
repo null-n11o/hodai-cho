@@ -33,7 +33,7 @@
 - Consumes: useLanguage(), dictionary(lang), existing SearchPage, shared SiteHeader/LanguageToggle/SiteDisclaimer, renderRoute(path).
 - Produces: LandingPage(): JSX, searchPath(lang: Lang): string returning `/search/` or `/en/search/`; SiteDisclaimer({ showImageDisclaimer = true }: { showImageDisclaimer?: boolean }).
 
-- [ ] **Step 1: RED — add meaningful navigation/SSR tests**
+- [x] **Step 1: RED — add meaningful navigation/SSR tests**
 
 ```tsx
 render(<MemoryRouter initialEntries={['/']}><AppRoutes /></MemoryRouter>);
@@ -47,7 +47,7 @@ expect(screen.getByRole('searchbox')).toBeInTheDocument();
 
 Run: `npx vitest run tests/landing.test.tsx tests/prerender.test.tsx`。現行トップが検索のため失敗を確認。
 
-- [ ] **Step 2: GREEN — implement selected design and route contract**
+- [x] **Step 2: GREEN — implement selected design and route contract**
 
 ```tsx
 export function searchPath(lang: Lang): string {
@@ -61,15 +61,15 @@ LandingPageの3行見出しはspan＋display:blockで上記全文を保持。本
 
 SSGトップのタイトルに新コピーを反映、searchの日英ページをwritePairで追加。sitemapEntriesにsearchを追加。既存検索SEOの説明をsearchに継承し、LPメタはサービス紹介にする。
 
-- [ ] **Step 3: focused verification and refactor**
+- [x] **Step 3: focused verification and refactor**
 
 Run: `npx vitest run tests/landing.test.tsx tests/prerender.test.tsx tests/search.test.tsx tests/seo.test.ts tests/seo-en.test.ts`。新旧導線が通るまで修正。コピーやパス重複を整理する。
 
-- [ ] **Step 4: complete verification**
+- [x] **Step 4: complete verification**
 
 Run: `npm test`, `npm run lint`, `npm run build:ssg`。生成HTMLのトップ/search日英canonical・hreflang・本文を確認。ブラウザ確認はcontrollerが行う。
 
-- [ ] **Step 5: commit**
+- [x] **Step 5: commit**
 
 ```bash
 git add src tests scripts/prerender.mjs index.html package.json package-lock.json
@@ -77,3 +77,7 @@ git commit -m "feat: add bilingual first-visit landing page and search entry"
 ```
 
 Task後は仕様準拠・品質レビューとブラウザ比較を行う。検証記録を追記してコミットし、`feature/m1-area-genre-ssg` をbaseにPRを作成する。
+
+## Verification result
+
+2026-09-12: baseline198 → 212 tests passing (38 files). lint succeeds with two existing Fast Refresh warnings. build:ssg succeeds (594 sitemap URLs). Browser QA passed at320/390/1280px; see design-qa.md. Implementation cac01a0; review coverage e97ae6a.

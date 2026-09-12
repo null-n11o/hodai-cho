@@ -23,7 +23,7 @@
 
 ## Architecture
 
-- 同梱カタログ→Repository抽象→メモリ内即時フィルタ→3画面（探す `/` / 詳細 `/r/:id` / 保存 `/saved`＋エリア `/a/:pref/:area`）。
+- トップLP `/` → 探す `/search/`。同梱カタログ→Repository抽象→メモリ内即時フィルタ→検索 / 詳細 `/r/:id` / 保存 `/saved`＋エリア `/a/:pref/:area`。英語は `/en/` 以下。
 - 画面は `CatalogRepository` 抽象（`src/catalog/repository.ts`）にだけ依存する。将来API/CMSへ差し替えても画面は変更しない。
 - お気に入りIDのみlocalStorage永続化（キー `tabeho`）。フィルタ条件は永続化しない。
 - `src/seo/`（meta・prerender）と `scripts/prerender.mjs` はSSG基盤。`src/routes.tsx` がRoutes木、`src/main.tsx` は `BrowserRouter` を残す。
