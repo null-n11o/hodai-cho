@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppRoutes } from '../src/routes';
 import { searchPath } from '../src/i18n/language';
@@ -51,20 +51,23 @@ describe('first-visit landing page', () => {
   it('routes all Japanese and English return links to their search entry', () => {
     const first = new BundledCatalogRepository().listStores()[0];
     const cases = [
-      ['/r/no-such-shop', '/search/'],
-      [`/r/${first.id}`, '/search/'],
-      [`/a/${encodeURIComponent(first.prefecture)}/${encodeURIComponent(first.area)}`, '/search/'],
-      ['/saved', '/search/'],
-      ['/contact', '/search/'],
-      ['/en/r/no-such-shop', '/en/search/'],
-      [`/en/r/${first.id}`, '/en/search/'],
-      [`/en/a/${encodeURIComponent(first.prefecture)}/${encodeURIComponent(first.area)}`, '/en/search/'],
-      ['/en/saved', '/en/search/'],
-      ['/en/contact', '/en/search/'],
-    ];
-    for (const [path, expected] of cases) {
+      ['/r/no-such-shop', '/search/', /探すへ戻る$/],
+      [`/r/${first.id}`, '/search/', /戻る$/],
+      ['/a/東京/ないエリア', '/search/', /探すへ戻る$/],
+      ['/saved', '/search/', /探すへ戻る$/],
+      ['/contact', '/search/', /店を探す$/],
+      ['/en/r/no-such-shop', '/en/search/', /Back to search$/],
+      [`/en/r/${first.id}`, '/en/search/', /Back$/],
+      ['/en/a/東京/ないエリア', '/en/search/', /Back to search$/],
+      ['/en/saved', '/en/search/', /Back to search$/],
+      ['/en/contact', '/en/search/', /Find a shop$/],
+    ] as const;
+    for (const [path, expected, returnName] of cases) {
       const view = render(<MemoryRouter initialEntries={[path]}><AppRoutes /></MemoryRouter>);
-      expect(screen.getAllByRole('link').some((link) => link.getAttribute('href') === expected)).toBe(true);
+      const returnLink = within(screen.getByRole('main')).getByRole('link', { name: returnName });
+      expect(returnLink.getAttribute('href')).toBe(expected);
+      fireEvent.click(returnLink);
+      expect(screen.getByRole('searchbox')).toBeTruthy();
       view.unmount();
       cleanup();
     }
